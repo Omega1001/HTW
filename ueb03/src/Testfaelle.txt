@@ -1,0 +1,35 @@
+Testfälle
+
+Methode Teilersummen:
+	-- Allgemeiner Funktionstest:
+	Ein 6, 				Aus 12
+	Ein 3, 				Aus 4
+	Ein 12,				Aus 28
+	Ein 4,				Aus 7
+	-- Eingabe Grenzwerte:
+	Ein 0				Aus 0
+	Ein -1				Aus Fehler : nicht im definitionsbereich
+	Ein Integer.Max		Aus Fehler : invalides Ergebniss, da überlauf
+
+Methode ISBN
+	--Allgemeiner Funktionstest
+	Ein 386680192		Aus "0"
+	Ein 383622862		Aus "9"
+	Ein 483622862		Aus "x"
+	Ein 000057145		Aus "8"
+	Ein 571450000		Aus "8"
+	-- Eingabe Grenzwerte
+	Ein 1234567890		Aus Fehler: zu lang
+	Ein 1				Aus "9" --Vorranstehende 0en sind möglich!
+
+Methode Quadratische Gleichungen
+	--Allgemeiner Funktionstest
+	Ein 0x +0			Aus Doppelt(0, 0)
+	Ein 0x +4			Aus Kompplex
+	Ein 0x -4			Aus (-2, 0) ; (2, 0)
+	Ein 1x -4			Aus (-2.56, 0) ; (1.56, 0)
+	Ein 2.75x -4		Aus (-3.8, 0) ; (1.05, 0)
+	Ein 0.01x -0.1		Aus (-0.32, 0) ; (0.31, 0)
+	Ein 0x -0.000000001 Aus	()
+
+
