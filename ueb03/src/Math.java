@@ -3,7 +3,7 @@
  * 
  * @author Jannik Adam
  * @author Fromm-Borys
- * @version 0.4
+ * @version 0.5
  */
 public class Math 
 {	
@@ -23,7 +23,7 @@ public class Math
 		
 		if ( teilerSummenZahl < 1)
 		{
-			throw new IllegalArgumentException ( "Die Teilersummenzahl muss eine natürliche Zahl sein!" );
+			throw new IllegalArgumentException ( "Die Teilersummenzahl muss eine natï¿½rliche Zahl sein!" );
 		}
 		else 
 		{	
@@ -86,7 +86,7 @@ public class Math
 				prufZiffer = "X";
 			}
 		
-			losung = ( "ISBN-10 Prüfziffer lautet: " + prufZiffer); //+ " ;Vollständige ISBN-10 lautet: " + iSBN_10_9 + "-" + prufZiffer ); !Funktioniert nicht da führende Nullen geschluckt werden / 9 if Anweisungen sind "unschön" / keine Ahnung wie man Länge eines longs checkt!
+			losung = ( "ISBN-10 Prï¿½fziffer lautet: " + prufZiffer); //+ " ;Vollstï¿½ndige ISBN-10 lautet: " + iSBN_10_9 + "-" + prufZiffer ); !Funktioniert nicht da fï¿½hrende Nullen geschluckt werden / 9 if Anweisungen sind "unschï¿½n" / keine Ahnung wie man Lï¿½nge eines longs checkt!
 		}
 		return losung;
 	}
