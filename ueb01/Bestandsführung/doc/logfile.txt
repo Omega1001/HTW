@@ -1,0 +1,39 @@
+Class documentation
+<---- javadoc command: ---->
+/private/var/folders/c6/gvvcv0_51m16vw91zd0zrq8r0000gn/T/AppTranslocation/8CFC157A-F0BE-406B-BCA9-5B13EECE7AD1/d/BlueJ.app/Contents/JDK/Home/bin/javadoc
+-author
+-version
+-nodeprecated
+-package
+-Xdoclint:none
+-noindex
+-notree
+-nohelp
+-nonavbar
+-source
+1.8
+-classpath
+/private/var/folders/c6/gvvcv0_51m16vw91zd0zrq8r0000gn/T/AppTranslocation/8CFC157A-F0BE-406B-BCA9-5B13EECE7AD1/d/BlueJ.app/Contents/Resources/Java/bluejcore.jar:/private/var/folders/c6/gvvcv0_51m16vw91zd0zrq8r0000gn/T/AppTranslocation/8CFC157A-F0BE-406B-BCA9-5B13EECE7AD1/d/BlueJ.app/Contents/Resources/Java/junit-4.11.jar:/private/var/folders/c6/gvvcv0_51m16vw91zd0zrq8r0000gn/T/AppTranslocation/8CFC157A-F0BE-406B-BCA9-5B13EECE7AD1/d/BlueJ.app/Contents/Resources/Java/hamcrest-core-1.3.jar:/private/var/folders/c6/gvvcv0_51m16vw91zd0zrq8r0000gn/T/AppTranslocation/8CFC157A-F0BE-406B-BCA9-5B13EECE7AD1/d/BlueJ.app/Contents/Resources/Java/lang-stride.jar:/private/var/folders/c6/gvvcv0_51m16vw91zd0zrq8r0000gn/T/AppTranslocation/8CFC157A-F0BE-406B-BCA9-5B13EECE7AD1/d/BlueJ.app/Contents/Resources/Java/userlib/pi4j-core.jar:/private/var/folders/c6/gvvcv0_51m16vw91zd0zrq8r0000gn/T/AppTranslocation/8CFC157A-F0BE-406B-BCA9-5B13EECE7AD1/d/BlueJ.app/Contents/Resources/Java/userlib/pi4j-device.jar:/private/var/folders/c6/gvvcv0_51m16vw91zd0zrq8r0000gn/T/AppTranslocation/8CFC157A-F0BE-406B-BCA9-5B13EECE7AD1/d/BlueJ.app/Contents/Resources/Java/userlib/pi4j-gpio-extension.jar:/private/var/folders/c6/gvvcv0_51m16vw91zd0zrq8r0000gn/T/AppTranslocation/8CFC157A-F0BE-406B-BCA9-5B13EECE7AD1/d/BlueJ.app/Contents/Resources/Java/userlib/pi4j-service.jar:/Users/jannik/Desktop/Bestandsführung
+-d
+/Users/jannik/Desktop/Bestandsführung/doc
+-encoding
+UTF-8
+-charset
+UTF-8
+/Users/jannik/Desktop/Bestandsführung/Artikel.java
+<---- end of javadoc command ---->
+Loading source file /Users/jannik/Desktop/Bestandsführung/Artikel.java...
+Constructing Javadoc information...
+Standard Doclet version 1.8.0_144
+Building tree for all the packages and classes...
+Generating /Users/jannik/Desktop/Bestandsführung/doc/Artikel.html...
+/Users/jannik/Desktop/Bestandsführung/Artikel.java:29: warning - @parm is an unknown tag.
+Generating /Users/jannik/Desktop/Bestandsführung/doc/package-frame.html...
+Generating /Users/jannik/Desktop/Bestandsführung/doc/package-summary.html...
+Generating /Users/jannik/Desktop/Bestandsführung/doc/constant-values.html...
+Building index for all the packages and classes...
+Building index for all classes...
+Generating /Users/jannik/Desktop/Bestandsführung/doc/allclasses-frame.html...
+Generating /Users/jannik/Desktop/Bestandsführung/doc/allclasses-noframe.html...
+Generating /Users/jannik/Desktop/Bestandsführung/doc/index.html...
+1 warning
