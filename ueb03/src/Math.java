@@ -3,7 +3,7 @@
  * 
  * @author Jannik Adam
  * @author Fromm-Borys
- * @version 0.5
+ * @version 0.4
  */
 public class Math 
 {	
@@ -13,7 +13,7 @@ public class Math
 	 * @param teilerSummenZahl
 	 * 		Die Zahl von der die Teilersumme berechnet werden soll.
 	 * @return
-	 * 		String der die errechnete Teilersumme ausgibt. 
+	 * 		String, der errechneten Teilersumme. 
 	 */
 	public static String berechneTeilerSumme ( int teilerSummenZahl )
 	{			
@@ -21,105 +21,187 @@ public class Math
 		int teiler 		= 0;
 		int moduloErgebnis ;
 		
+		/**
+		 * Prufung ob die Nutzereingabe eine naturliche Zahl ist.
+		 */
 		if ( teilerSummenZahl < 1)
 		{
-			throw new IllegalArgumentException ( "Die Teilersummenzahl muss eine natï¿½rliche Zahl sein!" );
+			throw new IllegalArgumentException 
+				( "Die Teilersummenzahl muss eine natürliche Zahl sein!" );
 		}
 		else 
 		{	
-			while ( teiler != teilerSummenZahl ) 
+			/**
+			 * Fortlaufende Anwendung von Modulo mit naturlichen Zahlen
+			 * bis dieese Zahl der Teilersummenzahl entspricht.
+			 */
+			while ( teiler <= teilerSummenZahl )// 2147483647 führt zu java.lang.ArithmeticException: / by zero
 			{
 				teiler++;
 				moduloErgebnis = teilerSummenZahl % teiler;
 				
+				/**
+				 * Prufung auf ganzzahlige teiler durch das Moduloergebnis
+				 * und deren addition falls bestanden.
+				 */
 				if ( moduloErgebnis == 0 ) 
 				{
 					teilerSumme = teilerSumme + teiler;
 				}
 			}
+		}
+		/**
+		 * Prufung ob ein Uberlauf stattgefunden hat.
+		 * Wenn, dann wird eine Runtime Exception geworfen,
+		 */
+		if ( teilerSumme < teilerSummenZahl )
+		{
+			throw new RuntimeException( "Falsches Ergebnis durch Überlauf!" );
+		}
+		/**
+		 * Prufung ob die Teilersummenzahl eine Primzahl ist.
+		 * Wenn, dann primzahlspezifische Ausgabe.
+		 */
+		else if ( teilerSumme == teilerSummenZahl + 1 )
+		{
+			return ( "Die Teilersumme ist " + teilerSumme + ". " 
+					+ teilerSummenZahl + "ist eine Primzahl!" );
+		}
+		/**
+		 * Ausgabe für gewöhnliche Teilersummen.
+		 */
+		else
+		{
 			return ( "Die Teilersumme ist " + teilerSumme + "." );
 		}
-		
 	}
 	/**
 	 * Methode die aus den ersten neun Ziffern einer ISBN-10 die Prufziffer errechent.
 	 * 
-	 * @param iSBN_10_9
+	 * @param iSBN9
 	 * 		long, das die ersten neun Stellen einer ISDN-10 einliest.
 	 * @return
-	 * 		String der die Prufziffer einer ISBN-10 ausgibt.
+	 * 		String, der Prufziffer einer ISBN-10.
 	 */
-	public static String berechnePrufZifferISBN_10 ( long iSBN_10_9 )
+	public static String berechnePrufZifferISBN_10 ( long iSBN9 )
 	{
 		final long MIN_ISBN_9 = 		1;
 		final long MAX_ISBN_9 = 999999999;
-		long gekurzteISBN_10_9			 ;
+		long gekurzteISBN9			     ;
 		long ziffer						 ;
-		long zwischenPrufZiffer		  = 0;
+		long prufSumme				  = 0;
 		long index					  = 9;
+		String fuhrendeNullen		= "" ;
 		String prufZiffer				 ;
-		String losung					 ;
 		
-		if (iSBN_10_9 < MIN_ISBN_9 | iSBN_10_9 > MAX_ISBN_9) 
+		/**
+		 * Prufung ob die Eingabe einer ISBN-10 ihne Prufziffer entspricht
+		 * wobei fuhrende Nullen vom Nutzer weglassen darf.
+		 */
+		if (iSBN9 < MIN_ISBN_9 | iSBN9 > MAX_ISBN_9) 
 		{
-			throw new IllegalArgumentException ( " Die einzugebende ISBN muss eine ganze 9-stellige Zahl sein!" );
+			throw new IllegalArgumentException 
+				( " Die einzugebende ISBN muss eine ganze 9-stellige Zahl sein!" );
 		}
 		else
 		{	
-			gekurzteISBN_10_9 = iSBN_10_9;
-				
-			while ( index > 0 )
-			{
-			ziffer = gekurzteISBN_10_9 % 10;
-			gekurzteISBN_10_9 = gekurzteISBN_10_9 / 10;
-			zwischenPrufZiffer = zwischenPrufZiffer + ziffer * index--;
-			}
-		
-			zwischenPrufZiffer = zwischenPrufZiffer % 11;
+			gekurzteISBN9 = iSBN9;
 			
-			if (zwischenPrufZiffer < 10 )
+			/**
+			 * Fortlaufendes Abschneiden der letzten Ziffer der 9-stelligen
+			 * ISBN-10, Anwendung von Modulo 10 auf diese anschliesende 
+			 * Faktorisierung mit einem von 9 ablaufendem Index und anschließende
+			 * Addition mit der Prufsumme.
+			 */
+			while ( gekurzteISBN9 > 0 )
 			{
-				prufZiffer = ( "" + zwischenPrufZiffer );// warum brauch ich hier die Apostrophe? funktioniert an anderer Stelle ohne String.
+			ziffer = gekurzteISBN9 % 10;
+			gekurzteISBN9 = gekurzteISBN9 / 10;
+			prufSumme = prufSumme + ziffer * index--;
+			}
+			
+			prufSumme = prufSumme % 11;
+			
+			/**
+			 * Prufung ob für die Prufsumme der Sonderfall 10 gilt
+			 * und entsprechende Ausgabe der Prufziffer.
+			 */
+			if (prufSumme < 10 )
+			{
+				prufZiffer = ( "" + prufSumme );
 			}
 			else
 			{
 				prufZiffer = "X";
 			}
-		
-			losung = ( "ISBN-10 Prï¿½fziffer lautet: " + prufZiffer); //+ " ;Vollstï¿½ndige ISBN-10 lautet: " + iSBN_10_9 + "-" + prufZiffer ); !Funktioniert nicht da fï¿½hrende Nullen geschluckt werden / 9 if Anweisungen sind "unschï¿½n" / keine Ahnung wie man Lï¿½nge eines longs checkt!
+			/**
+			 * Fortlaufendes Hinzufügen von Führungsnullen 
+			 * entsprechend der vom Index ermittelten Anzahl.
+			 */
+			while ( index > 0)
+			{
+				fuhrendeNullen = ( fuhrendeNullen + "0");
+				index--;
+			}
 		}
-		return losung;
+		/**
+		 * Erstellung der vollständigen ISBN-10 durch die Verknüpfung der
+		 * einzelnen Teilelemente sowie deren Ausgabe.
+		 */
+		return ( "ISBN-10 Prüfziffer lautet: " + prufZiffer 
+				+ " Die vollständige ISBN-10 lautet " 
+				+ fuhrendeNullen + iSBN9 + "-" + prufZiffer );
 	}
 	/**
-	 * Methode zum ermitteln der Nullstellen einer quadratischen funktion der Form f(x)=X^2+px+q.
+	 * Methode zum ermitteln der Nullstellen 
+	 * einer quadratischen funktion der Form f(x)=X^2+px+q.
 	 * 
-	 * @param variablePe
+	 * @param faktorP
 	 * 		double, Variable p einer quadratischen Gleichung.
-	 * @param variableQu
+	 * @param summandQ
 	 * 		double, Variable q einer quadratischen Gleichung.
 	 * @return
-	 * 		String der die Nullstellen einer quadratischen Gleichung ausgibt.
+	 * 		String, der Nullstellen einer quadratischen Gleichung.
 	 */
-	public static String berechneNullStellenEinerQuadratischenGleichung ( double variablePe, double variableQu )
+	public static String berechneNullStellenEinerQuadratischenGleichung 
+					( double faktorP, double summandQ )
 	{
-		double diskriminante;
-		String losung		;
+		double diskriminante	  ;
+		long zwischenDiskriminante;
+		String ergebnis			  ;
 		
-		diskriminante = ( variablePe / 2 ) * ( variablePe / 2 ) - variableQu;// trim fehlt noch.
+		diskriminante = ( faktorP / 2 ) * ( faktorP / 2 ) - summandQ;
+		
+		/**
+		 * Runden der Diskriminante auf eine Nachkommastellen 
+		 * um das Problem der Ungenauigkeit der Gleitpunktarithmetic zu vermindern.
+		 */
+		diskriminante = diskriminante * 10;// dieser Block ist unschön allerdings führt D=((long)(D*100))/100; immer zu X.0 kann keinen dieser 4 Schritte in einen andern integrieren ohne ALLE Nachkommastellen zu verlieren.
+		zwischenDiskriminante = ( ( long ) diskriminante );
+		diskriminante = zwischenDiskriminante;
+		diskriminante = diskriminante /10;
 
+		/**
+		 * Fallunterscheidung auf Grund der ermittelten Diskriminante und
+		 * entrsprechende Ermittlung von einer, zwei Nullstellen oder 
+		 * der Hinweis auf komplexe Nullstellen. 
+		 */
 		if ( diskriminante > 0.0 )
 		{
-			losung = pQFormel ( variablePe, variableQu, true);
+			ergebnis = ( pQFormel ( faktorP, summandQ, true ) 
+						+ " und " + pQFormel ( faktorP, summandQ, false ) + "." );
+			
 		}
 		else if ( diskriminante == 0.0 )
 		{
-			losung = pQFormel ( variablePe, variableQu, false);
+			ergebnis = ( + pQFormel ( faktorP, summandQ, false) + "." ); 
 		}
 		else
 		{
-			losung = ( "Zu komplex!" );
+			ergebnis = ( "zu komplex!" );
 		}
-		return losung;
+		return ( "Die Nullstelle/n der quadratischen Gleichung x²+" 
+				+ faktorP + "x" + ( summandQ < 0 ? "" : "+" ) + summandQ + " sind " + ergebnis );
 	}
 	/**
 	 * 
@@ -130,23 +212,16 @@ public class Math
 	 * @param zweiNullStellen
 	 * 		boolean Ausdruck der angibt ob die funktion eine oder zwei Nullstellen hat.
 	 * @return
-	 * 		String der die Nullstellen der quadratischen Gleichung ausgibt.
+	 * 		String, der Nullstellen der quadratischen Gleichung.
 	 */
-	private static String pQFormel ( double p, double q, boolean zweiNullStellen)
+	private static double pQFormel ( double faktorP, double summandQ, boolean zweiNullStellen)// p3 q0,001 ist falsch wenn q "zu" klein ist gibt es NaN
 	{
-		double x 		  ;
-		double x2		  ;
-		String nullStellen;
+		double nullStelle;
 		
-		x  = - ( p / 2 ) + java.lang.Math.sqrt ( ( p / 2 ) * ( p / 2 ) - q );// Nochmal kurzes if zeigen lassen!
-		nullStellen = "x = " + x;
+		nullStelle  = - ( faktorP / 2 ) + 
+						( ( zweiNullStellen ? 1 : (-1) ) * (java.lang.Math.sqrt 
+						( ( faktorP / 2 ) * ( faktorP / 2 ) - summandQ ) ) );
 		
-		if ( zweiNullStellen )
-		{
-			x2  = - ( p / 2 ) - java.lang.Math.sqrt ( ( p / 2 ) * ( p / 2 ) - q );
-			nullStellen = "x1 = " + x + "x2 = " + x2 ;
-		}
-		
-		return nullStellen;
+		return nullStelle;
 	}
 }

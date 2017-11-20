@@ -10,11 +10,11 @@ import java.util.Scanner;
 public class Mathialog
 {
 		/**
-		 * Scaner der die Benutzereingaben auswertet.
+		 * Scanner der die Benutzereingaben auswertet.
 		 */
 		private final Scanner Input = new Scanner ( System.in );
 		/**
-		 * Deklarieren der Funktionvariablen zum aufrufen der einzelnen Methoden.
+		 * Deklaration der Funktionsvariablen zum aufrufen der einzelnen Methoden.
 		 */
 		private static final int ENDE 		 		 								 = 0;
 		private static final int TEILER_SUMME 		 								 = 1;
@@ -46,7 +46,7 @@ public class Mathialog
                 funktion = einlesenFunktion ( );
                 ausfuehrenFunktion ( funktion );
             } 
-            catch ( java.util.InputMismatchException e )
+            catch ( java.util.InputMismatchException e )// nach einem catch muss erst eine eingabe gettigt werden bevor erneut einge eingabeaufforderung ausgegeben wird.
             {
                 System.out.println ( e );
                 Input.next ( );
@@ -61,6 +61,11 @@ public class Mathialog
                 System.out.println ( e );
                 Input.next ( );
             }
+            catch ( RuntimeException e )
+            {
+                System.out.println ( e );
+                Input.next ( );
+            }
         }
 	 }
 			/**
@@ -68,20 +73,24 @@ public class Mathialog
 			 * und anschließend die Benutzereingabe der Funktonsvariable einliest.
 			 * 
 			 * @return
-			 * 		int, vom Nutzer gewählte Funktionvariable.
+			 * 		int, vom Nutzer gewahlte Funktionvariable.
 			 */
             private int einlesenFunktion ( )
             {
-                System.out.println ( "Bitte Funktion Wählen." );
-                System.out.print ( TEILER_SUMME 	   								  + ": Teilersumme berechnen; "
-                				 + PRUF_ZIFFER_ISBN_10 								  + ": ISBN-10 Prüfziffer berechnen; "
-                				 + BERECHNE_NULL_STELLEN_EINER_QUADRATISCHEN_GLEICHUNG + ": Quadratische Gleichung lösen; "
-                				 + ENDE 			   								  + ": Beenden; "                      );
+                System.out.println ( "Bitte Funktion Whlen." );
+                System.out.print ( TEILER_SUMME 	   								  
+                				  + ": Teilersumme berechnen; "
+                				  + PRUF_ZIFFER_ISBN_10 								  
+                				  + ": ISBN-10 Prüfziffer berechnen; "
+                				  + BERECHNE_NULL_STELLEN_EINER_QUADRATISCHEN_GLEICHUNG 
+                				  + ": Quadratische Gleichung lösen; "
+                				  + ENDE 			   								  
+                				  + ": Beenden; "                      				   );
                 return Input.nextInt ( );
             }
             /**
              * Methode, die die Funktionsvariable auswertet
-             * und die entsprechende Methode startet.
+             * und die entsprechende Methode aufruft.
              * 
              * @param funktion
              * 		int, Funktionsvariable
@@ -90,16 +99,19 @@ public class Mathialog
             {
                 if ( funktion == TEILER_SUMME )
                 {
-                	
-                	System.out.println ("Teilersumme = " + Math.berechneTeilerSumme ( erfasseTeilerSummenZahl ( ) ) );
+                	System.out.println ( "" 
+                			+ Math.berechneTeilerSumme ( erfasseTeilerSummenZahl ( ) ) );
                 }
                 else if ( funktion == PRUF_ZIFFER_ISBN_10 )
                 {
-                	System.out.println ( Math.berechnePrufZifferISBN_10 ( erfasseISBN_10_9 ( ) ) );
+                	System.out.println 
+                			( Math.berechnePrufZifferISBN_10 ( erfasseISBN9 ( ) ) );
                 }
                 else if ( funktion == BERECHNE_NULL_STELLEN_EINER_QUADRATISCHEN_GLEICHUNG )
                 {
-                	System.out.println ( Math.berechneNullStellenEinerQuadratischenGleichung ( erfasseVariablePe ( ) , erfasseVariableQu ( ) ) );
+                	System.out.println ( Math.berechneNullStellenEinerQuadratischenGleichung 
+                						( erfasseFaktorP ( ) 
+                						, erfasseSummandQ ( ) )							 );
                 }
                 else if ( funktion == ENDE )
                 {
@@ -115,7 +127,7 @@ public class Mathialog
              * fur das berechnen einer Teilersumme einliest.
              * 
              * @return
-             * 		int, natürliche Zahl deren Teilersumme berechnet wird.
+             * 		int, naturliche Zahl deren Teilersumme berechnet wird.
              */
             private int erfasseTeilerSummenZahl ( ) 
             {
@@ -126,11 +138,13 @@ public class Mathialog
              * Methode, die die ersten neun Stellen einer ISBN-10 erfasst.
              * 
              * @return
-             * 		long, ganze Zahlen => Null.
+             * 		long, positive ganze Zahlen + die Zahl null.
              */
-            private long erfasseISBN_10_9 ( ) 
+            private long erfasseISBN9 ( ) 
             {
-                System.out.print ( "ISBN-10 ohne Prüfziffer lautet? " );
+                System.out.print 
+                	( "Bitte ISBN-10 ohne Prüfziffer eingeben. "
+                			+ "Führende Nullen dürfen weggelassen werden. " );
                 return Input.nextLong ( );
             }
             /**
@@ -140,9 +154,9 @@ public class Mathialog
              * @return
              * 		double, reelle Zahl
              */
-            private double erfasseVariablePe ( ) 
+            private double erfasseFaktorP ( ) 
             {
-            	System.out.print ( "P = " );
+            	System.out.print ( "p = " );
                 return Input.nextDouble ( );
             }
             /**
@@ -152,7 +166,7 @@ public class Mathialog
              * @return
              * 		double, reelle Zahl
              */
-            private double erfasseVariableQu ( ) 
+            private double erfasseSummandQ ( ) 
             {
             	System.out.print ( "q = " );
                 return Input.nextDouble ( );
