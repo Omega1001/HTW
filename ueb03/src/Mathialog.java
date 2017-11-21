@@ -46,7 +46,7 @@ public class Mathialog
                 funktion = einlesenFunktion ( );
                 ausfuehrenFunktion ( funktion );
             } 
-            catch ( java.util.InputMismatchException e )// nach einem catch muss erst eine eingabe gettigt werden bevor erneut einge eingabeaufforderung ausgegeben wird.
+            catch ( java.util.InputMismatchException e )
             {
                 System.out.println ( e );
                 Input.next ( );
@@ -77,13 +77,13 @@ public class Mathialog
 			 */
             private int einlesenFunktion ( )
             {
-                System.out.println ( "Bitte Funktion Whlen." );
+                System.out.println ( "Bitte Funktion Waehlen." );
                 System.out.print ( TEILER_SUMME 	   								  
                 				  + ": Teilersumme berechnen; "
                 				  + PRUF_ZIFFER_ISBN_10 								  
-                				  + ": ISBN-10 Prüfziffer berechnen; "
+                				  + ": ISBN-10 Pruefziffer berechnen; "
                 				  + BERECHNE_NULL_STELLEN_EINER_QUADRATISCHEN_GLEICHUNG 
-                				  + ": Quadratische Gleichung lösen; "
+                				  + ": Quadratische Gleichung loesen; "
                 				  + ENDE 			   								  
                 				  + ": Beenden; "                      				   );
                 return Input.nextInt ( );
@@ -131,7 +131,8 @@ public class Mathialog
              */
             private int erfasseTeilerSummenZahl ( ) 
             {
-                System.out.print ( "X = " );
+                System.out.print ( "Bitte geben sie eine natuerliche Zahl ein, "
+                					+ "aus der die Teilersumme berechnet werden soll. " );
                 return Input.nextInt ( );
             }
             /**
@@ -143,8 +144,8 @@ public class Mathialog
             private long erfasseISBN9 ( ) 
             {
                 System.out.print 
-                	( "Bitte ISBN-10 ohne Prüfziffer eingeben. "
-                			+ "Führende Nullen dürfen weggelassen werden. " );
+                	( "Bitte ISBN-10 ohne Pruefziffer eingeben. "
+                			+ "Fuehrende Nullen duerfen weggelassen werden. " );
                 return Input.nextLong ( );
             }
             /**

@@ -21,21 +21,21 @@ public class Math
 		int teiler 		= 0;
 		int moduloErgebnis ;
 		
-		/**
+		/*
 		 * Prufung ob die Nutzereingabe eine naturliche Zahl ist.
 		 */
 		if ( teilerSummenZahl < 1)
 		{
 			throw new IllegalArgumentException 
-				( "Die Teilersummenzahl muss eine natürliche Zahl sein!" );
+				( "Die Teilersummenzahl muss eine natuerliche Zahl sein!" );
 		}
 		else 
 		{	
-			/**
+			/*
 			 * Fortlaufende Anwendung von Modulo mit naturlichen Zahlen
 			 * bis dieese Zahl der Teilersummenzahl entspricht.
 			 */
-			while ( teiler <= teilerSummenZahl )// 2147483647 führt zu java.lang.ArithmeticException: / by zero
+			while ( teiler < teilerSummenZahl )
 			{
 				teiler++;
 				moduloErgebnis = teilerSummenZahl % teiler;
@@ -50,15 +50,15 @@ public class Math
 				}
 			}
 		}
-		/**
+		/*
 		 * Prufung ob ein Uberlauf stattgefunden hat.
 		 * Wenn, dann wird eine Runtime Exception geworfen,
 		 */
 		if ( teilerSumme < teilerSummenZahl )
 		{
-			throw new RuntimeException( "Falsches Ergebnis durch Überlauf!" );
+			throw new RuntimeException( "Falsches Ergebnis durch ueberlauf!" );
 		}
-		/**
+		/*
 		 * Prufung ob die Teilersummenzahl eine Primzahl ist.
 		 * Wenn, dann primzahlspezifische Ausgabe.
 		 */
@@ -67,8 +67,8 @@ public class Math
 			return ( "Die Teilersumme ist " + teilerSumme + ". " 
 					+ teilerSummenZahl + "ist eine Primzahl!" );
 		}
-		/**
-		 * Ausgabe für gewöhnliche Teilersummen.
+		/*
+		 * Ausgabe fuer gewoehnliche Teilersummen.
 		 */
 		else
 		{
@@ -94,7 +94,7 @@ public class Math
 		String fuhrendeNullen		= "" ;
 		String prufZiffer				 ;
 		
-		/**
+		/*
 		 * Prufung ob die Eingabe einer ISBN-10 ihne Prufziffer entspricht
 		 * wobei fuhrende Nullen vom Nutzer weglassen darf.
 		 */
@@ -107,7 +107,7 @@ public class Math
 		{	
 			gekurzteISBN9 = iSBN9;
 			
-			/**
+			/*
 			 * Fortlaufendes Abschneiden der letzten Ziffer der 9-stelligen
 			 * ISBN-10, Anwendung von Modulo 10 auf diese anschliesende 
 			 * Faktorisierung mit einem von 9 ablaufendem Index und anschließende
@@ -122,8 +122,8 @@ public class Math
 			
 			prufSumme = prufSumme % 11;
 			
-			/**
-			 * Prufung ob für die Prufsumme der Sonderfall 10 gilt
+			/*
+			 * Prufung ob fuer die Prufsumme der Sonderfall 10 gilt
 			 * und entsprechende Ausgabe der Prufziffer.
 			 */
 			if (prufSumme < 10 )
@@ -134,8 +134,8 @@ public class Math
 			{
 				prufZiffer = "X";
 			}
-			/**
-			 * Fortlaufendes Hinzufügen von Führungsnullen 
+			/*
+			 * Fortlaufendes Hinzufuegen von Fuehrungsnullen 
 			 * entsprechend der vom Index ermittelten Anzahl.
 			 */
 			while ( index > 0)
@@ -144,12 +144,12 @@ public class Math
 				index--;
 			}
 		}
-		/**
-		 * Erstellung der vollständigen ISBN-10 durch die Verknüpfung der
+		/*
+		 * Erstellung der vollstaendigen ISBN-10 durch die Verknuepfung der
 		 * einzelnen Teilelemente sowie deren Ausgabe.
 		 */
-		return ( "ISBN-10 Prüfziffer lautet: " + prufZiffer 
-				+ " Die vollständige ISBN-10 lautet " 
+		return ( "ISBN-10 Pruefziffer lautet: " + prufZiffer 
+				+ " Die vollstaendige ISBN-10 lautet " 
 				+ fuhrendeNullen + iSBN9 + "-" + prufZiffer );
 	}
 	/**
@@ -167,21 +167,16 @@ public class Math
 					( double faktorP, double summandQ )
 	{
 		double diskriminante	  ;
-		long zwischenDiskriminante;
 		String ergebnis			  ;
 		
 		diskriminante = ( faktorP / 2 ) * ( faktorP / 2 ) - summandQ;
 		
-		/**
+		/*
 		 * Runden der Diskriminante auf eine Nachkommastellen 
 		 * um das Problem der Ungenauigkeit der Gleitpunktarithmetic zu vermindern.
 		 */
-		diskriminante = diskriminante * 10;// dieser Block ist unschön allerdings führt D=((long)(D*100))/100; immer zu X.0 kann keinen dieser 4 Schritte in einen andern integrieren ohne ALLE Nachkommastellen zu verlieren.
-		zwischenDiskriminante = ( ( long ) diskriminante );
-		diskriminante = zwischenDiskriminante;
-		diskriminante = diskriminante /10;
-
-		/**
+		diskriminante = ( ( long ) ( diskriminante * 100 ) ) / 100d;
+		/*
 		 * Fallunterscheidung auf Grund der ermittelten Diskriminante und
 		 * entrsprechende Ermittlung von einer, zwei Nullstellen oder 
 		 * der Hinweis auf komplexe Nullstellen. 
