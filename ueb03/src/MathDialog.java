@@ -7,7 +7,7 @@ import java.util.Scanner;
  * @author Fromm-Borys
  * @version 0.4
  */
-public class Mathialog
+public class MathDialog
 {
 		/**
 		 * Scanner der die Benutzereingaben auswertet.
@@ -28,7 +28,7 @@ public class Mathialog
 	 */
 	public static void main ( String [ ] args )
 	{
-		new Mathialog ( ).start ( );
+		new MathDialog ( ).start ( );
 	}
 	/**
 	 * Methode, die die Funktionsvariable neutral initialisiert 
@@ -70,7 +70,7 @@ public class Mathialog
 	 }
 			/**
 			 * Methode, die dem Benutzer die Funktionsvariablen auflistet 
-			 * und anschließend die Benutzereingabe der Funktonsvariable einliest.
+			 * und anschlieï¿½end die Benutzereingabe der Funktonsvariable einliest.
 			 * 
 			 * @return
 			 * 		int, vom Nutzer gewahlte Funktionvariable.

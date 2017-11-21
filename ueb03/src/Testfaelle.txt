@@ -2,12 +2,12 @@ Testfälle
 
 Methode Teilersummen:
 	-- Allgemeiner Funktionstest:
-	Ein 6, 				Aus 12
 	Ein 3, 				Aus 4
+	Ein 4, 				Aus 7
+	Ein 6, 				Aus 12
 	Ein 12,				Aus 28
-	Ein 4,				Aus 7
 	-- Eingabe Grenzwerte:
-	Ein 0				Aus 0
+	Ein 1				Aus 1
 	Ein -1				Aus Fehler : nicht im definitionsbereich
 	Ein Integer.Max		Aus Fehler : invalides Ergebniss, da überlauf
 
@@ -20,7 +20,7 @@ Methode ISBN
 	Ein 571450000		Aus "8"
 	-- Eingabe Grenzwerte
 	Ein 1234567890		Aus Fehler: zu lang
-	Ein 1				Aus "9" --Vorranstehende 0en sind möglich!
+	Ein -11				Aus Fehler: zu kurz
 
 Methode Quadratische Gleichungen
 	--Allgemeiner Funktionstest
@@ -28,8 +28,8 @@ Methode Quadratische Gleichungen
 	Ein 0x +4			Aus Kompplex
 	Ein 0x -4			Aus (-2, 0) ; (2, 0)
 	Ein 1x -4			Aus (-2.56, 0) ; (1.56, 0)
-	Ein 2.75x -4		Aus (-3.8, 0) ; (1.05, 0)
+	Ein 2.75x -4			Aus (-3.8, 0) ; (1.05, 0)
 	Ein 0.01x -0.1		Aus (-0.32, 0) ; (0.31, 0)
-	Ein 0x -0.000000001 Aus	()
+	Ein 0x -0.000000001	Aus	Komplex
 
 
