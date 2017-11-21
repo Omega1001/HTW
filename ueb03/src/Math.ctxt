@@ -4,16 +4,16 @@ comment0.text=\n\ Klasse\ die\ simple\ Mathematische\ Methoden\ anbietet.\n\ \n\
 comment1.params=teilerSummenZahl
 comment1.target=int\ berechneTeilerSumme(int)
 comment1.text=\n\ Methode,\ die\ die\ Teilersumme\ einer\ naturlichen\ Zahl\ berechnet.\n\ \n\ @param\ teilerSummenZahl\n\ \ \ \ \ \ \ \ \ \ \ \ Die\ Zahl\ von\ der\ die\ Teilersumme\ berechnet\ werden\ soll.\n\ @return\ String,\ der\ errechneten\ Teilersumme.\n
-comment2.params=iSBN9
+comment2.params=isbn
 comment2.target=java.lang.String\ berechnePrufZifferISBN_10(long)
-comment2.text=\n\ Methode\ die\ aus\ den\ ersten\ neun\ Ziffern\ einer\ ISBN-10\ die\ Prufziffer\n\ errechent.\n\ \n\ @param\ iSBN9\n\ \ \ \ \ \ \ \ \ \ \ \ long,\ das\ die\ ersten\ neun\ Stellen\ einer\ ISDN-10\ beinhaltet.\n\ @return\ String,\ der\ Prufziffer\ einer\ ISBN-10.\n
+comment2.text=\n\ Methode\ die\ aus\ den\ ersten\ neun\ Ziffern\ einer\ ISBN-10\ die\ Prufziffer\n\ errechent.\n\ <p>\n\ \n\ Eine\ ISBN\ 10\ besteht\ aus\ 9\ zahlen\ von\ [0-9]\ und\ der\ Pr\u00FCfziffer\n\ [0-9,x],\ die\ hier\ berechnet\ wird.<br>\n\ Uebergeben\ werden\ hier\ lediglich\ die\ ersten\ 9\ stellen\ der\ ISBN\n\ <p>\n\ Zu\ beachten\ ist,\ dass\ 0\ an\ jeder\ Stelle\ erlaubt\ ist,\ und\ daher\n\ f\u00FChrende\ 0en\ gestattet\ sind\!<br>\n\ \n\ @param\ isbn\n\ \ \ \ \ \ \ \ \ \ \ \ long,\ das\ die\ ersten\ neun\ Stellen\ einer\ ISBN-10\n\ \ \ \ \ \ \ \ \ \ \ \ beinhaltet.\n\ @return\ String,\ der\ Prufziffer\ einer\ ISBN-10.\n
 comment3.params=faktorP\ summandQ
 comment3.target=java.lang.String\ berechneNullStellenEinerQuadratischenGleichung(double,\ double)
-comment3.text=\n\ Methode\ zum\ ermitteln\ der\ Nullstellen\ einer\ quadratischen\ funktion\ der\ Form\n\ f(x)\=X^2+px+q.\n\ \n\ @param\ faktorP\n\ \ \ \ \ \ \ \ \ \ \ \ double,\ Variable\ p\ einer\ quadratischen\ Gleichung.\n\ @param\ summandQ\n\ \ \ \ \ \ \ \ \ \ \ \ double,\ Variable\ q\ einer\ quadratischen\ Gleichung.\n\ @return\ String,\ der\ Nullstellen\ einer\ quadratischen\ Gleichung.\n
+comment3.text=\n\ Methode\ zum\ ermitteln\ der\ Nullstellen\ einer\ quadratischen\ funktion\n\ der\ Form\ f(x)\=X^2+px+q.\n\ \n\ @param\ faktorP\n\ \ \ \ \ \ \ \ \ \ \ \ double,\ Variable\ p\ einer\ quadratischen\ Gleichung.\n\ @param\ summandQ\n\ \ \ \ \ \ \ \ \ \ \ \ double,\ Variable\ q\ einer\ quadratischen\ Gleichung.\n\ @return\ String,\ der\ Nullstellen\ einer\ quadratischen\ Gleichung.\n
 comment4.params=number
 comment4.target=double\ roundToPrecision(double)
-comment4.text=\n\ Methode\ zum\ Runden\ von\ double\ zahlen\ auf\ eine\ Festgelegte\ Prezision<br>\n\ \n\ @param\ number\n\ \ \ \ \ \ \ \ \ \ \ \ die\ gerundet\ werden\ soll\n\ @return\ die\ gerundete\ Zahl\n
+comment4.text=\n\ Methode\ zum\ Runden\ von\ double\ zahlen\ auf\ eine\ Festgelegte\n\ Prezision<br>\n\ \n\ @param\ number\n\ \ \ \ \ \ \ \ \ \ \ \ die\ gerundet\ werden\ soll\n\ @return\ die\ gerundete\ Zahl\n
 comment5.params=faktorP\ summandQ\ zweiNullStellen
 comment5.target=double\ pQFormel(double,\ double,\ boolean)
-comment5.text=\n\ \n\ @param\ p\n\ \ \ \ \ \ \ \ \ \ \ \ double,\ Variable\ p\ einer\ quadratischen\ Gleichung.\n\ @param\ q\n\ \ \ \ \ \ \ \ \ \ \ \ double,\ Variable\ q\ einer\ quadratischen\ Gleichung.\n\ @param\ zweiNullStellen\n\ \ \ \ \ \ \ \ \ \ \ \ boolean\ Ausdruck\ der\ angibt\ ob\ die\ funktion\ eine\ oder\ zwei\n\ \ \ \ \ \ \ \ \ \ \ \ Nullstellen\ hat.\n\ @return\ String,\ der\ Nullstellen\ der\ quadratischen\ Gleichung.\n\ @throws\ IllegalArgumentException\n\ \ \ \ \ \ \ \ \ \ \ \ \ falls\ das\ Ergebniss\ NaN\ ist\n
+comment5.text=\n\ \n\ @param\ p\n\ \ \ \ \ \ \ \ \ \ \ \ double,\ Variable\ p\ einer\ quadratischen\ Gleichung.\n\ @param\ q\n\ \ \ \ \ \ \ \ \ \ \ \ double,\ Variable\ q\ einer\ quadratischen\ Gleichung.\n\ @param\ zweiNullStellen\n\ \ \ \ \ \ \ \ \ \ \ \ boolean\ Ausdruck\ der\ angibt\ ob\ die\ funktion\ eine\ oder\n\ \ \ \ \ \ \ \ \ \ \ \ zwei\ Nullstellen\ hat.\n\ @return\ String,\ der\ Nullstellen\ der\ quadratischen\ Gleichung.\n\ @throws\ IllegalArgumentException\n\ \ \ \ \ \ \ \ \ \ \ \ \ falls\ das\ Ergebniss\ NaN\ ist\n
 numComments=6

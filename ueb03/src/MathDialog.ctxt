@@ -1,0 +1,28 @@
+#BlueJ class context
+comment0.target=MathDialog
+comment0.text=\n\ Klasse\ zum\ interaktiven\ Test\ der\ Klasse\ Math.\ Diese\ Klasse\ erlaubt\ es\ im\n\ Dialog\ die\ Methoden\ der\ Klasse\ Math\ zu\ testen.\n\ \n\ @author\ Jannik\ Adam\n\ @author\ Fromm-Borys\n\ @version\ 0.4\n
+comment1.params=args
+comment1.target=void\ main(java.lang.String[])
+comment1.text=\n\ Methode,\ die\ den\ interaktiven\ Test\ startet.\n\ \n\ @param\ args\n\ \ \ \ \ \ \ \ \ \ \ \ Programmargumente,\ die\ nicht\ ausgewertet\ werden.\n
+comment2.params=
+comment2.target=void\ start()
+comment2.text=\n\ Methode,\ die\ die\ Funktionsvariable\ neutral\ initialisiert\ und\ auf\n\ Benutzereingaben\ wartet\ und\ diese\ auswertet.\ Sowie\ Excpetions\ fangt\n\ und\ ausgibt\ damit\ diese\ nicht\ die\ Methode\ beenden.\n
+comment3.params=
+comment3.target=int\ einlesenFunktion()
+comment3.text=\n\ Methode,\ die\ dem\ Benutzer\ die\ Funktionsvariablen\ auflistet\ und\n\ anschlie\uFFFDend\ die\ Benutzereingabe\ der\ Funktonsvariable\ einliest.\n\ \n\ @return\ int,\ vom\ Nutzer\ gewahlte\ Funktionvariable.\n
+comment4.params=funktion
+comment4.target=void\ ausfuehrenFunktion(int)
+comment4.text=\n\ Methode,\ die\ die\ Funktionsvariable\ auswertet\ und\ die\ entsprechende\n\ Methode\ aufruft.\n\ \n\ @param\ funktion\n\ \ \ \ \ \ \ \ \ \ \ \ int,\ Funktionsvariable\n
+comment5.params=
+comment5.target=int\ erfasseTeilerSummenZahl()
+comment5.text=\n\ Methode,\ die\ die\ Teilersummenzahl\ fur\ das\ berechnen\ einer\n\ Teilersumme\ einliest.\n\ \n\ @return\ int,\ naturliche\ Zahl\ deren\ Teilersumme\ berechnet\ wird.\n
+comment6.params=
+comment6.target=long\ erfasseISBN9()
+comment6.text=\n\ Methode,\ die\ die\ ersten\ neun\ Stellen\ einer\ ISBN-10\ erfasst.\n\ \n\ @return\ long,\ positive\ ganze\ Zahlen\ +\ die\ Zahl\ null.\n
+comment7.params=
+comment7.target=double\ erfasseFaktorP()
+comment7.text=\n\ Methode,\ die\ die\ Variable\ p\ einer\ quadratischen\ Funktion\ der\ Form\n\ F(x)\=x^2+px+q\ einliest.\n\ \n\ @return\ double,\ reelle\ Zahl\n
+comment8.params=
+comment8.target=double\ erfasseSummandQ()
+comment8.text=\n\ Methode,\ die\ die\ Variable\ q\ einer\ quadratischen\ Funktion\ der\ Form\n\ F(x)\=x^2+px+q\ einliest.\n\ \n\ @return\ double,\ reelle\ Zahl\n
+numComments=9
