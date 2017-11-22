@@ -1,4 +1,6 @@
 /**
+ * Test Nummer 2 in der Hoffnung dass ich es nun schaffe!
+ * 
  * Klasse die simple Mathematische Methoden anbietet.
  * 
  * @author Jannik Adam
