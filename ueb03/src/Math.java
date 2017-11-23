@@ -1,5 +1,5 @@
 /**
- * Test Nummer 2 in der Hoffnung dass ich es nun schaffe!
+ * Test Nummer 3 in der Hoffnung dass ich es nun schaffe!!!
  * 
  * Klasse die simple Mathematische Methoden anbietet.
  * 
