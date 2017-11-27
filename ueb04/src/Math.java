@@ -252,9 +252,7 @@ public class Math {
             {
                     if ( berechneB ( a, c ) % 1 == 0 )
                     {
-                    	ZahlenTripel [ zeilenNummer ] [0] =  a ;
-                    	ZahlenTripel [ zeilenNummer ] [1] =  ( long ) berechneB ( a, c ) ;
-                    	ZahlenTripel [ zeilenNummer ] [2] =  c ;
+                    	einlesenTripel ( ZahlenTripel, zeilenNummer, a, ( long ) berechneB ( a, c ), c );
                         zeilenNummer++;
                     }
             }
@@ -263,9 +261,7 @@ public class Math {
         	
     		while ( zeilenNummer > -1 ) 
             {
-                AuszugebendesZahlenTripel [zeilenNummer] [0] = ZahlenTripel [ zeilenNummer ] [0];
-                AuszugebendesZahlenTripel [zeilenNummer] [1] = ZahlenTripel [ zeilenNummer ] [1];
-                AuszugebendesZahlenTripel [zeilenNummer] [2] = ZahlenTripel [ zeilenNummer ] [2];
+    			einlesenTripel ( AuszugebendesZahlenTripel, zeilenNummer, ZahlenTripel [ zeilenNummer ] [0], ZahlenTripel [ zeilenNummer ] [1], ZahlenTripel [ zeilenNummer ] [2] );
                 zeilenNummer--;
             }
     return AuszugebendesZahlenTripel;
@@ -288,6 +284,30 @@ public class Math {
         return java.lang.Math.cbrt ( c * c - a * a * a );
     }
     
+    /**
+     * Methode die die uebergebenen Parameter in das uebergeben Array an der uebergebenen Stelle einliest.
+     * 
+     * @param Tripel
+     * 		long Array, uebergebens Array.
+     * @param zeile
+     * 		int, zu beschreibende Zeile.
+     * @param eins
+     * 		long, erste Stelle des Tripels.
+     * @param zwei
+     * 		long, zweite Stelle des Tripels.
+     * @param drei
+     * 		long, dritte Stelle des Tripels.
+     * @return
+     * 		long Array, das uebergebene Array mit den eingelesenen Werten. 
+     */
+    private static long [ ] [ ] einlesenTripel ( long [ ] [ ] Tripel, int zeile, long eins, long zwei, long drei )
+    {
+    	Tripel [ zeile ] [ 0 ] = eins;
+    	Tripel [ zeile ] [ 1 ] = zwei;
+    	Tripel [ zeile ] [ 2 ] = drei;
+    	
+    	return Tripel;
+    }
     /**
      * Methode zum berechnen der Summe von i=1 bis n : ((x-1)^i)/(i*(x^i))
      * 
