@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.Arrays;
 
 /**
  * Klasse zum interaktiven Test der Klasse Math. Diese Klasse erlaubt es im
@@ -6,7 +7,7 @@ import java.util.Scanner;
  * 
  * @author Jannik Adam
  * @author Fromm-Borys
- * @version 0.4
+ * @version 1.0
  */
 public class MathDialog {
 	/**
@@ -21,6 +22,8 @@ public class MathDialog {
 	private static final int TEILER_SUMME = 1;
 	private static final int PRUF_ZIFFER_ISBN_10 = 2;
 	private static final int BERECHNE_NULL_STELLEN = 3;
+	private static final int BERECHNE_TRIPEL = 4;
+	private static final int BERECHNE_SUMME = 5;
 
 	/**
 	 * Methode, die den interaktiven Test startet.
@@ -62,7 +65,7 @@ public class MathDialog {
 
 	/**
 	 * Methode, die dem Benutzer die Funktionsvariablen auflistet und
-	 * anschlie�end die Benutzereingabe der Funktonsvariable einliest.
+	 * anschlieï¿½end die Benutzereingabe der Funktonsvariable einliest.
 	 * 
 	 * @return int, vom Nutzer gewahlte Funktionvariable.
 	 */
@@ -71,7 +74,12 @@ public class MathDialog {
 		System.out.print(TEILER_SUMME + ": Teilersumme berechnen; "
 				+ PRUF_ZIFFER_ISBN_10 + ": ISBN-10 Pruefziffer berechnen; "
 				+ BERECHNE_NULL_STELLEN
-				+ ": Quadratische Gleichung loesen; " + ENDE
+				+ ": Quadratische Gleichung loesen; " 
+				+ BERECHNE_TRIPEL
+				+ ": Tripel berechnen; "
+				+ BERECHNE_SUMME
+				+ ": Summe berechnen; "
+				+ ENDE
 				+ ": Beenden; ");
 		return Input.nextInt();
 	}
@@ -94,6 +102,10 @@ public class MathDialog {
 			System.out.println(
 					Math.berechneNullStellenEinerQuadratischenGleichung(
 							erfasseFaktorP(), erfasseSummandQ()));
+		} else if (funktion == BERECHNE_TRIPEL) {
+			System.out.println(""+(Arrays.deepToString(Math.berechneTripel(erfasseSchrankeMAX()))));
+		} else if (funktion == BERECHNE_SUMME) {
+			System.out.println("" + ( Math.berechneSumme ( erfasseN ( ), erfasseX ( ) ) ) );
 		} else if (funktion == ENDE) {
 			System.out.println("Programmende");
 		} else {
@@ -145,5 +157,39 @@ public class MathDialog {
 		System.out.print("q = ");
 		return Input.nextDouble();
 	}
+	
+	/**
+	 * Methode, die die schrankeMAX erfasst.
+	 * 
+	 * @return 
+	 * 		long, natuerliche Zahl.
+	 */
+	private long erfasseSchrankeMAX() {
+		System.out.println("Schranke = ");
+		return Input.nextLong();
+	}
+	
+	/**
+	 * Methode, die die Variable n der Summe erfasst.
+	 * 
+	 * @return 
+	 * 		long, natuerliche Zahl.
+	 */
+	private long erfasseN() {
+		System.out.println("n = ");
+		return Input.nextLong();
+	}
+	
+	/**
+	 * Methode, die die Variable x der Summe erfasst.
+	 * 
+	 * @return
+	 * 		double, irgeneine reelle Zahl.
+	 */
+	private double erfasseX() {
+		System.out.print("x = ");
+		return Input.nextDouble();
+	}
+
 
 }
