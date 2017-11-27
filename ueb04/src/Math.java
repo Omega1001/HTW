@@ -233,7 +233,7 @@ public class Math {
     public static long [ ] [ ] berechneTripel ( long schrankeMAX )
     {
     
-    long ZahlenTripel [ ] [ ] = new long [ 1000 ] [ 3 ];// Dynamisches array? Einfach nur ein riesiges Array ist nicht mehr al eine Notlösung, eine unschöne noch dazu. Seh ich nicht dass cih die Anzahl der Lösungen berechnen kann?
+    long ZahlenTripel [ ] [ ] = new long [ 1000 ] [ 3 ];
     int zeilenNummer = 0;
 
     if ( schrankeMAX < 1 )
@@ -259,7 +259,8 @@ public class Math {
                     }
             }
     }
-    long AuszugebendesZahlenTripel [ ] [ ] = new long [ ( zeilenNummer-- ) ] [ 3 ];// Zum kotzen das hier zu haben aber keine Ahnung wie ich das auch nur halbwegs vernünftig machen könnte.
+        	long AuszugebendesZahlenTripel [ ] [ ] = new long [ ( zeilenNummer-- ) ] [ 3 ];
+        	
     		while ( zeilenNummer > -1 ) 
             {
                 AuszugebendesZahlenTripel [zeilenNummer] [0] = ZahlenTripel [ zeilenNummer ] [0];
@@ -284,11 +285,7 @@ public class Math {
      */
     private static double berechneB ( long a, long c)
     {
-        //double b;
-        
-        return java.lang.Math.cbrt ( c * c - a * a * a ); //warum gibt das dahinter immer 1,0 aus?java.lang.Math.pow ( ( c * c - a * a * a ), ( 1 / 3 ) ); FUCK WIEDER ES VERDAMMTE D VERGESSEN, LASSE DAS JETZT ALS MAHNMAL FÜR MICH STEHEN!!! java.lang.Math.pow ( ( c * c - a * a * a ), ( 1d / 3d ) ); funktioniert einwandfrei
-        
-        //return b;
+        return java.lang.Math.cbrt ( c * c - a * a * a );
     }
     
     /**

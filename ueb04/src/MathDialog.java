@@ -165,7 +165,7 @@ public class MathDialog {
 	 * 		long, natuerliche Zahl.
 	 */
 	private long erfasseSchrankeMAX() {
-		System.out.println("Schranke = ");
+		System.out.print("Schranke = ");
 		return Input.nextLong();
 	}
 	
@@ -176,7 +176,7 @@ public class MathDialog {
 	 * 		long, natuerliche Zahl.
 	 */
 	private long erfasseN() {
-		System.out.println("n = ");
+		System.out.print("n = ");
 		return Input.nextLong();
 	}
 	
