@@ -7,13 +7,13 @@ import java.util.Arrays;
  * 
  * @author Jannik Adam
  * @author Fromm-Borys
- * @version 1.0
+ * @version 2.0
  */
 public class MathDialog {
 	/**
 	 * Scanner der die Benutzereingaben auswertet.
 	 */
-	private final Scanner Input = new Scanner(System.in);
+	private final Scanner input = new Scanner(System.in);
 	/**
 	 * Deklaration der Funktionsvariablen zum aufrufen der einzelnen
 	 * Methoden.
@@ -48,17 +48,14 @@ public class MathDialog {
 				funktion = einlesenFunktion();
 				ausfuehrenFunktion(funktion);
 			} catch (java.util.InputMismatchException e) {
-				System.out.println(e);
-				Input.next();
+				System.err.println(e);
+				input.next();
 			} catch (java.lang.ArithmeticException e) {
-				System.out.println(e);
-				Input.next();
+				System.err.println(e);
 			} catch (IllegalArgumentException e) {
-				System.out.println(e);
-				Input.next();
+				System.err.println(e);
 			} catch (RuntimeException e) {
-				System.out.println(e);
-				Input.next();
+				System.err.println(e);
 			}
 		}
 	}
@@ -71,17 +68,17 @@ public class MathDialog {
 	 */
 	private int einlesenFunktion() {
 		System.out.println("Bitte Funktion Waehlen.");
-		System.out.print(TEILER_SUMME + ": Teilersumme berechnen; "
-				+ PRUF_ZIFFER_ISBN_10 + ": ISBN-10 Pruefziffer berechnen; "
+		System.out.print(TEILER_SUMME + ": Teilersumme berechnen; \r\n"
+				+ PRUF_ZIFFER_ISBN_10 + ": ISBN-10 Pruefziffer berechnen; \r\n"
 				+ BERECHNE_NULL_STELLEN
-				+ ": Quadratische Gleichung loesen; " 
+				+ ": Quadratische Gleichung loesen; \r\n" 
 				+ BERECHNE_TRIPEL
-				+ ": Tripel berechnen; "
+				+ ": Tripel berechnen; \r\n"
 				+ BERECHNE_SUMME
-				+ ": Summe berechnen; "
+				+ ": Summe berechnen; \r\n"
 				+ ENDE
-				+ ": Beenden; ");
-		return Input.nextInt();
+				+ ": Beenden; \r\n");
+		return input.nextInt();
 	}
 
 	/**
@@ -103,7 +100,10 @@ public class MathDialog {
 					Math.berechneNullStellenEinerQuadratischenGleichung(
 							erfasseFaktorP(), erfasseSummandQ()));
 		} else if (funktion == BERECHNE_TRIPEL) {
-			System.out.println(""+(Arrays.deepToString(Math.berechneTripel(erfasseSchrankeMAX()))));
+			long[][] trippel = Math.berechneTripel(erfasseSchrankeMAX());
+			for (long[] lar : trippel) {
+				System.out.println(Arrays.toString(lar));
+			}
 		} else if (funktion == BERECHNE_SUMME) {
 			System.out.println("" + ( Math.berechneSumme ( erfasseN ( ), erfasseX ( ) ) ) );
 		} else if (funktion == ENDE) {
@@ -122,7 +122,7 @@ public class MathDialog {
 	private int erfasseTeilerSummenZahl() {
 		System.out.print("Bitte geben sie eine natuerliche Zahl ein, "
 				+ "aus der die Teilersumme berechnet werden soll. ");
-		return Input.nextInt();
+		return input.nextInt();
 	}
 
 	/**
@@ -133,7 +133,7 @@ public class MathDialog {
 	private long erfasseISBN9() {
 		System.out.print("Bitte ISBN-10 ohne Pruefziffer eingeben. "
 				+ "Fuehrende Nullen duerfen weggelassen werden. ");
-		return Input.nextLong();
+		return input.nextLong();
 	}
 
 	/**
@@ -144,7 +144,7 @@ public class MathDialog {
 	 */
 	private double erfasseFaktorP() {
 		System.out.print("p = ");
-		return Input.nextDouble();
+		return input.nextDouble();
 	}
 
 	/**
@@ -155,7 +155,7 @@ public class MathDialog {
 	 */
 	private double erfasseSummandQ() {
 		System.out.print("q = ");
-		return Input.nextDouble();
+		return input.nextDouble();
 	}
 	
 	/**
@@ -166,7 +166,7 @@ public class MathDialog {
 	 */
 	private long erfasseSchrankeMAX() {
 		System.out.print("Schranke = ");
-		return Input.nextLong();
+		return input.nextLong();
 	}
 	
 	/**
@@ -177,7 +177,7 @@ public class MathDialog {
 	 */
 	private long erfasseN() {
 		System.out.print("n = ");
-		return Input.nextLong();
+		return input.nextLong();
 	}
 	
 	/**
@@ -188,7 +188,7 @@ public class MathDialog {
 	 */
 	private double erfasseX() {
 		System.out.print("x = ");
-		return Input.nextDouble();
+		return input.nextDouble();
 	}
 
 

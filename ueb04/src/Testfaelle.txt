@@ -32,4 +32,24 @@ Methode Quadratische Gleichungen
 	Ein 0.01x -0.1		Aus (-0.32, 0) ; (0.31, 0)
 	Ein 0x -0.000000001	Aus	Komplex
 
+Methode Berechne Trippel
 
+	-- Algemeine Funktionstest
+		Ein 100 			Aus [1, 2, 3],[2, 2, 4],[4, 8, 24],[8, 8, 32]
+							,[9, 18, 81],[7, 21, 98]
+		
+	-- Eingabe Grenzwerte
+		Ein 0			Aus "Die Schranke muss eine natuerliche Zahl sein!"
+		Ein Long.max		Aus "Die Schranke muss kleiner 3037000499 sein um einen Ueberlauf zu verhindern!"
+
+Methode berechneSumme
+
+	-- Allgemeine Funktionstest
+	Ein n=1,x=1			Aus = 0.0
+	Ein n=2, x=2			Aus = 0.625
+	Ein n=13, x =7.2 	Aus = 1.9265184005255864
+	
+	--Eingabe Grenzwerte
+	Ein n=0, x=12		Aus "n muss eine natuerliche Zahl sein!"
+	Ein n=12, x=0		Aus "x darf nicht 0 sein, nicht im definitionsbereich der Funktion"
+	Ein n = 5555, x = 0.000001	Aus "Ergebniss ist nicht darstellbar"
