@@ -1,15 +1,21 @@
 #BlueJ class context
 comment0.target=MathDialog
-comment0.text=\n\ Klasse\ zum\ interaktiven\ Test\ der\ Klasse\ Math.\ Diese\ Klasse\ erlaubt\ es\ im\n\ Dialog\ die\ Methoden\ der\ Klasse\ Math\ zu\ testen.\n\ \n\ @author\ Jannik\ Adam\n\ @author\ Fromm-Borys\n\ @version\ 0.4\n
+comment0.text=\n\ Klasse\ zum\ interaktiven\ Test\ der\ Klasse\ Math.\ Diese\ Klasse\ erlaubt\ es\ im\n\ Dialog\ die\ Methoden\ der\ Klasse\ Math\ zu\ testen.\n\ \n\ @author\ Jannik\ Adam\n\ @author\ Fromm-Borys\n\ @version\ 2.0\n
 comment1.params=args
 comment1.target=void\ main(java.lang.String[])
 comment1.text=\n\ Methode,\ die\ den\ interaktiven\ Test\ startet.\n\ \n\ @param\ args\n\ \ \ \ \ \ \ \ \ \ \ \ Programmargumente,\ die\ nicht\ ausgewertet\ werden.\n
+comment10.params=
+comment10.target=long\ erfasseN()
+comment10.text=\n\ Methode,\ die\ die\ Variable\ n\ der\ Summe\ erfasst.\n\ \n\ @return\ \n\ \t\tlong,\ natuerliche\ Zahl.\n
+comment11.params=
+comment11.target=double\ erfasseX()
+comment11.text=\n\ Methode,\ die\ die\ Variable\ x\ der\ Summe\ erfasst.\n\ \n\ @return\n\ \t\tdouble,\ irgeneine\ reelle\ Zahl.\n
 comment2.params=
 comment2.target=void\ start()
 comment2.text=\n\ Methode,\ die\ die\ Funktionsvariable\ neutral\ initialisiert\ und\ auf\n\ Benutzereingaben\ wartet\ und\ diese\ auswertet.\ Sowie\ Excpetions\ fangt\n\ und\ ausgibt\ damit\ diese\ nicht\ die\ Methode\ beenden.\n
 comment3.params=
 comment3.target=int\ einlesenFunktion()
-comment3.text=\n\ Methode,\ die\ dem\ Benutzer\ die\ Funktionsvariablen\ auflistet\ und\n\ anschlie\uFFFDend\ die\ Benutzereingabe\ der\ Funktonsvariable\ einliest.\n\ \n\ @return\ int,\ vom\ Nutzer\ gewahlte\ Funktionvariable.\n
+comment3.text=\n\ Methode,\ die\ dem\ Benutzer\ die\ Funktionsvariablen\ auflistet\ und\n\ anschlie\u00EF\u00BF\u00BDend\ die\ Benutzereingabe\ der\ Funktonsvariable\ einliest.\n\ \n\ @return\ int,\ vom\ Nutzer\ gewahlte\ Funktionvariable.\n
 comment4.params=funktion
 comment4.target=void\ ausfuehrenFunktion(int)
 comment4.text=\n\ Methode,\ die\ die\ Funktionsvariable\ auswertet\ und\ die\ entsprechende\n\ Methode\ aufruft.\n\ \n\ @param\ funktion\n\ \ \ \ \ \ \ \ \ \ \ \ int,\ Funktionsvariable\n
@@ -25,4 +31,7 @@ comment7.text=\n\ Methode,\ die\ die\ Variable\ p\ einer\ quadratischen\ Funktio
 comment8.params=
 comment8.target=double\ erfasseSummandQ()
 comment8.text=\n\ Methode,\ die\ die\ Variable\ q\ einer\ quadratischen\ Funktion\ der\ Form\n\ F(x)\=x^2+px+q\ einliest.\n\ \n\ @return\ double,\ reelle\ Zahl\n
-numComments=9
+comment9.params=
+comment9.target=long\ erfasseSchrankeMAX()
+comment9.text=\n\ Methode,\ die\ die\ schrankeMAX\ erfasst.\n\ \n\ @return\ \n\ \t\tlong,\ natuerliche\ Zahl.\n
+numComments=12
