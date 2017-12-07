@@ -1,0 +1,93 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>omega1001.private_applications</groupId>
+	<artifactId>blueJProjectBuilder-plugin</artifactId>
+	<version>1.0.0</version>
+	<packaging>maven-plugin</packaging>
+	<name>BlueJ Project Builder Maven Plugin</name>
+	
+	<scm>
+		<connection>scm:git:ssh://jannik@192.168.2.126/home/git/repos/private.git</connection>
+		<developerConnection>scm:git:ssh://jannik@192.168.2.126/home/git/repos/private.git</developerConnection>
+  </scm>
+	<distributionManagement>
+		<repository>
+			<id>OmegaRepo</id>
+			<name>Omega Repository</name>
+			<url>http://sonic:8081/nexus/content/repositories/OmegaRepo/</url>
+		</repository>
+		<snapshotRepository>
+			<id>OmegaRepo</id>
+			<name>Omega Repository</name>
+			<url>http://sonic:8081/nexus/content/repositories/OmegaDevRepo/</url>
+		</snapshotRepository>
+	</distributionManagement>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.apache.maven</groupId>
+			<artifactId>maven-plugin-api</artifactId>
+			<version>3.0</version>
+		</dependency>
+		<!-- dependencies to annotations -->
+		<dependency>
+			<groupId>org.apache.maven.plugin-tools</groupId>
+			<artifactId>maven-plugin-annotations</artifactId>
+			<version>3.4</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>2.4</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.freemarker/freemarker -->
+		<dependency>
+			<groupId>org.freemarker</groupId>
+			<artifactId>freemarker</artifactId>
+			<version>2.3.20</version>
+		</dependency>
+	</dependencies>
+	
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.7</source>
+					<target>1.7</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>versions-maven-plugin</artifactId>
+				<version>2.1</version>
+			</plugin>
+			<plugin>
+				<artifactId>maven-scm-plugin</artifactId>
+				<version>1.8.1</version>
+				<configuration>
+					<tag>${project.artifactId}-${project.version}</tag>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-release-plugin</artifactId>
+				<version>2.5.2</version>
+				<dependencies>
+					<dependency>
+						<groupId>org.apache.maven.scm</groupId>
+						<artifactId>maven-scm-provider-gitexe</artifactId>
+						<version>1.8.1</version>
+					</dependency>
+				</dependencies>
+				<configuration>
+					<autoVersionSubmodules>true</autoVersionSubmodules>
+					<localCheckout>true</localCheckout>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>
