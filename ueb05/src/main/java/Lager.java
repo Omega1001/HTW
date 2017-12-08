@@ -9,8 +9,9 @@ import java.util.NoSuchElementException;
  * @author Jannik Adam
  * @author Fromm-Borys
  * @version 1.0
+ *
  */
-public class Lager implements Iterable<Artikel>{
+public class Lager implements Iterable<Artikel> {
 
 	private static final int MIN_DIMENSION = 1;
 	private static final int MAX_DIMENSION = 9000;// 1000-9999 sind valide
@@ -22,13 +23,23 @@ public class Lager implements Iterable<Artikel>{
 	private int artikelAnzahl;
 
 	/**
-	 * Konstruktor fuer ein Lager Objekt.<br>
-	 * 
-	 * Erstellt ein Array zur Auflistung von Artikel Objekten.
+	 * Konstruktor fuer ein Lager Objekt.
 	 * <p>
+	 * 
+	 * Erstellt ein Array zur Auflistung von Artikel Objekten.<br>
+	 * Diese erstellte Instanz kann dimension viele {@link Artikel} Objecte
+	 * aufnehmen
+	 * <p>
+	 * 
+	 * Die dimension muss größer als 0 und kleiner oder gleich 9000
+	 * sein.<br>
+	 * Wird die dimension ausserhalb dieses Raumes gewählt, wird eine
+	 * {@link IllegalArgumentException} geworfen.
 	 * 
 	 * @param dimension
 	 *            gibt die Dimension des zu erstellenden Feldes an.
+	 * @throws IllegalArgumentException
+	 *             wenn die Dimension zu klein oder zu groß gewählt wird
 	 */
 	public Lager(int dimension) {
 		if (dimension < MIN_DIMENSION || dimension > MAX_DIMENSION) {
@@ -44,6 +55,11 @@ public class Lager implements Iterable<Artikel>{
 	/**
 	 * Konstruktor fuer ein Lager Object dass die maximale Anzahl an
 	 * Artikel Objekten speichern kann.
+	 * <p>
+	 * Diese Mehode verhaelt sich genau wie {@link #Lager(int)} mit
+	 * MAX_DIMENSION als parameter
+	 * 
+	 * @see #Lager(int)
 	 */
 	public Lager() {
 		this(MAX_DIMENSION);
@@ -61,6 +77,9 @@ public class Lager implements Iterable<Artikel>{
 	 *            Artikelmenge des zu erfassenden Artikels.
 	 */
 	public void lagereArtikel(Artikel artikel) {
+		if (artikelAnzahl >= lagerFeld.length) {
+			throw new IllegalArgumentException("Lager bereits voll");
+		}
 		this.lagerFeld[artikelAnzahl] = artikel;
 		artikelAnzahl++;
 	}
@@ -72,8 +91,11 @@ public class Lager implements Iterable<Artikel>{
 	 * 
 	 * @param artNr
 	 *            Einzugebende Nummer des zu loeschenden Artikels.
+	 * @throws NoSuchElementException
+	 *             wenn das angegebene Element nicht in diesem Lager
+	 *             existiert
 	 */
-	public void loescheArtikel(int artNr) {
+	public void loescheArtikel(int artNr) throws NoSuchElementException {
 		this.lagerFeld[findeArtikelIndex(artNr)] =
 				this.lagerFeld[artikelAnzahl - 1];
 		this.lagerFeld[artikelAnzahl - 1] = null;
@@ -88,8 +110,12 @@ public class Lager implements Iterable<Artikel>{
 	 *            Einzugebende Nummer des Artikels der Zugang verzeichnet.
 	 * @param zugang
 	 *            Einzugebende Menge des Zugangs.
+	 * @throws NoSuchElementException
+	 *             wenn das angegebene Element nicht in diesem Lager
+	 *             existiert
 	 */
-	public void bucheZugang(int artNr, int zugang) {
+	public void bucheZugang(int artNr, int zugang)
+			throws NoSuchElementException {
 		findeArtikel(artNr).bucheZugang(zugang);
 	}
 
@@ -101,35 +127,60 @@ public class Lager implements Iterable<Artikel>{
 	 *            Einzugebende Nummer des Artikels der Abgang verzeichnet.
 	 * @param zugang
 	 *            Einzugebende Menge des Abgangs.
+	 * @throws NoSuchElementException
+	 *             wenn das angegebene Element nicht in diesem Lager
+	 *             existiert
 	 */
-	public void buchAbgang(int artNr, int abgang) {
+	public void buchAbgang(int artNr, int abgang)
+			throws IllegalArgumentException {
 		findeArtikel(artNr).bucheAbgang(abgang);
 	}
 
 	/**
-	 * Methode zum Anpassen aller Preise um einen bestimmten Prozentsatz.
+	 * Methode zum Anpassen aller Preise um einen bestimmten
+	 * Prozentsatz.<br>
+	 * Sowohl positive, als auch negative prozentsaetze sind erlaubt
+	 * <p>
+	 * 
+	 * Ein Preisnachlasss von 100% oder mehr ist jedoch nicht erlaubt<br>
 	 * <p>
 	 * 
 	 * @param prozent
 	 *            Einzugebender Prozenwert.
+	 * @throws NoSuchElementException
+	 *             wenn das angegebene Element nicht in diesem Lager
+	 *             existiert
 	 */
-	public void passePreiseAn(double prozent) {
+	public void passePreiseAn(double prozent)
+			throws IllegalArgumentException {
 		if (prozent <= MIN_PROZENT) {
 			throw new IllegalArgumentException(
 					"Der Prozentwert muss grosser als -100% sein!");
 		}
-		 prozent = 1 + (prozent / 100);
+		prozent = 1 + (prozent / 100);
 		for (Artikel art : this) {
 			art.setPreis(art.getPreis() * prozent);
 		}
 	}
 
-	private Artikel findeArtikel(int artNr) throws NoSuchElementException {
+	/**
+	 * Methode, die ein Artikel Object anhand seiner Artikelnummer zurrück
+	 * gibt.<br>
+	 * Sollte es meh als einen Artikel mit der selben Nummer geben, wird
+	 * hier jeweils der 1. zurrückgegeben.
+	 * 
+	 * @param artNr
+	 *            Nummer des zu holenden Artikel
+	 * @return der Artikel mit der übergebenen Artikelnummer
+	 * @throws NoSuchElementException
+	 * 	 wenn kein Element mit nummer nummer existiert
+	 */
+	public Artikel findeArtikel(int artNr) throws NoSuchElementException {
 		return lagerFeld[findeArtikelIndex(artNr)];
 	}
 
 	/**
-	 * Methode zum ermitteln des Wertes eines bestimmten Artikels im Lager.
+	 * Methode zum ermitteln des Index eines bestimmten Artikels im Lager.
 	 * <p>
 	 * 
 	 * @param artNr
@@ -148,7 +199,9 @@ public class Lager implements Iterable<Artikel>{
 		throw new NoSuchElementException(String.valueOf(artNr));
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
@@ -168,18 +221,19 @@ public class Lager implements Iterable<Artikel>{
 	public Iterator<Artikel> iterator() {
 		return new Iterator<Artikel>() {
 			private Artikel next = null;
-			private int position = 0;
-			
+			private int position = -1;
+
 			@Override
 			public boolean hasNext() {
-				if(next != null) {
+				if (next != null) {
 					return true;
-				}else {
-					position ++;
-					if(lagerFeld.length < position && lagerFeld[position] != null) {
+				} else {
+					position++;
+					if (position < lagerFeld.length
+							&& lagerFeld[position] != null) {
 						next = lagerFeld[position];
 						return true;
-					}else {
+					} else {
 						return false;
 					}
 				}
@@ -187,18 +241,17 @@ public class Lager implements Iterable<Artikel>{
 
 			@Override
 			public Artikel next() {
-				if(next != null) {
+				if (next != null) {
 					Artikel art = next;
 					next = null;
 					return art;
-				}else if(hasNext()){
+				} else if (hasNext()) {
 					return next();
-				}else {
+				} else {
 					throw new NoSuchElementException();
 				}
 			}
 		};
 	}
-	
-	
+
 }
