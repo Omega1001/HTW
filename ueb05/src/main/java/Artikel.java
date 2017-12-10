@@ -94,6 +94,26 @@ public class Artikel {
 	public Artikel(int artikelNummer, String artikelBezeichnung) {
 		this(artikelNummer, artikelBezeichnung, 0);
 	}
+	
+	/**
+	 * Konstruktor fuer ein Artikel Objekt<br>
+	 * Erstellt einen neuen Arktikel mit einer Artikelnummer, einem Namen
+	 * und einem Anfangsbestand von 0 und einem preis.
+	 * <p>
+	 * 
+	 * Weitere Informationen finden Sie hier
+	 * {@link #Artikel(int, String, int, double)}
+	 * 
+	 * @param artikelNummer
+	 *            4-stellige Artikelnummer
+	 * @param artikelBezeichnung
+	 *            Anzeigename des Artikels
+	 * @see #Artikel(int, String, int)
+	 * 
+	 */
+	public Artikel(int artikelNummer, String artikelBezeichnung, double preis) {
+		this(artikelNummer, artikelBezeichnung, 0, preis);
+	}
 
 	/**
 	 * Methode um den aktuellen Status eines Objekt von Typ {@link Artikel}
@@ -103,7 +123,8 @@ public class Artikel {
 	 */
 	public String toString() {
 		return "Artikel: " + artikelNummer + ", Bezeichnung: "
-				+ artikelBezeichnung + ", Bestand: " + artikelBestand;
+				+ artikelBezeichnung + ", Bestand: " + artikelBestand
+				+ " Preis: " + preis;
 	}
 
 	/**
@@ -166,6 +187,9 @@ public class Artikel {
 		if (preis <= 0) {
 			throw new IllegalArgumentException(
 					"Der preis darf nicht 0 oder kleiner sein");
+		}if (preis == Double.POSITIVE_INFINITY) {
+				throw new IllegalArgumentException(
+						"Der preis darf nicht unendlich werden");
 		}
 		// Runde kaufmänisch korrekt
 		this.preis = Math.ceil(preis * 100d) / 100d;

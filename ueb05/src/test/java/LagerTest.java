@@ -55,7 +55,7 @@ public class LagerTest {
 	}
 
 	@Test
-	public void testBuchAbgang() {
+	public void testBucheAbgang() {
 		fail("Not yet implemented");
 	}
 

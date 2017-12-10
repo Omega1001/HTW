@@ -31,7 +31,7 @@ public class Lager implements Iterable<Artikel> {
 	 * aufnehmen
 	 * <p>
 	 * 
-	 * Die dimension muss größer als 0 und kleiner oder gleich 9000
+	 * Die dimension muss groesser als 0 und kleiner oder gleich 9000
 	 * sein.<br>
 	 * Wird die dimension ausserhalb dieses Raumes gewählt, wird eine
 	 * {@link IllegalArgumentException} geworfen.
@@ -78,7 +78,7 @@ public class Lager implements Iterable<Artikel> {
 	 */
 	public void lagereArtikel(Artikel artikel) {
 		if (artikelAnzahl >= lagerFeld.length) {
-			throw new IllegalArgumentException("Lager bereits voll");
+			throw new IllegalArgumentException("Lager ist bereits voll!");
 		}
 		this.lagerFeld[artikelAnzahl] = artikel;
 		artikelAnzahl++;
@@ -131,11 +131,10 @@ public class Lager implements Iterable<Artikel> {
 	 *             wenn das angegebene Element nicht in diesem Lager
 	 *             existiert
 	 */
-	public void buchAbgang(int artNr, int abgang)
+	public void bucheAbgang(int artNr, int abgang)
 			throws IllegalArgumentException {
 		findeArtikel(artNr).bucheAbgang(abgang);
 	}
-
 	/**
 	 * Methode zum Anpassen aller Preise um einen bestimmten
 	 * Prozentsatz.<br>
@@ -159,7 +158,11 @@ public class Lager implements Iterable<Artikel> {
 		}
 		prozent = 1 + (prozent / 100);
 		for (Artikel art : this) {
-			art.setPreis(art.getPreis() * prozent);
+			double neuPreis =(art.getPreis() * prozent);
+			if(Double.isInfinite(neuPreis)) {// Warum funktioniert das nicht?
+				throw new ArithmeticException
+					("Das w�re absoluter Wucher bei Artiekl" + art.getArtikelNummer() + "!");
+			}art.setPreis(neuPreis);
 		}
 	}
 
@@ -167,11 +170,11 @@ public class Lager implements Iterable<Artikel> {
 	 * Methode, die ein Artikel Object anhand seiner Artikelnummer zurrück
 	 * gibt.<br>
 	 * Sollte es meh als einen Artikel mit der selben Nummer geben, wird
-	 * hier jeweils der 1. zurrückgegeben.
+	 * hier jeweils der 1. zurrueckgegeben.
 	 * 
 	 * @param artNr
 	 *            Nummer des zu holenden Artikel
-	 * @return der Artikel mit der übergebenen Artikelnummer
+	 * @return der Artikel mit der uebergebenen Artikelnummer
 	 * @throws NoSuchElementException
 	 * 	 wenn kein Element mit nummer nummer existiert
 	 */
@@ -196,7 +199,15 @@ public class Lager implements Iterable<Artikel> {
 				return feld;
 			}
 		}
-		throw new NoSuchElementException(String.valueOf(artNr));
+		throw new NoSuchElementException("Der Artikel Nummer " + artNr + " ist nicht vorhanden!");
+	}
+	/**
+	 * Gibt die Anzahl der gelagerten Artikel zurueck.
+	 * 
+	 * @return die Artrikelanzahl 
+	 */
+	public int getArtikelAnzahl() {
+		return artikelAnzahl;
 	}
 
 	/*
@@ -207,13 +218,13 @@ public class Lager implements Iterable<Artikel> {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("Lager [artikelAnzahl=");
-		builder.append(artikelAnzahl);
-		builder.append(", lagerFeld=[\r\n");
+		builder.append("Lager \r\nAnzahl der Artikel: ");
+		builder.append(artikelAnzahl + "\r\n");
+		builder.append("Gelagerte Artikel:\r\n");
 		for (Artikel art : this) {
 			builder.append(art).append("\r\n");
 		}
-		builder.append("]]");
+		builder.append("");
 		return builder.toString();
 	}
 
