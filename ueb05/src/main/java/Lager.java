@@ -33,13 +33,13 @@ public class Lager implements Iterable<Artikel> {
 	 * 
 	 * Die dimension muss groesser als 0 und kleiner oder gleich 9000
 	 * sein.<br>
-	 * Wird die dimension ausserhalb dieses Raumes gewählt, wird eine
+	 * Wird die dimension ausserhalb dieses Raumes gewaehlt, wird eine
 	 * {@link IllegalArgumentException} geworfen.
 	 * 
 	 * @param dimension
 	 *            gibt die Dimension des zu erstellenden Feldes an.
 	 * @throws IllegalArgumentException
-	 *             wenn die Dimension zu klein oder zu groß gewählt wird
+	 *             wenn die Dimension zu klein oder zu groess gewaehlt wird
 	 */
 	public Lager(int dimension) {
 		if (dimension < MIN_DIMENSION || dimension > MAX_DIMENSION) {
@@ -80,6 +80,9 @@ public class Lager implements Iterable<Artikel> {
 		if (artikelAnzahl >= lagerFeld.length) {
 			throw new IllegalArgumentException("Lager ist bereits voll!");
 		}
+		//if ((findeArtikelIndex(artikel.getArtikelNummer())) == NoSuchElementException) {// brauchte hier die entfernte -1 aus dem findeArtikelIndex
+		//	throw new IllegalArgumentException("Artikelnummer ist bereits vergeben!");
+		//}
 		this.lagerFeld[artikelAnzahl] = artikel;
 		artikelAnzahl++;
 	}
@@ -158,12 +161,8 @@ public class Lager implements Iterable<Artikel> {
 		}
 		prozent = 1 + (prozent / 100);
 		for (Artikel art : this) {
-			double neuPreis =(art.getPreis() * prozent);
-			if(Double.isInfinite(neuPreis)) {// Warum funktioniert das nicht?
-				throw new ArithmeticException
-					("Das w�re absoluter Wucher bei Artiekl" + art.getArtikelNummer() + "!");
-			}art.setPreis(neuPreis);
-		}
+			art.setPreis((art.getPreis() * prozent));
+			}
 	}
 
 	/**

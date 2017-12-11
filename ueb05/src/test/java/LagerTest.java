@@ -2,6 +2,7 @@ import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 import org.junit.After;
 import org.junit.Before;
@@ -31,32 +32,99 @@ public class LagerTest {
 
 	@Test
 	public void testLagerInt() {
-		fail("Not yet implemented");
+		Lager lager = new Lager(1);
+		lager.lagereArtikel(mockArtikel01);
+		assertEquals(1,(lager).getArtikelAnzahl());
+	}
+	
+	@Test(expected = IllegalArgumentException.class)
+	public void testLagerInt2() {
+		Lager lager = new Lager(1);
+		lager.lagereArtikel(mockArtikel01);
+		lager.lagereArtikel(mockArtikel02);
+	
 	}
 
 	@Test
 	public void testLager() {
-		fail("Not yet implemented");
+		Lager lager = new Lager();
+		for(int i=0; i<9000;i++) {
+		lager.lagereArtikel(mockArtikel01);
+		}
+		assertEquals(9000,(lager).getArtikelAnzahl());
+	}
+	
+	@Test(expected = IllegalArgumentException.class)
+	public void testLager2() {
+		Lager lager = new Lager();
+		for(int i=0; i<9001;i++) {
+		lager.lagereArtikel(mockArtikel01);
+		}
 	}
 
 	@Test
 	public void testLagereArtikel() {
-		fail("Not yet implemented");
+		int vorher = underTest.getArtikelAnzahl();
+		underTest.lagereArtikel(mockArtikel01);
+		assertEquals((vorher + 1), underTest.getArtikelAnzahl());
+	}
+	
+	@Test (expected = IllegalArgumentException.class)
+	public void testLagereArtikel2() {
+		underTest.lagereArtikel(mockArtikel01);
+		underTest.lagereArtikel(mockArtikel01);
+	}
+	
+	@Test (expected = IllegalArgumentException.class)
+	public void testLagereArtikel3() {
+		when(mockArtikel01.getArtikelNummer()).thenReturn(1111);
+		underTest.lagereArtikel(mockArtikel01);
 	}
 
 	@Test
 	public void testLoescheArtikel() {
-		fail("Not yet implemented");
+		when(mockArtikel01.getArtikelNummer()).thenReturn(1111);
+		int vorher = underTest.getArtikelAnzahl();
+		underTest.loescheArtikel(1111);
+		assertEquals((vorher - 1), underTest.getArtikelAnzahl());
+		
+	}
+	
+	@Test (expected = NoSuchElementException.class)
+	public void testLoescheArtikel2() {
+		when(mockArtikel01.getArtikelNummer()).thenReturn(1111);
+		when(mockArtikel02.getArtikelNummer()).thenReturn(2222);
+		underTest.loescheArtikel(3333);
+		
 	}
 
 	@Test
 	public void testBucheZugang() {
-		fail("Not yet implemented");
+		when(mockArtikel01.getArtikelNummer()).thenReturn(1111);
+		when(mockArtikel01.getArtikelBestand()).thenReturn(10);// Diese Zeile #$@&%*! mich so hart!!!
+		underTest.bucheZugang(1111,10);
+		assertEquals((20), mockArtikel01.getArtikelBestand());
 	}
+	
+	@Test (expected = NoSuchElementException.class)
+	public void testBucheZugang2() {
+		when(mockArtikel01.getArtikelNummer()).thenReturn(1111);
+		underTest.bucheZugang(2222,10);
+	}
+
 
 	@Test
 	public void testBucheAbgang() {
-		fail("Not yet implemented");
+		when(mockArtikel01.getArtikelNummer()).thenReturn(1111);
+		when(mockArtikel01.getArtikelBestand()).thenReturn(10);// Diese Zeile #$@&%*! mich so hart!!!
+		underTest.bucheAbgang(1111,10);
+		assertEquals((0), mockArtikel01.getArtikelBestand());
+	}
+	
+	@Test (expected = NoSuchElementException.class)
+	public void testBucheAbgang2() {
+		when(mockArtikel01.getArtikelNummer()).thenReturn(1111);
+		underTest.bucheAbgang(2222,10);
 	}
 
 	@Test

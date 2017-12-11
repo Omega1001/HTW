@@ -187,9 +187,6 @@ public class Artikel {
 		if (preis <= 0) {
 			throw new IllegalArgumentException(
 					"Der preis darf nicht 0 oder kleiner sein");
-		}if (preis == Double.POSITIVE_INFINITY) {
-				throw new IllegalArgumentException(
-						"Der preis darf nicht unendlich werden");
 		}
 		// Runde kaufmänisch korrekt
 		this.preis = Math.ceil(preis * 100d) / 100d;

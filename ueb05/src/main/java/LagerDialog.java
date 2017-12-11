@@ -100,7 +100,7 @@ public class LagerDialog {
 	 * @param out
 	 *            Ausgabequelle fuer Ergebnisse
 	 * @param error
-	 *            Ausgabequelle für Fehler
+	 *            Ausgabequelle fuer Fehler
 	 * @throws IllegalArgumentException
 	 *             wenn der uebergebene Ein- oder Ausgabe-Stream null ist
 	 */
@@ -192,7 +192,9 @@ public class LagerDialog {
 		selected = getInt();
 		if (selected == BEENDEN) {
 			return true;
-		} else if (selected == ERZEUGEN) {
+		}else if (lager != null && (selected == ERZEUGEN || selected == ERZEUGEN_MAX)) {
+			throw new UnsupportedOperationException("Es existiert bereits ein Lager!");
+		}else if (selected == ERZEUGEN) {
 			OUT.print("Bitte Lagergroeoee bestimmen. > ");
 			lager = new Lager(getInt());
 			OUT.println("Lager wurde erzeugt.");
@@ -376,11 +378,11 @@ public class LagerDialog {
 		OUT.println("Bitte waehlen Sie eine Opperation aus:");
 		StringBuilder sb = new StringBuilder();
 		appandOperation(sb, ERZEUGEN, "Lager erzeugen");
-		appandOperation(sb, ERZEUGEN_MAX, "Lager mit Maximalgröße erzeugen");
+		appandOperation(sb, ERZEUGEN_MAX, "Lager mit Maximalgroesse erzeugen");
 		appandOperation(sb, EINLAGERN, "Artikel einlagern");
 		appandOperation(sb, LOESCHEN, "Artikel entfernen");
 		appandOperation(sb, ZUGANG, "Zugang zu Artikel Buchen");
-		appandOperation(sb, ABGANG, "Abgang für Artikel Buchen");
+		appandOperation(sb, ABGANG, "Abgang fuer Artikel Buchen");
 		appandOperation(sb, PREISAENDERUNG, "Preis Anpassen");
 		appandOperation(sb, BEENDEN, "Beenden");
 		
