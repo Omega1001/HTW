@@ -161,7 +161,7 @@ public class Lager implements Iterable<Artikel> {
 			double neuPreis =(art.getPreis() * prozent);
 			if(Double.isInfinite(neuPreis)) {// Warum funktioniert das nicht?
 				throw new ArithmeticException
-					("Das wäre absoluter Wucher bei Artiekl" + art.getArtikelNummer() + "!");
+					("Das wï¿½re absoluter Wucher bei Artiekl" + art.getArtikelNummer() + "!");
 			}art.setPreis(neuPreis);
 		}
 	}
@@ -218,13 +218,13 @@ public class Lager implements Iterable<Artikel> {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("Lager \r\nAnzahl der Artikel: ");
-		builder.append(artikelAnzahl + "\r\n");
-		builder.append("Gelagerte Artikel:\r\n");
+		builder.append("Lager[ \r\n\tAnzahl der Artikel: ");
+		builder.append(artikelAnzahl + "\r\n\t");
+		builder.append("Gelagerte Artikel:[");
 		for (Artikel art : this) {
-			builder.append(art).append("\r\n");
+			builder.append("\r\n\t\t").append(art);
 		}
-		builder.append("");
+		builder.append("]\r\n]");
 		return builder.toString();
 	}
 

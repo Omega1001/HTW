@@ -5,7 +5,8 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 /**
- * Textbasierte Klasse zum verwenden von Lager-Objekten<p>
+ * Textbasierte Klasse zum verwenden von Lager-Objekten
+ * <p>
  * 
  * @author Jannik Adam
  * @author Fromm-Borys
@@ -20,18 +21,22 @@ public class LagerDialog {
 	private static final int ZUGANG = 5;
 	private static final int ABGANG = 6;
 	private static final int PREISAENDERUNG = 7;
-	
+	private static final int ARTIKEL_WAEHLEN = 8;
+
 	private static final int ARTIKEL_ANLEGEN_GANZ = 1;
 	private static final int ARTIKEL_ANLEGEN_OHNE_BESTAND = 2;
 	private static final int ARTIKEL_ANLEGEN_MIT_STANDART_PREIS = 3;
-	private static final int ARTIKEL_ANLEGEN_OHNE_BESTAND_MIT_STANDART_PREIS = 4;
-	
-	private final Scanner IN;
+	private static final int ARTIKEL_ANLEGEN_OHNE_BESTAND_MIT_STANDART_PREIS =
+			4;
+
+	private final Scanner IN_SCANNER;
+	private final InputStream IN;
+	private final PrintStream ERROR;
 	private final PrintStream OUT;
 
 	private Lager lager;
 	private Artikel artikel;
-	
+
 	/**
 	 * Methode um das Interaktive Programm zu starten<br>
 	 * Als Input wird die Standardeingabe benutzt<br>
@@ -55,8 +60,9 @@ public class LagerDialog {
 	 * Es wird zu Beginn kein Objekt angelegt<br>
 	 */
 	public LagerDialog() {
-		this(null, System.in, System.out);
+		this(null, System.in, System.out, System.err);
 	}
+
 	/**
 	 * Konstruktor fuer einen Lager Dialog<br>
 	 * Dieser Konstruktor erschafft ein neues, interaktive Dialogobjekt zur
@@ -72,12 +78,20 @@ public class LagerDialog {
 	 * Es muss ausserdem ein {@link InputStream} uebergeben werden, von dem
 	 * Eingaben gelesen werden<br>
 	 * Ist der uebergebene {@link InputStream} null, so wird eine
-	 * {@link IllegalArgumentException} geworfen<br>
+	 * {@link IllegalArgumentException} geworfen
+	 * <p>
 	 * 
 	 * Es muss ausserdem ein {@link PrintStream} uebergeben werden, auf dem
 	 * die Ausgabe erfolgt<br>
 	 * Ist der uebergebene {@link PrintStream} null, so wird eine
 	 * {@link IllegalArgumentException} geworfen
+	 * <p>
+	 * 
+	 * Es kann ausserdem ein {@link PrintStream} uebergeben werden, auf dem
+	 * die Fehler ausgegeben werden<br>
+	 * Ist der uebergebene {@link PrintStream} null, so werden Fehler auf
+	 * dem {@link #OUT} stream ausgegeben.
+	 * <p>
 	 * 
 	 * @param lager
 	 *            Lager, das durch den Dialog bearbeitbar werden soll
@@ -85,10 +99,13 @@ public class LagerDialog {
 	 *            Eingabequelle, von der gelesen wird
 	 * @param out
 	 *            Ausgabequelle fuer Ergebnisse
+	 * @param error
+	 *            Ausgabequelle für Fehler
 	 * @throws IllegalArgumentException
 	 *             wenn der uebergebene Ein- oder Ausgabe-Stream null ist
 	 */
-	public LagerDialog(Lager lager, InputStream in, PrintStream out) {
+	public LagerDialog(Lager lager, InputStream in, PrintStream out,
+			PrintStream err) {
 		if (in == null) {
 			throw new IllegalArgumentException(
 					"Eingabestrom darf nicht null sein");
@@ -97,10 +114,16 @@ public class LagerDialog {
 			throw new IllegalArgumentException(
 					"Ausgabestrom darf nicht null sein");
 		}
-		this.IN = new Scanner(in);
+		if (err == null) {
+			err = out;
+		}
+		this.IN = in;
+		this.IN_SCANNER = new Scanner(in);
 		this.lager = lager;
 		this.OUT = out;
+		this.ERROR = err;
 	}
+
 	/**
 	 * Methode, die dieses Object in den Leesezyklus versetzt<br>
 	 * Diese Methode blockiert den aufrufenden Thread, bis die Interaktion
@@ -130,9 +153,10 @@ public class LagerDialog {
 	 *            Zu behandelnder Fehler
 	 */
 	private void processException(Throwable ex) {
-		OUT.println(ex.getMessage());
-		IN.nextLine();
+		ERROR.println(ex.getMessage());
+		IN_SCANNER.nextLine();
 	}
+
 	/**
 	 * Diese Methode gibt zunaechst den aktuellen Status des gemanagten
 	 * Objekts aus. <br>
@@ -143,8 +167,8 @@ public class LagerDialog {
 	 * Kann die Zahl keiner Aktion zugeordnet werden, so wird eine
 	 * {@link UnsupportedOperationException} geworfen
 	 * <p>
-	 * Abgesehen von der "Erzeugen"- bzw. "Ende"-Opperation, muss ein Objekt
-	 * vorhanden sein, bevor eine andere Methode aufgerufen werden
+	 * Abgesehen von der "Erzeugen"- bzw. "Ende"-Opperation, muss ein
+	 * Objekt vorhanden sein, bevor eine andere Methode aufgerufen werden
 	 * darf.<br>
 	 * Wird versucht eine Methode mit Ausnahme der genannten aufzurufen, so
 	 * wird eine {@link UnsupportedOperationException} geworfen
@@ -169,84 +193,47 @@ public class LagerDialog {
 		if (selected == BEENDEN) {
 			return true;
 		} else if (selected == ERZEUGEN) {
-			OUT.print("Bitte Lagergroe�e bestimmen. > ");
-				lager = new Lager(getInt());
-				OUT.println("Lager wurde erzeugt.");
-		} else if (selected == ERZEUGEN_MAX){
-				lager = new Lager();
-				OUT.println("Lager wurde erzeugt.");
-		}else if (lager != null) {
-				if (selected == EINLAGERN) {
-					OUT.print("Wie m�chten sie den Artikel anlegen?\r\n");
-					OUT.print(ARTIKEL_ANLEGEN_GANZ + ": Ganz\r\n" +
-							+ ARTIKEL_ANLEGEN_OHNE_BESTAND + ": Ohne Bestand\r\n"
-							+ ARTIKEL_ANLEGEN_MIT_STANDART_PREIS+ ": Mit Standardpreis\r\n"
-							+ ARTIKEL_ANLEGEN_OHNE_BESTAND_MIT_STANDART_PREIS
-							+ ": Ohne Bestand und mit Standardpreis\r\n");
-					int wahl = getInt();//Da ganzer Artikel es mittschleppen muss.
-						if(wahl < ARTIKEL_ANLEGEN_GANZ 
-							|| wahl > ARTIKEL_ANLEGEN_OHNE_BESTAND_MIT_STANDART_PREIS) {
-							throw new IllegalArgumentException 
-								("Eingabe muss den Optionen entsprechen!");
-						}
-						OUT.print("Bitte geben Sie eine 4-stellige Artikelnummer ein > ");
-						int artNr = getInt();
-						OUT.print("Bitte geben Sie eine Artikelbezeichnung ein > ");
-						String artBez = getLine();
-						if (wahl == ARTIKEL_ANLEGEN_OHNE_BESTAND_MIT_STANDART_PREIS) {
-							artikel= new Artikel(artNr, artBez);
-						}
-						if(wahl == ARTIKEL_ANLEGEN_GANZ
-							|| wahl == ARTIKEL_ANLEGEN_OHNE_BESTAND
-							|| wahl == ARTIKEL_ANLEGEN_MIT_STANDART_PREIS) {
-							int artMenge = 0;
-								if(wahl == ARTIKEL_ANLEGEN_GANZ
-									|| wahl == ARTIKEL_ANLEGEN_MIT_STANDART_PREIS) {
-									OUT.print("Bitte geben sie eine Startmenge ein > ");
-									artMenge = getInt();
-									if(wahl == ARTIKEL_ANLEGEN_MIT_STANDART_PREIS) {
-										artikel = new Artikel (artNr, artBez, artMenge);
-									}
-								}
-								if(wahl == ARTIKEL_ANLEGEN_GANZ
-										|| wahl == ARTIKEL_ANLEGEN_OHNE_BESTAND) {
-								OUT.print("Bitte geben sie einen Startpreis ein > ");
-								double preis = getDouble();
-									if(wahl == ARTIKEL_ANLEGEN_GANZ) {
-										artikel = new Artikel (artNr, artBez, artMenge, preis);
-									}
-									if(wahl == ARTIKEL_ANLEGEN_OHNE_BESTAND) {
-										artikel = new Artikel (artNr, artBez, preis);
-									}
-								}
-						}
-					lager.lagereArtikel(artikel);
-				}else if(lager.getArtikelAnzahl() > 0) {
-				 if (selected == LOESCHEN) {
-					OUT.print("Geben Sie die Artikelnummer des zu loeschenden Artikels ein:");
-					lager.loescheArtikel(getInt());
+			OUT.print("Bitte Lagergroeoee bestimmen. > ");
+			lager = new Lager(getInt());
+			OUT.println("Lager wurde erzeugt.");
+		} else if (selected == ERZEUGEN_MAX) {
+			lager = new Lager();
+			OUT.println("Lager wurde erzeugt.");
+		} else if (lager != null) {
+			if (selected == EINLAGERN) {
+				createAndStoreArtikel();
+			} else if (lager.getArtikelAnzahl() > 0) {
+				if (selected == LOESCHEN) {
+					lager.loescheArtikel(getArtikelNummer());
 				} else if (selected == ZUGANG) {
-					OUT.print("Geben Sie die Artikelnummer des zugegangen Artikels ein:");
-					int artNr = getInt();
+					int artNr = getArtikelNummer();
 					OUT.print("Geben Sie die zugegangene Menge ein:");
 					lager.bucheZugang(artNr, getInt());
 				} else if (selected == ABGANG) {
-					OUT.print("Geben Sie die Artikelnummer des abgegangen Artikels ein:");
-					int artNr = getInt();
+					int artNr = getArtikelNummer();
 					OUT.print("Geben Sie die abgegangene Menge ein:");
-				     lager.bucheAbgang(artNr,getInt());
-			    } else if (selected == PREISAENDERUNG) {
-					OUT.print("Geben sie den Prozentwert der Preisaenderung ein:");
+					lager.bucheAbgang(artNr, getInt());
+				} else if (selected == PREISAENDERUNG) {
+					OUT.print(
+							"Geben sie den Prozentwert der Preisaenderung ein:");
 					lager.passePreiseAn(getDouble());
+				} else if (selected == ARTIKEL_WAEHLEN) {
+					int artNo = getArtikelNummer();
+					ArtikelDialog artDialog = new ArtikelDialog(lager
+							.findeArtikel(artNo), IN, OUT, ERROR,
+							//Allowed Operations:
+							ArtikelDialog.ABGANG, ArtikelDialog.ZUGANG,
+							ArtikelDialog.SET_ART_BEZEICHNUNG, ArtikelDialog.QUIT);
+					artDialog.run();
 				} else {
-				throw new UnsupportedOperationException(
-						"Dieser Befehl ist nicht bekannt");
-			}
-				}else {
 					throw new UnsupportedOperationException(
-							"Es wurde noch kein Artikel eingelagert. "
-									+ "Bitte lagern sie zuerst einen Artikel ein.");
+							"Dieser Befehl ist nicht bekannt");
 				}
+			} else {
+				throw new UnsupportedOperationException(
+						"Es wurde noch kein Artikel eingelagert. "
+								+ "Bitte lagern sie zuerst einen Artikel ein.");
+			}
 		} else {
 			throw new UnsupportedOperationException(
 					"Es wurde noch kein Lager erzeugt. "
@@ -254,6 +241,61 @@ public class LagerDialog {
 		}
 		return false;
 	}
+
+	private void createAndStoreArtikel() {
+		OUT.print("Wie moechten sie den Artikel anlegen?\r\n");
+		OUT.print(ARTIKEL_ANLEGEN_GANZ + ": Ganz\r\n"
+				+ +ARTIKEL_ANLEGEN_OHNE_BESTAND + ": Ohne Bestand\r\n"
+				+ ARTIKEL_ANLEGEN_MIT_STANDART_PREIS
+				+ ": Mit Standardpreis\r\n"
+				+ ARTIKEL_ANLEGEN_OHNE_BESTAND_MIT_STANDART_PREIS
+				+ ": Ohne Bestand und mit Standardpreis\r\n");
+		int wahl = getInt();// Da ganzer Artikel es mittschleppen
+							// muss.
+		if (wahl < ARTIKEL_ANLEGEN_GANZ
+				|| wahl > ARTIKEL_ANLEGEN_OHNE_BESTAND_MIT_STANDART_PREIS) {
+			throw new IllegalArgumentException(
+					"Eingabe muss den Optionen entsprechen!");
+		}
+		OUT.print("Bitte geben Sie eine 4-stellige Artikelnummer ein > ");
+		int artNr = getInt();
+		OUT.print("Bitte geben Sie eine Artikelbezeichnung ein > ");
+		String artBez = getLine();
+		if (wahl == ARTIKEL_ANLEGEN_OHNE_BESTAND_MIT_STANDART_PREIS) {
+			artikel = new Artikel(artNr, artBez);
+		}
+		if (wahl == ARTIKEL_ANLEGEN_GANZ
+				|| wahl == ARTIKEL_ANLEGEN_OHNE_BESTAND
+				|| wahl == ARTIKEL_ANLEGEN_MIT_STANDART_PREIS) {
+			int artMenge = 0;
+			if (wahl == ARTIKEL_ANLEGEN_GANZ
+					|| wahl == ARTIKEL_ANLEGEN_MIT_STANDART_PREIS) {
+				OUT.print("Bitte geben sie eine Startmenge ein > ");
+				artMenge = getInt();
+				if (wahl == ARTIKEL_ANLEGEN_MIT_STANDART_PREIS) {
+					artikel = new Artikel(artNr, artBez, artMenge);
+				}
+			}
+			if (wahl == ARTIKEL_ANLEGEN_GANZ
+					|| wahl == ARTIKEL_ANLEGEN_OHNE_BESTAND) {
+				OUT.print("Bitte geben sie einen Startpreis ein > ");
+				double preis = getDouble();
+				if (wahl == ARTIKEL_ANLEGEN_GANZ) {
+					artikel = new Artikel(artNr, artBez, artMenge, preis);
+				}
+				if (wahl == ARTIKEL_ANLEGEN_OHNE_BESTAND) {
+					artikel = new Artikel(artNr, artBez, preis);
+				}
+			}
+		}
+		lager.lagereArtikel(artikel);
+	}
+
+	private int getArtikelNummer() {
+		OUT.print("Geben Sie die Artikelnummer eines Artikels ein:");
+		return getInt();
+	}
+
 	/**
 	 * Diese Methode dient dazu, einen nicht leeren Text aus ev. mehreren
 	 * Worten einzulesen<br>
@@ -267,46 +309,56 @@ public class LagerDialog {
 	private String getLine() {
 		String line = "";
 		while (line.trim().isEmpty()) {
-			line = IN.nextLine();
+			line = IN_SCANNER.nextLine();
 		}
 		return line;
 	}
+
 	/**
 	 * Diese Methode dient dazu, einen Integer von der Eingabe
 	 * einzulesen<br>
 	 * Wird auf dem Input kein Integer gesendet, sondern undefinierte
 	 * andere Zeichen, so wird die Anfrage nach einer Zahl wiederholt<br>
 	 * 
- 	* @return eine ganze Zahl
- 	*/
+	 * @return eine ganze Zahl
+	 */
 	private int getInt() {
 		while (true) {
 			try {
-				return IN.nextInt();
+				return IN_SCANNER.nextInt();
 			} catch (InputMismatchException e) {
-				IN.nextLine(); // Loesche Input
+				IN_SCANNER.nextLine(); // Loesche Input
 				OUT.print("Bitte geben Sie eine Zahl ein > ");
 			}
 		}
 	}
+
 	/**
 	 * Diese Methode dient dazu, einen Double von der Eingabe
 	 * einzulesen<br>
-	 * Wird auf dem Input kein Double gesendet, sondern undefinierte
-	 * andere Zeichen, so wird die Anfrage nach einer Zahl wiederholt<br>
+	 * Wird auf dem Input kein Double gesendet, sondern undefinierte andere
+	 * Zeichen, so wird die Anfrage nach einer Zahl wiederholt<br>
 	 * 
- 	* @return eine reelle Zahl
- 	*/
+	 * @return eine reelle Zahl
+	 */
 	private double getDouble() {
 		while (true) {
 			try {
-				return IN.nextDouble();
+				return IN_SCANNER.nextDouble();
 			} catch (InputMismatchException e) {
-				IN.nextLine(); // Loesche Input
+				IN_SCANNER.nextLine(); // Loesche Input
 				OUT.print("Bitte geben Sie eine Zahl ein > ");
 			}
 		}
 	}
+	
+	private StringBuilder appandOperation (StringBuilder sb, int opperation, String name) {
+		//if(mayExecute(opperation)) {
+			sb.append(name).append(" : ").append(opperation).append("\r\n");
+		//}
+		return sb;
+	}
+
 	/**
 	 * Diese Methode dient dazu, eine Liste aller Funktionen auf der
 	 * Ausgabe auszugeben, die gewaehlt werden koennen<br>
@@ -319,15 +371,20 @@ public class LagerDialog {
 	 *            lager dessen Status ausgegeben werden soll
 	 */
 	private void printOptions(Lager lager) {
-		OUT.println(lager != null ? lager : "Artikel ist noch nicht angelegt");
+		OUT.println(lager != null ? lager
+				: "Lager ist noch nicht angelegt");
 		OUT.println("Bitte waehlen Sie eine Opperation aus:");
-		OUT.println(ERZEUGEN + " :Lager erzeuegn\r\n" 
-				+ ERZEUGEN_MAX + ": Maximales Lager erzeugen:\r\n"
-				+ EINLAGERN + ": Artikel einlagern\r\n"
-				+ LOESCHEN+ ": Artikel loeschen \r\n"
-				+ ZUGANG + ": Zugang\r\n" + ABGANG + ": Abgang\r\n"
-				+ PREISAENDERUNG + ": Preise anpassen\r\n"
-				+ BEENDEN + ": Beenden\r\n");
+		StringBuilder sb = new StringBuilder();
+		appandOperation(sb, ERZEUGEN, "Lager erzeugen");
+		appandOperation(sb, ERZEUGEN_MAX, "Lager mit Maximalgröße erzeugen");
+		appandOperation(sb, EINLAGERN, "Artikel einlagern");
+		appandOperation(sb, LOESCHEN, "Artikel entfernen");
+		appandOperation(sb, ZUGANG, "Zugang zu Artikel Buchen");
+		appandOperation(sb, ABGANG, "Abgang für Artikel Buchen");
+		appandOperation(sb, PREISAENDERUNG, "Preis Anpassen");
+		appandOperation(sb, BEENDEN, "Beenden");
+		
+		OUT.print(sb);
 	}
-	
+
 }

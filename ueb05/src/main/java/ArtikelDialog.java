@@ -1,6 +1,7 @@
 
 import java.io.InputStream;
 import java.io.PrintStream;
+import java.util.Arrays;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -22,33 +23,37 @@ public class ArtikelDialog {
 	/**
 	 * Identifizierte Option zum Verlassen des Dialogs
 	 */
-	private static final int QUIT = 0;
+	public static final int QUIT = 0;
 	/**
 	 * Identifizierte Option zum Erstellen eines neuen Objekts
 	 */
-	private static final int ANLEGEN = 1;
+	public static final int ANLEGEN = 1;
 	/**
 	 * Identifizierte Option zum Erstellen eines neuen Objekts ohne
 	 * Artikelbestand
 	 */
-	private static final int ANLEGEN2 = 2;
+	public static final int ANLEGEN2 = 2;
 	/**
 	 * Identifizierte Option um einen Zugang zu buchen
 	 */
-	private static final int ZUGANG = 3;
+	public static final int ZUGANG = 3;
 	/**
 	 * Identifizierte Option um einen Abgang zu buchen
 	 */
-	private static final int ABGANG = 4;
+	public static final int ABGANG = 4;
 	/**
 	 * Identifizierte Option um eine neue Bezeichnung zu setzen
 	 */
-	private static final int SET_ART_BEZEICHNUNG = 5;
+	public static final int SET_ART_BEZEICHNUNG = 5;
 
 	/**
 	 * Input-Scanner, der fuer die Analyse des Inputs benutzt werden soll
 	 */
 	private final Scanner IN;
+	/**
+	 * Output, auf dem Ergebnisse ausgegeben werden sollen
+	 */
+	private final PrintStream ERROR;
 	/**
 	 * Output, auf dem Ergebnisse ausgegeben werden sollen
 	 */
@@ -58,6 +63,7 @@ public class ArtikelDialog {
 	 * Artikel, mit dem in diesem Dialog kommuniziert wird
 	 */
 	private Artikel art;
+	private boolean[] mayExecute = null;
 
 	/**
 	 * Methode um das Interaktive Programm zu starten<br>
@@ -82,7 +88,7 @@ public class ArtikelDialog {
 	 * Es wird zu Beginn kein Objekt angelegt<br>
 	 */
 	public ArtikelDialog() {
-		this(null, System.in, System.out);
+		this(null, System.in, System.out, System.err);
 	}
 
 	/**
@@ -100,12 +106,27 @@ public class ArtikelDialog {
 	 * Es muss ausserdem ein {@link InputStream} uebergeben werden, von dem
 	 * Eingaben gelesen werden<br>
 	 * Ist der uebergebene {@link InputStream} null, so wird eine
-	 * {@link IllegalArgumentException} geworfen<br>
+	 * {@link IllegalArgumentException} geworfen
+	 * <p>
 	 * 
 	 * Es muss ausserdem ein {@link PrintStream} uebergeben werden, auf dem
 	 * die Ausgabe erfolgt<br>
 	 * Ist der uebergebene {@link PrintStream} null, so wird eine
 	 * {@link IllegalArgumentException} geworfen
+	 * <p>
+	 * 
+	 * Es kann ausserdem ein {@link PrintStream} uebergeben werden, auf dem
+	 * die Fehler ausgegeben werden<br>
+	 * Ist der uebergebene {@link PrintStream} null, so werden Fehler auf
+	 * dem {@link #OUT} stream ausgegeben.
+	 * <p>
+	 * 
+	 * Es kann außerdem eine Liste von ints variabler größe übergeben
+	 * werden<br>
+	 * Diese sollen die Nummern aller Operationen enthalten, die vom
+	 * Benutzer ausgefuert werden duerfen<br>
+	 * Ist die Liste leer, werden alle operationen erlaubt<br>
+	 * Der EXIT Befehl ist immer erlaubt
 	 * 
 	 * @param art
 	 *            Artikel, der durch den Dialog bearbeitbar werden soll
@@ -113,10 +134,15 @@ public class ArtikelDialog {
 	 *            Eingabequelle, von der gelesen wird
 	 * @param out
 	 *            Ausgabequelle für Ergebnisse
+	 * @param error
+	 *            Ausgabequelle für Fehler
+	 * @param mayExecute
+	 *            auflistung aller befehle, die ausgefürt werden dürfen.
 	 * @throws IllegalArgumentException
 	 *             wenn der uebergebene Ein- oder Ausgabe-Stream null ist
 	 */
-	public ArtikelDialog(Artikel art, InputStream in, PrintStream out) {
+	public ArtikelDialog(Artikel art, InputStream in, PrintStream out,
+			PrintStream error, int... mayExecute) {
 		if (in == null) {
 			throw new IllegalArgumentException(
 					"Eingabestrom darf nicht null sein");
@@ -125,9 +151,14 @@ public class ArtikelDialog {
 			throw new IllegalArgumentException(
 					"Ausgabestrom darf nicht null sein");
 		}
+		if (error == null) {
+			error = out;
+		}
 		this.IN = new Scanner(in);
 		this.art = art;
 		this.OUT = out;
+		this.ERROR = error;
+		this.mayExecute = createMayExecute(mayExecute);
 	}
 
 	/**
@@ -159,7 +190,7 @@ public class ArtikelDialog {
 	 *            Zu behandelnder Fehler
 	 */
 	private void processException(Throwable ex) {
-		OUT.println(ex.getMessage());
+		ERROR.println(ex.getMessage());
 		IN.nextLine();
 	}
 
@@ -199,6 +230,7 @@ public class ArtikelDialog {
 		if (selected == QUIT) {
 			return true;
 		} else if (selected == ANLEGEN || selected == ANLEGEN2) {
+			checkExecutionPermission(selected);
 			OUT.print(
 					"Bitte geben Sie eine 4-stellige Artikelnummer ein > ");
 			int artNr = getInt();
@@ -214,31 +246,31 @@ public class ArtikelDialog {
 
 			OUT.println("Artikel wurde angelegt");
 		} else if (art != null) {
-			if (selected == ZUGANG) 
-			  {
+			if (selected == ZUGANG) {
+				checkExecutionPermission(selected);
 				OUT.print("Geben Sie eine Menge zum Zubuchen an:");
 				art.bucheZugang(getInt());
 				OUT.println("Artikelmenge betraegt jetzt " + art
 						.getArtikelBestand());
-			  }   
-			else 
-			  {
-			      if (selected == ABGANG) 
-			        {
-				     OUT.print("Geben Sie eine Menge zum Abbuchen an:");
-				     art.bucheAbgang(getInt());
-				     OUT.println("Artikelmenge betraegt jetzt " + art
-						.getArtikelBestand());
-			        } else if (selected == SET_ART_BEZEICHNUNG) {
-				OUT.print("Geben Sie eine neue Artikelbezeichnung ein:");
-				art.setArtikelBezeichnung(getLine());
-				OUT.println("Der Artikel heißt jetzt " + art
-						.getArtikelBezeichnung());
 			} else {
-				throw new UnsupportedOperationException(
-						"Dieser Befehl ist nicht bekannt");
+				if (selected == ABGANG) {
+					checkExecutionPermission(selected);
+					OUT.print("Geben Sie eine Menge zum Abbuchen an:");
+					art.bucheAbgang(getInt());
+					OUT.println("Artikelmenge betraegt jetzt " + art
+							.getArtikelBestand());
+				} else if (selected == SET_ART_BEZEICHNUNG) {
+					checkExecutionPermission(selected);
+					OUT.print(
+							"Geben Sie eine neue Artikelbezeichnung ein:");
+					art.setArtikelBezeichnung(getLine());
+					OUT.println("Der Artikel heißt jetzt " + art
+							.getArtikelBezeichnung());
+				} else {
+					throw new UnsupportedOperationException(
+							"Dieser Befehl ist nicht bekannt");
+				}
 			}
-              }
 		} else {
 			throw new UnsupportedOperationException(
 					"Es wurde noch kein Artikel angelegt. "
@@ -298,10 +330,58 @@ public class ArtikelDialog {
 	private void printOptions(Artikel art) {
 		OUT.println(art != null ? art : "Artikel ist noch nicht angelegt");
 		OUT.println("Bitte waehlen Sie eine Opperation aus:");
-		OUT.println("Anlegen: " + ANLEGEN + ", Anlegen2: " + ANLEGEN2
-				+ ", zugang : " + ZUGANG + " abgang : " + ABGANG
-				+ " setArtikelbezeichnung : " + SET_ART_BEZEICHNUNG
-				+ " exit : " + QUIT);
+		StringBuilder sb = new StringBuilder();
+		appandOperation(sb, ANLEGEN, "Anlegen");
+		appandOperation(sb, ANLEGEN2, "Anlegen2");
+		appandOperation(sb, ZUGANG, "Zugang Buchen");
+		appandOperation(sb, ABGANG, "Abgang Buchen");
+		appandOperation(sb, SET_ART_BEZEICHNUNG, "Artikelbezeichnung Aendern");
+		appandOperation(sb, QUIT, "Exit");
+		OUT.print(sb.toString());
+	}
+	
+	private StringBuilder appandOperation (StringBuilder sb, int opperation, String name) {
+		if(mayExecute(opperation)) {
+			sb.append(name).append(" : ").append(opperation).append("\r\n");
+		}
+		return sb;
+	}
+
+	private boolean mayExecute(int operation) {
+		if(operation == QUIT) {
+			return true; //Quit geht immer!
+		}
+		if (mayExecute == null || mayExecute.length == 0) {
+			return true;
+		} else if (operation > mayExecute.length) {
+			return false;
+		} else {
+			return mayExecute[operation];
+		}
+	}
+
+	private void checkExecutionPermission(int operation) {
+		if (!mayExecute(operation)) {
+			throw new UnsupportedOperationException(
+					"This action is not allowed in this Context");
+		}
+	}
+
+	private boolean[] createMayExecute(int[] mayExecute) {
+		if(mayExecute.length == 0) {
+			return new boolean[0];
+		}
+		boolean[] result = new boolean[6];
+		for (int i : mayExecute) {
+			if (result.length <= i) {
+				boolean[] temp = result;
+				result = new boolean[i + 1];
+				Arrays.fill(result, false);
+				System.arraycopy(temp, 0, result, 0, result.length);
+			}
+			result[i] = true;
+		}
+		return result;
 	}
 
 }
