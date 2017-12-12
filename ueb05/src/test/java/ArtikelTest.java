@@ -167,7 +167,7 @@ public class ArtikelTest {
 
 	@Test
 	public void testSetPreis3() {
-		underTest.setPreis(19.004);
+		underTest.setPreis(19.0000000000004);
 		assertEquals(19.01, underTest.getPreis(), 0);
 	}
 

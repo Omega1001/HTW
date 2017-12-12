@@ -80,9 +80,6 @@ public class Lager implements Iterable<Artikel> {
 		if (artikelAnzahl >= lagerFeld.length) {
 			throw new IllegalArgumentException("Lager ist bereits voll!");
 		}
-		//if ((findeArtikelIndex(artikel.getArtikelNummer())) == NoSuchElementException) {// brauchte hier die entfernte -1 aus dem findeArtikelIndex
-		//	throw new IllegalArgumentException("Artikelnummer ist bereits vergeben!");
-		//}
 		this.lagerFeld[artikelAnzahl] = artikel;
 		artikelAnzahl++;
 	}

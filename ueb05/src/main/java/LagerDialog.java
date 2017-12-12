@@ -384,6 +384,7 @@ public class LagerDialog {
 		appandOperation(sb, ZUGANG, "Zugang zu Artikel Buchen");
 		appandOperation(sb, ABGANG, "Abgang fuer Artikel Buchen");
 		appandOperation(sb, PREISAENDERUNG, "Preis Anpassen");
+		appandOperation(sb, ARTIKEL_WAEHLEN, "Artikel Wählen");
 		appandOperation(sb, BEENDEN, "Beenden");
 		
 		OUT.print(sb);

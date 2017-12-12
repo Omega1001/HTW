@@ -188,7 +188,7 @@ public class Artikel {
 			throw new IllegalArgumentException(
 					"Der preis darf nicht 0 oder kleiner sein");
 		}
-		// Runde kaufmänisch korrekt
+		// Runde auf
 		this.preis = Math.ceil(preis * 100d) / 100d;
 	}
 
