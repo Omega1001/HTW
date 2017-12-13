@@ -189,7 +189,7 @@ public class Artikel {
 					"Der preis darf nicht 0 oder kleiner sein");
 		}
 		// Runde auf
-		this.preis = Math.ceil(preis * 100d) / 100d;
+		this.preis = Math.round(preis * 100d) / 100d;
 	}
 
 	/**
