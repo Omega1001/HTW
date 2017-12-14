@@ -1,6 +1,5 @@
 package ueb06;
 
-import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -13,27 +12,48 @@ public class ArrayOperations {
 	private static final Pattern TRUE_DIDGETS_ONLY = Pattern.compile(
 			"[a-zA-Z]");
 
-	public double[] analyseMeasurements(double[] data) {
-		double[] result = new double[3];
-		Arrays.fill(result, 0.0);
-		for (double d : data) {
-			result[ARITHMETIC_AVERAGE] += d;
+	public double[][] analyseMeasurements(double[] data) {
+		if (data.length == 0) {
+			throw new IllegalArgumentException(
+					"Array to Analyse must contain at least 1 value");
 		}
-		result[ARITHMETIC_AVERAGE] = result[ARITHMETIC_AVERAGE]
+		double[][] result = new double[3][];
+		result[ARITHMETIC_AVERAGE] = new double[1];
+		result[FURTHEST_AWAY] = new double[2];
+		result[NEAREST] = new double[3];
+		for (double d : data) {
+			result[ARITHMETIC_AVERAGE][0] += d;
+		}
+		result[ARITHMETIC_AVERAGE][0] = result[ARITHMETIC_AVERAGE][0]
 				/ data.length;
 		double currentFurthest = 0d;
-		double currentClosest = Double.MAX_VALUE;
+		double currentNearest = Double.MAX_VALUE;
 
 		for (double d : data) {
-			double distance = Math.abs(result[ARITHMETIC_AVERAGE] - d);
+			double distance = Math.abs(result[ARITHMETIC_AVERAGE][0] - d);
 			if (distance > currentFurthest) {
 				currentFurthest = distance;
-				result[FURTHEST_AWAY] = d;
+				result[FURTHEST_AWAY][0] = d;
+				result[FURTHEST_AWAY][1] = Double.NaN;
+			} else if (distance == currentFurthest
+					&& d != result[FURTHEST_AWAY][0]) {
+				result[FURTHEST_AWAY][1] = d;
 			}
-			if (distance < currentClosest) {
+			if (distance < currentNearest) {
 				currentFurthest = distance;
-				result[NEAREST] = d;
+				result[NEAREST][0] = d;
+				result[NEAREST][1] = Double.NaN;
+			} else if (distance == currentFurthest
+					&& d != result[NEAREST][0]) {
+				result[NEAREST][1] = d;
 			}
+		}
+		if (result[FURTHEST_AWAY][1] == Double.NaN) {
+			result[FURTHEST_AWAY] = new double[] {
+					result[FURTHEST_AWAY][0] };
+		}
+		if (result[NEAREST][1] == Double.NaN) {
+			result[NEAREST] = new double[] { result[NEAREST][0] };
 		}
 		return result;
 	}
@@ -50,7 +70,7 @@ public class ArrayOperations {
 	}
 
 	public int[] insertionSort(int[] arr) {
-		
+
 		return arr;
 	}
 }
