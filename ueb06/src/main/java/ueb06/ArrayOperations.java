@@ -27,7 +27,7 @@ public class ArrayOperations {
 		result[ARITHMETIC_AVERAGE][0] = result[ARITHMETIC_AVERAGE][0]
 				/ data.length;
 		double currentFurthest = 0d;
-		double currentNearest = Double.MAX_VALUE;
+		double currentClosest = Double.MAX_VALUE;
 
 		for (double d : data) {
 			double distance = Math.abs(result[ARITHMETIC_AVERAGE][0] - d);
@@ -39,7 +39,7 @@ public class ArrayOperations {
 					&& d != result[FURTHEST_AWAY][0]) {
 				result[FURTHEST_AWAY][1] = d;
 			}
-			if (distance < currentNearest) {
+			if (distance < currentClosest) {
 				currentFurthest = distance;
 				result[NEAREST][0] = d;
 				result[NEAREST][1] = Double.NaN;
