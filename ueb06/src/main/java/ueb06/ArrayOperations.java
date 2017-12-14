@@ -1,6 +1,14 @@
 package ueb06;
 
 import java.util.regex.Matcher;
+
+/**
+ * Klasse zum verfarbeiten von Arrrays.
+ * <p>
+ * @author Jannik Adam
+ * @author Fromm-Borys
+ * @version 1.0
+ */
 import java.util.regex.Pattern;
 
 public class ArrayOperations {
@@ -12,6 +20,16 @@ public class ArrayOperations {
 	private static final Pattern TRUE_DIDGETS_ONLY = Pattern.compile(
 			"[a-zA-Z]");
 
+	/**
+	 * Methode die die Werte eines Arrays die am nächsten und am weitesten 
+	 * entfernt von dessen arithmetischen Mittel liegen als Array ausgibt.
+	 * <p>
+	 * @param data
+	 * 		Zu übergebendes Array.
+	 * @return
+	 * 		Array das das arithmeitschen Mittel, die dem Mittel am nähesten und 
+	 * 		am entferntesten Werte enthält.
+	 */
 	public double[][] analyseMeasurements(double[] data) {
 		if (data.length == 0) {
 			throw new IllegalArgumentException(
@@ -58,6 +76,13 @@ public class ArrayOperations {
 		return result;
 	}
 
+	/**
+	 * Methode zum ermitteln der Anzahl an Strings aus einem Array die nur aus 
+	 * Klein- und Grosbuchstaben bestehehen.
+	 * <p>
+	 * @return
+	 * 		Anzahl der Buchstabenstrings
+	 */
 	public int countLetterOnlyStrings(String[] strings) {
 		int result = 0;
 		for (String s : strings) {
@@ -69,7 +94,23 @@ public class ArrayOperations {
 		return result;
 	}
 
+	/**
+	 * Insertionsort...
+	 * <p>
+	 * @return
+	 * 		Sortietes Array.
+	 */
 	public int[] insertionSort(int[] arr) {
+		
+		for (int i = 0; i < arr.length(); i++) {
+			for ( int j = i-1; j > 0; j--) {
+				if (arr[j] > arr[j+1]) {
+					int mem = arr[j];
+					arr[j] = arr[j+1];
+					arr[j+1] = mem;
+				}
+			}
+		}
 
 		return arr;
 	}
