@@ -168,7 +168,7 @@ public class ArtikelTest {
 	@Test
 	public void testSetPreis3() {
 		underTest.setPreis(19.0000000000004);
-		assertEquals(19.01, underTest.getPreis(), 0);
+		assertEquals(19.00, underTest.getPreis(), 0);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
