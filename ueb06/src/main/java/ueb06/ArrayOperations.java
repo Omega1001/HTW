@@ -21,14 +21,15 @@ public class ArrayOperations {
 			"[a-zA-Z]+");
 
 	/**
-	 * Methode die die Werte eines Arrays die am n�chsten und am weitesten
-	 * entfernt von dessen arithmetischen Mittel liegen als Array ausgibt.
+	 * Calculates the arithemtic average and determines the value/s closest and
+	 * furthest to it.
 	 * <p>
 	 * 
 	 * @param data
-	 *            Zu �bergebendes Array.
-	 * @return Array das das arithmeitschen Mittel, die dem Mittel am
-	 *         n�hesten und am entferntesten Werte enth�lt.
+	 * 		An array.
+	 * @return
+	 * 		An aray consisting of the arithmetic average as well as the
+	 * 		value/s clostest and furthest to it.
 	 */
 	public static double[][] analyseMeasurements(double[] data) {
 		if (data == null || data.length == 0) {
@@ -75,11 +76,11 @@ public class ArrayOperations {
 	}
 
 	/**
-	 * Methode zum ermitteln der Anzahl an Strings aus einem Array die nur
-	 * aus Klein- und Grosbuchstaben bestehehen.
+	 * Counts the number of strings of an array solely consisting of letters.
 	 * <p>
 	 * 
-	 * @return Anzahl der Buchstabenstrings
+	 * @return 
+	 * 		Number of "letter-strings"
 	 */
 	public static int countLetterOnlyStrings(String[] strings) {
 		if (strings == null) {
@@ -100,7 +101,8 @@ public class ArrayOperations {
 	 * Performes insertion sort on a passed array
 	 * <p>
 	 * 
-	 * @return Sortietes Array.
+	 * @return 
+	 * 		Sorted array
 	 */
 	public static int[] insertionSort(int[] arr) {
 
