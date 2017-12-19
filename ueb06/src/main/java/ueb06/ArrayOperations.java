@@ -105,7 +105,9 @@ public class ArrayOperations {
 	 * 		Sorted array
 	 */
 	public static int[] insertionSort(int[] arr) {
-
+		if(arr == null) {
+			throw new IllegalArgumentException("Cannot sort nonexisting array");
+		}
 		for (int i = 1; i < arr.length; i++) {
 			for (int j = i - 1; j >= 0; j--) {
 				if (arr[j] > arr[j + 1]) {

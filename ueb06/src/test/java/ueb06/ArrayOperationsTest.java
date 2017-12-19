@@ -2,9 +2,9 @@ package ueb06;
 
 import static org.junit.Assert.*;
 import static ueb06.ArrayOperations.*;
+import static org.hamcrest.collection.IsArrayContainingInAnyOrder.*;
 
 import java.util.Arrays;
-
 import org.junit.Test;
 
 public class ArrayOperationsTest {
@@ -95,28 +95,63 @@ public class ArrayOperationsTest {
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testCountLetterOnlyStrings4() {
-		int res = countLetterOnlyStrings(null);
+		countLetterOnlyStrings(null);
 	}
 
 	@Test
 	public void testInsertionSort() {
-		checkArraySorted(insertionSort(new int[] { 1, 2, 3 }));
+		checkArraySorting(new int[] { 1, 2, 3 });
+		
 	}
 
 	@Test
 	public void testInsertionSort2() {
-		checkArraySorted(insertionSort(new int[] { 3, 2, 3 }));
+		checkArraySorting(new int[] { 3, 2, 3 });
 	}
 
 	@Test
 	public void testInsertionSort3() {
-		checkArraySorted(insertionSort(new int[] { 3, 2, 1 }));
+		checkArraySorting(new int[] { 3, 2, 1 });
 	}
 
 	@Test
 	public void testInsertionSort4() {
-		checkArraySorted(insertionSort(new int[] { 3, 2, 3, 23, 45, 235,
-				6787, 43, 2, 1, 6, 78, 3, 2, 4, 5, 6, 48, 3 }));
+		checkArraySorting(new int[] { 3, 2, 3, 23, 45, 235,
+				6787, 43, 2, 1, 6, 78, 3, 2, 4, 5, 6, 48, 3 });
+	}
+
+	@Test
+	public void testInsertionSort5() {
+		assertArrayEquals(new int[] {}, insertionSort(new int[] {}));
+	}
+
+	@Test
+	public void testInsertionSort6() {
+		assertArrayEquals(new int[] { 1 }, insertionSort(new int[] { 1 }));
+	}
+	
+	@Test(expected = IllegalArgumentException.class)
+	public void testInsertionSort7() {
+		insertionSort(null);
+	}
+	
+	private void checkArraySorting(int [] data) {
+		int[] result = insertionSort(data);
+		Integer[] dataArray = toObjectArray(data);
+		Integer[] resultArray = toObjectArray(result);
+		assertThat("Result does not contain all values of input",
+				resultArray, arrayContainingInAnyOrder(dataArray));
+		assertThat("Input does not contain all values of result",
+				dataArray, arrayContainingInAnyOrder(resultArray));
+		checkArraySorted(result);
+	}
+
+	private Integer[] toObjectArray(int[] data) {
+		Integer [] result = new Integer [data.length];
+		for (int i = 0;i<data.length;i++) {
+			result [i] = data[i];
+		}
+		return result;
 	}
 
 	private boolean checkArraySorted(int[] arr) {
