@@ -25,7 +25,7 @@ public class XMLLinkFinder {
 	public static void run(InputStream in, PrintStream out, PrintStream err) {
 		List<LinkContainer> links = findLinksInStream(in);
 		for (LinkContainer link : links) {
-			out.printf("%-10s : %s", link.getText(), link.getUrl());
+			out.printf("%-10s : %s\r\n", link.getText(), link.getUrl());
 		}
 	}
 
