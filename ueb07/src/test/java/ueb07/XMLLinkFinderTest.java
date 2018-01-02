@@ -22,7 +22,7 @@ public class XMLLinkFinderTest {
 		assertTrue("Missing link to Stackoverflow",underTest.contains(new LinkContainer("Link To Stackoverflow", "http://stackoverflow.com")));
 	}
 
-	@Test
+	@Test // Ich akzeptiere diesen Test nicht!
 	public void testRun2() {
 		List<LinkContainer> underTest = runTestFile("HTMLAndSubElement.html");
 		assertEquals("Result List contains to many items",1, underTest.size());
@@ -37,7 +37,7 @@ public class XMLLinkFinderTest {
 		assertTrue("Missing link to Stackoverflow",underTest.contains(new LinkContainer("vergrabenen Link", "http://stackoverflow.com")));
 	}
 	
-	@Test
+	@Test // Ich verstehe diesen Test nicht!
 	public void testRun4() {
 		List<LinkContainer> underTest = runTestFile("HTMLmitMehrerenAttributen.html");
 		assertEquals("Result List contains to many items",2, underTest.size());
