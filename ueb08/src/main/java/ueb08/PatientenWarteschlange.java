@@ -1,8 +1,10 @@
 package ueb08;
 
 import java.util.Arrays;
+import java.util.Iterator;
+import java.util.NoSuchElementException;
 
-public class PatientenWarteschlange {
+public class PatientenWarteschlange implements Iterable<Patient>{
 	private final Patient[] patients;
 
 	public PatientenWarteschlange(int size) {
@@ -81,6 +83,39 @@ public class PatientenWarteschlange {
 			}
 		}
 		return sb.toString();
+	}
+	
+	public boolean contains(Patient p) {
+		if(p == null) {
+			return false;
+		}
+		for (Patient pat : patients) {
+			if(p.equals(pat)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+
+	@Override
+	public Iterator<Patient> iterator() {
+		return new Iterator<Patient>() {
+			int i =0;
+			
+			@Override
+			public boolean hasNext() {
+				return patients[i] != null;
+			}
+
+			@Override
+			public Patient next() {
+				if(!hasNext()) {
+					throw new NoSuchElementException();
+				}
+				return patients[i++];
+			}
+		};
 	}
 
 }
