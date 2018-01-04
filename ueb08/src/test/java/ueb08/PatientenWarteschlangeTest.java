@@ -61,6 +61,11 @@ public class PatientenWarteschlangeTest {
 		underTest.neuerPatient(TEST_P3);
 		underTest.neuerPatient(TEST_P4);
 	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void testNeuerPatientPatient4() {
+		underTest.neuerPatient(null);
+	}
 
 	@Test
 	public void testEntfernePatientPatient() {
