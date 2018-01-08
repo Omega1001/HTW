@@ -52,7 +52,7 @@ public class XMLLinkFinder {
 	 * This method reads any html from the passed input stream, filters all
 	 * 'a' links and outputs them<br>
 	 * This method will print a formated list containing the content of the
-	 * tag and the assotiated link<br>
+	 * tag and the associated link<br>
 	 * Content larger than 10 characters will be cut<br>
 	 * Links have no length limit<br>
 	 * Links will be outputted as they are. There will be no transformation
