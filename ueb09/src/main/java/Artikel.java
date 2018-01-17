@@ -35,7 +35,7 @@ public class Artikel {
 	 *            einzelpreis des Artikels
 	 */
 	public Artikel(int artikelNummer, String artikelBezeichnung,
-			int artikelBestand, double preis) {
+			Integer artikelBestand, Double preis) {
 		if (artikelNummer < MIN_ARTIKELNUMMER
 				|| artikelNummer > MAX_ARTIKELNUMMER) {
 			throw new IllegalArgumentException(
@@ -49,9 +49,9 @@ public class Artikel {
 		}
 
 		setArtikelBezeichnung(artikelBezeichnung);
-		setPreis(preis);
+		setPreis(preis != null ? preis : 1.0);
 		this.artikelNummer = artikelNummer;
-		this.artikelBestand = artikelBestand;
+		this.artikelBestand = artikelBestand != null ? artikelBestand : 0;
 	}
 
 	/**
@@ -71,8 +71,8 @@ public class Artikel {
 	 *            Startbestand des Artikels
 	 */
 	public Artikel(int artikelNummer, String artikelBezeichnung,
-			int artikelBestand) {
-		this(artikelNummer, artikelBezeichnung, artikelBestand, 1.0);
+			Integer artikelBestand) {
+		this(artikelNummer, artikelBezeichnung, artikelBestand, null);
 	}
 
 	/**
@@ -92,9 +92,9 @@ public class Artikel {
 	 * 
 	 */
 	public Artikel(int artikelNummer, String artikelBezeichnung) {
-		this(artikelNummer, artikelBezeichnung, 0);
+		this(artikelNummer, artikelBezeichnung, null);
 	}
-	
+
 	/**
 	 * Konstruktor fuer ein Artikel Objekt<br>
 	 * Erstellt einen neuen Arktikel mit einer Artikelnummer, einem Namen
@@ -111,7 +111,8 @@ public class Artikel {
 	 * @see #Artikel(int, String, int)
 	 * 
 	 */
-	public Artikel(int artikelNummer, String artikelBezeichnung, double preis) {
+	public Artikel(int artikelNummer, String artikelBezeichnung,
+			double preis) {
 		this(artikelNummer, artikelBezeichnung, 0, preis);
 	}
 
@@ -136,7 +137,7 @@ public class Artikel {
 	 *            anzahl der eingegangenen Artikel
 	 */
 	public void bucheZugang(int zugang) {
-		if(zugang <= 0) {
+		if (zugang <= 0) {
 			throw new IllegalArgumentException("Menge muss > 0 sein!");
 		}
 		this.artikelBestand = this.artikelBestand + zugang;
@@ -153,14 +154,19 @@ public class Artikel {
 	 *            der ausgehenden Artikel
 	 */
 	public void bucheAbgang(int abgang) {
-		if(abgang <= 0) {
+		if (abgang <= 0) {
 			throw new IllegalArgumentException("Menge muss > 0 sein!");
 		}
-		if(abgang > artikelBestand) {
-			throw new IllegalArgumentException("Menge muss <= dem Artikelbestand sein!");
+		if (abgang > artikelBestand) {
+			throw new IllegalArgumentException(
+					"Menge muss <= dem Artikelbestand sein!");
 		}
 
 		this.artikelBestand = this.artikelBestand - abgang;
+	}
+
+	public String getBeschreibung() {
+		return getArtikelBezeichnung();
 	}
 
 	/**
@@ -172,9 +178,10 @@ public class Artikel {
 	 *            Neue bezeichnung für den Artikel
 	 */
 	public void setArtikelBezeichnung(String artikelBezeichnung) {
-		if( (artikelBezeichnung == null || artikelBezeichnung.trim()
+		if ((artikelBezeichnung == null || artikelBezeichnung.trim()
 				.length() <= 0)) {
-			throw new IllegalArgumentException("Die Artikelbezeichnung darf nicht null sein!");
+			throw new IllegalArgumentException(
+					"Die Artikelbezeichnung darf nicht null sein!");
 		}
 		this.artikelBezeichnung = artikelBezeichnung;
 	}

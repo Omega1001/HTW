@@ -197,6 +197,23 @@ public class Lager implements Iterable<Artikel> {
 		}
 		throw new NoSuchElementException("Der Artikel Nummer " + artNr + " ist nicht vorhanden!");
 	}
+	
+	public String ausgebenBestandsListe() {
+		StringBuilder sb = new StringBuilder();
+		sb.append(String.format("%-6s %-40s %10s %7s %15s", "ArtNr", "Beschreibung", "Preis", "Bestand", "Gesamt"));
+		sb.append("\r\n");
+		double ges = 0;
+		for (Artikel a : this) {
+			sb.append("\r\n");
+			double t = a.getPreis()*a.getArtikelBestand();
+			sb.append(String.format("%-6d %-40s %10.2f %-7d %-15.2f", a.getArtikelNummer(), a.getArtikelBezeichnung(), a.getPreis(), a.getArtikelBestand(), t));
+			ges = ges + t;
+		}
+		sb.append("\r\n");
+		sb.append(String.format("%-66s %15.2f", "Gesamt", ges));
+		return sb.toString();
+	}
+	
 	/**
 	 * Gibt die Anzahl der gelagerten Artikel zurueck.
 	 * 
