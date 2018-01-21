@@ -12,8 +12,8 @@ public class Artikel {
 
 	private int artikelNummer;
 	private String artikelBezeichnung;
-	private int artikelBestand;
-	private double preis;
+	private Integer artikelBestand;
+	private Double preis;
 
 	/**
 	 * Konstruktor fuer ein Artikel Objekt<br>
@@ -23,7 +23,7 @@ public class Artikel {
 	 * Die Artikelnummer muss 4-Stellig sein "[0-9]{4}"<br>
 	 * Der Name des Artikels darf nicht leer oder null sein<br>
 	 * Der Anfangsbestand muss positiv oder 0 sein<br>
-	 * Der Preis eines Artikels muss großer 0 sein<br>
+	 * Der Preis eines Artikels muss groesser 0 sein<br>
 	 * 
 	 * @param artikelNummer
 	 *            4-stellige Artikelnummer
@@ -57,7 +57,7 @@ public class Artikel {
 	/**
 	 * Konstruktor fuer ein Artikel Objekt<br>
 	 * Erstellt einen neuen Arktikel mit einer Artikelnummer, einem Namen
-	 * und einem Anfangsbestand von 0 und einem preis von 1.00
+	 * und einem Anfangsbestand und einem Preis von 1.00
 	 * <p>
 	 * 
 	 * Weitere Informationen finden Sie hier
@@ -92,7 +92,7 @@ public class Artikel {
 	 * 
 	 */
 	public Artikel(int artikelNummer, String artikelBezeichnung) {
-		this(artikelNummer, artikelBezeichnung, null);
+		this(artikelNummer, artikelBezeichnung, 0, 1.0);
 	}
 
 	/**
@@ -112,8 +112,8 @@ public class Artikel {
 	 * 
 	 */
 	public Artikel(int artikelNummer, String artikelBezeichnung,
-			double preis) {
-		this(artikelNummer, artikelBezeichnung, 0, preis);
+			Double preis) {
+		this(artikelNummer, artikelBezeichnung, null, preis);
 	}
 
 	/**
@@ -148,7 +148,7 @@ public class Artikel {
 	 * <p>
 	 * Die menge der ausgehenden Artikel darf nicht negativ sein<br>
 	 * Die menge der ausgehenden Artikel darf den Wert der vorhandenen
-	 * Artikel nicht überschreiten
+	 * Artikel nicht Ueberschreiten
 	 * 
 	 * @param menge
 	 *            der ausgehenden Artikel
@@ -175,7 +175,7 @@ public class Artikel {
 	 * Der Name des Artikels darf nicht leer oder null sein<br>
 	 * 
 	 * @param artikelBezeichnung
-	 *            Neue bezeichnung für den Artikel
+	 *            Neue bezeichnung fuer den Artikel
 	 */
 	public void setArtikelBezeichnung(String artikelBezeichnung) {
 		if ((artikelBezeichnung == null || artikelBezeichnung.trim()

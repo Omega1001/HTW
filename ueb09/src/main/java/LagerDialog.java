@@ -26,8 +26,12 @@ public class LagerDialog {
 	private static final int ARTIKEL_ANLEGEN_GANZ = 1;
 	private static final int ARTIKEL_ANLEGEN_OHNE_BESTAND = 2;
 	private static final int ARTIKEL_ANLEGEN_MIT_STANDART_PREIS = 3;
-	private static final int ARTIKEL_ANLEGEN_OHNE_BESTAND_MIT_STANDART_PREIS =
-			4;
+	private static final int ARTIKEL_ANLEGEN_OHNE_BESTAND_MIT_STANDART_PREIS = 4;
+	
+	private static final int STANDARD_ARTIKEL_ANLEGEN = 1;
+	private static final int BUCH_ARTIKEL_ANLEGEN = 2;
+	private static final int CD_ARTIKEL_ANLEGEN = 3;
+	private static final int DVD_ARTIKEL_ANLEGEN = 4;
 
 	private final Scanner IN_SCANNER;
 	private final InputStream IN;
@@ -245,9 +249,56 @@ public class LagerDialog {
 	}
 
 	private void createAndStoreArtikel() {
+		
+		String author = "";
+		String titel = "";
+		String verlag = "";
+		String interpret = "";
+		int anzahlTitel = 0;
+		int spielDauer = 0;
+		int erscheinungsJahr = 0;
+
+		OUT.print("Was fuer einen Artikel moechten sie anlegen?\r\n");
+		OUT.print(STANDARD_ARTIKEL_ANLEGEN + ": Standart\r\n"
+				+ BUCH_ARTIKEL_ANLEGEN + ": Buch\r\n"
+				+ CD_ARTIKEL_ANLEGEN
+				+ ": CD\r\n"
+				+ DVD_ARTIKEL_ANLEGEN
+				+ ": DVD\r\n");
+		int artikelArt = getInt();
+		if (artikelArt < STANDARD_ARTIKEL_ANLEGEN
+				|| artikelArt > DVD_ARTIKEL_ANLEGEN) {
+			throw new IllegalArgumentException(
+					"Eingabe muss den Optionen entsprechen!");
+		}
+		if (artikelArt == BUCH_ARTIKEL_ANLEGEN) {
+			OUT.print("Author >\r\n");
+			author = getLine();
+			OUT.print("Titel >\r\n");
+			titel = getLine();
+			OUT.print("Verlag >\r\n");
+			verlag = getLine();
+		}
+		if (artikelArt == CD_ARTIKEL_ANLEGEN) {
+			OUT.print("Interpret >\r\n");
+			interpret = getLine();
+			OUT.print("Titel >\r\n");
+			titel = getLine();
+			OUT.print("Titelanzahl >\r\n");
+			anzahlTitel = getInt();
+		}
+		if (artikelArt == DVD_ARTIKEL_ANLEGEN) {
+			OUT.print("Spieldauer >\r\n");
+			spielDauer = getInt();
+			OUT.print("Titel >\r\n");
+			titel = getLine();
+			OUT.print("Erscheinungsjahr >\r\n");
+			erscheinungsJahr = getInt();
+		}
+			
 		OUT.print("Wie moechten sie den Artikel anlegen?\r\n");
 		OUT.print(ARTIKEL_ANLEGEN_GANZ + ": Ganz\r\n"
-				+ +ARTIKEL_ANLEGEN_OHNE_BESTAND + ": Ohne Bestand\r\n"
+				+ ARTIKEL_ANLEGEN_OHNE_BESTAND + ": Ohne Bestand\r\n"
 				+ ARTIKEL_ANLEGEN_MIT_STANDART_PREIS
 				+ ": Mit Standardpreis\r\n"
 				+ ARTIKEL_ANLEGEN_OHNE_BESTAND_MIT_STANDART_PREIS
@@ -264,7 +315,18 @@ public class LagerDialog {
 		OUT.print("Bitte geben Sie eine Artikelbezeichnung ein > ");
 		String artBez = getLine();
 		if (wahl == ARTIKEL_ANLEGEN_OHNE_BESTAND_MIT_STANDART_PREIS) {
+			if (artikelArt == STANDARD_ARTIKEL_ANLEGEN) {
 			artikel = new Artikel(artNr, artBez);
+			}
+			if (artikelArt == BUCH_ARTIKEL_ANLEGEN) {
+				artikel = new Buch(artNr, artBez, author, titel, verlag);
+			}
+			if (artikelArt == CD_ARTIKEL_ANLEGEN) {
+				artikel = new Cd(artNr, artBez, interpret, titel, anzahlTitel);
+			}
+			if (artikelArt == DVD_ARTIKEL_ANLEGEN) {
+				artikel = new Dvd(artNr, artBez, titel, spielDauer, erscheinungsJahr);
+			}
 		}
 		if (wahl == ARTIKEL_ANLEGEN_GANZ
 				|| wahl == ARTIKEL_ANLEGEN_OHNE_BESTAND
@@ -275,7 +337,17 @@ public class LagerDialog {
 				OUT.print("Bitte geben sie eine Startmenge ein > ");
 				artMenge = getInt();
 				if (wahl == ARTIKEL_ANLEGEN_MIT_STANDART_PREIS) {
-					artikel = new Artikel(artNr, artBez, artMenge);
+					if (artikelArt == STANDARD_ARTIKEL_ANLEGEN) {
+						artikel = new Artikel(artNr, artBez, artMenge);
+					}
+					if (artikelArt == BUCH_ARTIKEL_ANLEGEN) {
+						artikel = new Buch(artNr, artBez, artMenge, author, titel, verlag);
+					}
+					if (artikelArt == CD_ARTIKEL_ANLEGEN) {
+						artikel = new Cd(artNr, artBez, artMenge, interpret, titel, anzahlTitel);
+					}
+					if (artikelArt == DVD_ARTIKEL_ANLEGEN) {
+						artikel = new Dvd(artNr, artBez, artMenge, titel, spielDauer, erscheinungsJahr);						}
 				}
 			}
 			if (wahl == ARTIKEL_ANLEGEN_GANZ
@@ -283,12 +355,35 @@ public class LagerDialog {
 				OUT.print("Bitte geben sie einen Startpreis ein > ");
 				double preis = getDouble();
 				if (wahl == ARTIKEL_ANLEGEN_GANZ) {
-					artikel = new Artikel(artNr, artBez, artMenge, preis);
-				}
+					if (artikelArt == STANDARD_ARTIKEL_ANLEGEN) {
+						artikel = new Artikel(artNr, artBez, artMenge, preis);
+					}
+					if (artikelArt == BUCH_ARTIKEL_ANLEGEN) {
+						artikel = new Buch(artNr, artBez, artMenge, preis, author, titel, verlag);
+					}
+					if (artikelArt == CD_ARTIKEL_ANLEGEN) {
+						artikel = new Cd(artNr, artBez, artMenge, preis, interpret, titel, anzahlTitel);
+					}
+					if (artikelArt == DVD_ARTIKEL_ANLEGEN) {
+						artikel = new Dvd(artNr, artBez, artMenge, preis, titel, spielDauer, erscheinungsJahr);
+					}
 				if (wahl == ARTIKEL_ANLEGEN_OHNE_BESTAND) {
-					artikel = new Artikel(artNr, artBez, preis);
+					if (artikelArt == STANDARD_ARTIKEL_ANLEGEN) {
+						artikel = new Artikel(artNr, artBez, preis);
+					}
+					if (artikelArt == BUCH_ARTIKEL_ANLEGEN) {
+						artikel = new Buch(artNr, artBez, preis, author, titel, verlag);
+					}
+					if (artikelArt == CD_ARTIKEL_ANLEGEN) {
+						artikel = new Cd(artNr, artBez, preis, interpret, titel, anzahlTitel);
+					}
+					if (artikelArt == DVD_ARTIKEL_ANLEGEN) {
+						artikel = new Dvd(artNr, artBez, preis, titel, spielDauer, erscheinungsJahr);
+					}
 				}
 			}
+		}
+		
 		}
 		lager.lagereArtikel(artikel);
 	}
@@ -384,7 +479,7 @@ public class LagerDialog {
 		appandOperation(sb, ZUGANG, "Zugang zu Artikel Buchen");
 		appandOperation(sb, ABGANG, "Abgang fuer Artikel Buchen");
 		appandOperation(sb, PREISAENDERUNG, "Preis Anpassen");
-		appandOperation(sb, ARTIKEL_WAEHLEN, "Artikel Wählen");
+		appandOperation(sb, ARTIKEL_WAEHLEN, "Artikel Waehlen");
 		appandOperation(sb, BEENDEN, "Beenden");
 		
 		OUT.print(sb);

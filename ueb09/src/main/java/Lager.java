@@ -66,7 +66,7 @@ public class Lager implements Iterable<Artikel> {
 	}
 
 	/**
-	 * Methode zum erfassen eines Artikel Onjekt in dem Lager Objekt.
+	 * Methode zum erfassen eines einmaligen Artikel Objekt in dem Lager Objekt.
 	 * <p>
 	 * 
 	 * @param artNr
@@ -79,6 +79,11 @@ public class Lager implements Iterable<Artikel> {
 	public void lagereArtikel(Artikel artikel) {
 		if (artikelAnzahl >= lagerFeld.length) {
 			throw new IllegalArgumentException("Lager ist bereits voll!");
+		}
+		for (int i = 0; i < artikelAnzahl; i++) {
+			if (artikel.getArtikelNummer() == this.lagerFeld[i].getArtikelNummer()) {
+				throw new IllegalArgumentException("Artikel bereits eingelagert!");
+			}
 		}
 		this.lagerFeld[artikelAnzahl] = artikel;
 		artikelAnzahl++;
