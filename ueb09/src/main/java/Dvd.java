@@ -43,7 +43,7 @@ public class Dvd extends Artikel {
 			String titel,int spielDauer, int erscheinungsJahr) {
 		super(artikelNummer, artikelBezeichnung, artikelBestand, preis);
 
-		if (titel != null && !"".equals(titel.trim())) {
+		if (titel == null || "".equals(titel.trim())) {
 			throw new InvalidInputException("Title must not be empty",
 					titel, "nonempty Text");
 		}

@@ -40,26 +40,26 @@ public class Buch extends Artikel {
 	 */
 	public Buch(int artikelNummer, String artikelBezeichnung,
 			Integer artikelBestand, Double preis, String interpret,
-			String titel, String anzahlTitel) {
+			String titel, String verlag) {
 		super(artikelNummer, artikelBezeichnung, artikelBestand, preis);
 
-		if (interpret != null && !"".equals(interpret.trim())) {
+		if (interpret == null || "".equals(interpret.trim())) {
 			throw new InvalidInputException("Interpret must not be empty",
 					interpret, "nonempty Text");
 		}
 
-		if (titel != null && !"".equals(titel.trim())) {
+		if (titel == null || "".equals(titel.trim())) {
 			throw new InvalidInputException("Title must not be empty",
 					titel, "nonempty Text");
 		}
 
-		if (verlag != null && !"".equals(verlag.trim())) {
+		if (verlag == null || "".equals(verlag.trim())) {
 			throw new InvalidInputException("Verlag must not be empty",
 					verlag, "nonempty Text");
 		}
 		this.author = interpret;
 		this.titel = titel;
-		this.verlag = anzahlTitel;
+		this.verlag = verlag;
 	}
 
 	/**

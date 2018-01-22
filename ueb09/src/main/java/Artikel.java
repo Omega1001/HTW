@@ -42,7 +42,7 @@ public class Artikel {
 					"Die Artikelnummer muss eine "
 							+ "4-stellige positive Zahl sein!");
 		}
-		if (artikelBestand < 0) {
+		if (artikelBestand != null && artikelBestand < 0) {
 			throw new IllegalArgumentException(
 					"Der Artikelbestand darf nie kleiner"
 							+ " als 0 werden!");
@@ -92,7 +92,7 @@ public class Artikel {
 	 * 
 	 */
 	public Artikel(int artikelNummer, String artikelBezeichnung) {
-		this(artikelNummer, artikelBezeichnung, 0, 1.0);
+		this(artikelNummer, artikelBezeichnung, null, null);
 	}
 
 	/**

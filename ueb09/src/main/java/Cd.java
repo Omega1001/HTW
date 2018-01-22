@@ -43,12 +43,12 @@ public class Cd extends Artikel {
 			String titel, int anzahlTitel) {
 		super(artikelNummer, artikelBezeichnung, artikelBestand, preis);
 
-		if (interpret != null && !"".equals(interpret.trim())) {
+		if (interpret == null || "".equals(interpret.trim())) {
 			throw new InvalidInputException("Interpret must not be empty",
 					interpret, "nonempty Text");
 		}
 
-		if (titel != null && !"".equals(titel.trim())) {
+		if (titel == null || "".equals(titel.trim())) {
 			throw new InvalidInputException("Title must not be empty",
 					titel, "nonempty Text");
 		}
