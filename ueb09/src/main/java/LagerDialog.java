@@ -22,6 +22,8 @@ public class LagerDialog {
 	private static final int ABGANG = 6;
 	private static final int PREISAENDERUNG = 7;
 	private static final int ARTIKEL_WAEHLEN = 8;
+	private static final int BESCHREIBUNG = 9;
+	private static final int BESTANDSLISTE = 10;
 
 	private static final int ARTIKEL_ANLEGEN_GANZ = 1;
 	private static final int ARTIKEL_ANLEGEN_OHNE_BESTAND = 2;
@@ -199,7 +201,7 @@ public class LagerDialog {
 		}else if (lager != null && (selected == ERZEUGEN || selected == ERZEUGEN_MAX)) {
 			throw new UnsupportedOperationException("Es existiert bereits ein Lager!");
 		}else if (selected == ERZEUGEN) {
-			OUT.print("Bitte Lagergroeoee bestimmen. > ");
+			OUT.print("Bitte Lagergroesse bestimmen. > ");
 			lager = new Lager(getInt());
 			OUT.println("Lager wurde erzeugt.");
 		} else if (selected == ERZEUGEN_MAX) {
@@ -231,7 +233,12 @@ public class LagerDialog {
 							ArtikelDialog.ABGANG, ArtikelDialog.ZUGANG,
 							ArtikelDialog.SET_ART_BEZEICHNUNG, ArtikelDialog.QUIT);
 					artDialog.run();
-				} else {
+				}else if (selected == BESCHREIBUNG) {
+					int artNo = getArtikelNummer();
+					OUT.print(lager.findeArtikel(artNo).getBeschreibung());
+				}else if (selected == BESTANDSLISTE) {
+					OUT.print(lager.ausgebenBestandsListe());
+				}else {
 					throw new UnsupportedOperationException(
 							"Dieser Befehl ist nicht bekannt");
 				}
@@ -480,6 +487,8 @@ public class LagerDialog {
 		appandOperation(sb, ABGANG, "Abgang fuer Artikel Buchen");
 		appandOperation(sb, PREISAENDERUNG, "Preis Anpassen");
 		appandOperation(sb, ARTIKEL_WAEHLEN, "Artikel Waehlen");
+		appandOperation(sb, BESCHREIBUNG, "Beschreibung eines Artikels ausgeben");
+		appandOperation(sb, BESTANDSLISTE, "Bestandsliste ausgeben");
 		appandOperation(sb, BEENDEN, "Beenden");
 		
 		OUT.print(sb);

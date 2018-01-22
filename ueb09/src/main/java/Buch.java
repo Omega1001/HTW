@@ -39,13 +39,13 @@ public class Buch extends Artikel {
 	 * 			  Verlag des Buchartikels
 	 */
 	public Buch(int artikelNummer, String artikelBezeichnung,
-			Integer artikelBestand, Double preis, String interpret,
+			Integer artikelBestand, Double preis, String author,
 			String titel, String verlag) {
 		super(artikelNummer, artikelBezeichnung, artikelBestand, preis);
 
-		if (interpret == null || "".equals(interpret.trim())) {
-			throw new InvalidInputException("Interpret must not be empty",
-					interpret, "nonempty Text");
+		if (author == null || "".equals(author.trim())) {
+			throw new InvalidInputException("author must not be empty",
+					author, "nonempty Text");
 		}
 
 		if (titel == null || "".equals(titel.trim())) {
@@ -57,7 +57,7 @@ public class Buch extends Artikel {
 			throw new InvalidInputException("Verlag must not be empty",
 					verlag, "nonempty Text");
 		}
-		this.author = interpret;
+		this.author = author;
 		this.titel = titel;
 		this.verlag = verlag;
 	}
@@ -84,10 +84,10 @@ public class Buch extends Artikel {
 	 * 			  Verlag des Buchartikels
 	 */
 	public Buch(int artikelNummer, String artikelBezeichnung,
-			int artikelBestand, String interpret, String titel,
+			int artikelBestand, String author, String titel,
 			String verlag) {
 		this(artikelNummer, artikelBezeichnung, artikelBestand, null,
-				interpret, titel, verlag);
+				author, titel, verlag);
 	}
 
 	/**
@@ -112,8 +112,8 @@ public class Buch extends Artikel {
 	 * 			  Verlag des Buchartikels
 	 */
 	public Buch(int artikelNummer, String artikelBezeichnung, double preis,
-			String interpret, String titel, String verlag) {
-		this(artikelNummer, artikelBezeichnung, null, preis, interpret,
+			String author, String titel, String verlag) {
+		this(artikelNummer, artikelBezeichnung, null, preis, author,
 				titel, verlag);
 	}
 
@@ -137,8 +137,8 @@ public class Buch extends Artikel {
 	 * 			  Verlag des Buchartikels
 	 */
 	public Buch(int artikelNummer, String artikelBezeichnung,
-			String interpret, String titel, String verlag) {
-		this(artikelNummer, artikelBezeichnung, null, null, interpret,
+			String author, String titel, String verlag) {
+		this(artikelNummer, artikelBezeichnung, null, null, author,
 				titel, verlag);
 	}
 

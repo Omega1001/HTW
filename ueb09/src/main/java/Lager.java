@@ -203,6 +203,12 @@ public class Lager implements Iterable<Artikel> {
 		throw new NoSuchElementException("Der Artikel Nummer " + artNr + " ist nicht vorhanden!");
 	}
 	
+	/**
+	 * Methode zum ausgeben einer Bestandsliste eines Lagers.
+	 * <p>
+	 * 
+	 * @return Formatierte Bestandsliste des Lagers
+	 */
 	public String ausgebenBestandsListe() {
 		StringBuilder sb = new StringBuilder();
 		sb.append(String.format("%-6s %-40s %10s %7s %15s", "ArtNr", "Beschreibung", "Preis", "Bestand", "Gesamt"));
