@@ -1,5 +1,7 @@
 package ueb11;
 
+import java.io.File;
+
 /**
  * Class to count all "lines of code" in a given .java file.
  * 
@@ -8,11 +10,11 @@ package ueb11;
  */
 public class FileLOC {
 	
-	private String fileName;
+	private File file;
 	private int LOC;
 	
-	public FileLOC(String fileName, int LOC) {
-		this.fileName = fileName;
+	public FileLOC(File file, int LOC) {
+		this.file = file;
 		this.LOC = LOC;
 	}
 	public int getLOC() {
@@ -20,6 +22,6 @@ public class FileLOC {
 	}
 	@Override
 	public String toString() {
-		return String.format("%-20s %d %s\r\n", fileName + ":", LOC, "LOC" );
+		return String.format("%-20s %d %s\r\n", file.getName() + ":", LOC, "LOC" );
 	}
 }

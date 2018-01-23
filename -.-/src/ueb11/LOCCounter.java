@@ -1,6 +1,9 @@
 package ueb11;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintStream;
@@ -18,23 +21,39 @@ import java.util.regex.Pattern;
  */
 public class LOCCounter {
 	
-	private static final Pattern JAV_DOC_1 = Pattern.compile("^ *?//.*$");
+	private static final Pattern JAV_DOC = Pattern.compile("^ *?//.*$");
 	
-	public static void main(String[] args) {
+	private List<FileLOC> fileLOCs = new ArrayList<>();
+	
+	
+	public void main(String[] args) {
 		run(System.in, System.out, System.err);
 	}
 	
-	public static void run(InputStream in, PrintStream out) {
+	public void run(InputStream in, PrintStream out) {
 		run(in, out, out);
 	}
 	
-	public static void run(InputStream in, PrintStream out,
+	public void run(InputStream in, PrintStream out,
 			PrintStream err) {
 		if (in == null || out == null || err == null) {
 			throw new IllegalArgumentException(
 					"Passed Streams must not be undefined");
 		}
-		List<FileLOC> fileLOCs = countLOC(in);
+		
+		File file = null;
+		char run = 'j';
+
+		while (run == 'j') {
+			out.print("Bitt eine Datei angeben > \r\n");
+			file = FileReader(getString());
+			List<FileLOC> fileLOCs = countLOC(file);
+			out.print("Eine weitere Datei? <j/n>\r\n");
+			run = getChar();
+			if (run != 'j' || run != 'n') {
+				throw new IllegalArgumentException ("Eingabe muss j oder n sein!");
+			}
+		}
 		out.print("Auswertung Lines Of Code (LOC)");
 		int number = 0;
 		int sum = 0;
@@ -48,28 +67,19 @@ public class LOCCounter {
 		out.print(gesamt);
 	}
 	
-	public static List<FileLOC> countLOC(InputStream in) {
+	public List<FileLOC> countLOC(File file) throws FileNotFoundException {
 		
-		if (in == null) {
-			throw new IllegalArgumentException(
-					"Passed Streams must not be undefined");
-		}
-		
-		List<FileLOC> fileLOCs = new ArrayList<>();
-		String fileName = "";
 		int LOC = 0;
-		Scanner scanner = new Scanner(in);
+		Scanner scanner = new Scanner(file);
 		String line = "";
 		
 		while (scanner.hasNextLine()) {
 			line = scanner.nextLine();
-			Matcher javDoc1Mat = JAV_DOC_1.matcher(line);
-			Matcher javDoc2Mat = JAV_DOC_2.matcher(line);
-			Matcher javDoc3Mat = JAV_DOC_3.matcher(line);
-			if ( !("".equals(line.trim()) && !javDoc1Mat.find() && !javDoc2Mat.find() && !javDoc3Mat.find())) {
+			Matcher javDoc1Mat = JAV_DOC.matcher(line);
+			if ( !("".equals(line.trim()) && !javDoc1Mat.find())) {
 				LOC++;
 			}
-		fileLOCs.add(new FileLOC(fileName, LOC));
+		fileLOCs.add(new FileLOC(file, LOC));
 		}
 		
 		return fileLOCs;
