@@ -18,9 +18,7 @@ import java.util.regex.Pattern;
  */
 public class LOCCounter {
 	
-	private static final Pattern JAV_DOC_1 = Pattern.compile("/[*][*].*");
-	private static final Pattern JAV_DOC_2 = Pattern.compile("[*].*");
-	private static final Pattern JAV_DOC_3 = Pattern.compile("//.*");
+	private static final Pattern JAV_DOC_1 = Pattern.compile("^ *?//.*$");
 	
 	public static void main(String[] args) {
 		run(System.in, System.out, System.err);
@@ -42,7 +40,7 @@ public class LOCCounter {
 		int sum = 0;
 		for (FileLOC fileLOC : fileLOCs) {
 			out.print(fileLOC.toString());
-			sum += FileLOC.getLOC();
+			sum += fileLOC.getLOC();
 			number++;
 		}
 		out.print("Gesamt:\r\n");

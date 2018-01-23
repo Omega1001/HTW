@@ -53,7 +53,7 @@ public class Cd extends Artikel {
 					titel, "nonempty Text");
 		}
 
-		if (anzahlTitel < 0) {
+		if (anzahlTitel <= 0) {
 			throw new InvalidInputException(
 					"Tiltle Count must be bigger than 0", interpret,
 					"1 or higher");

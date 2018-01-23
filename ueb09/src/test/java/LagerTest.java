@@ -51,7 +51,7 @@ public class LagerTest {
 		Lager lager = new Lager();
 		for (int i = 0; i < 9000; i++) {
 			assertEquals(i, (lager).getArtikelAnzahl());
-			lager.lagereArtikel(mockArtikel01);
+			lager.lagereArtikel(new Artikel(i+1000, "art"));
 			assertEquals(i + 1, (lager).getArtikelAnzahl());
 		}
 		assertEquals(9000, (lager).getArtikelAnzahl());

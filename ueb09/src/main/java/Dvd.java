@@ -48,12 +48,12 @@ public class Dvd extends Artikel {
 					titel, "nonempty Text");
 		}
 		
-		if (erscheinungsJahr < 1950 && erscheinungsJahr > 2014 ) {
+		if (erscheinungsJahr < 1950 || erscheinungsJahr > 2014 ) {
 			throw new InvalidInputException("erscheinungsJahr must be between 1950 and 2014",
 					erscheinungsJahr, "1950 < erscheinungsJahr < 2014");
 		}
 
-		if (spielDauer < 0) {
+		if (spielDauer <= 0) {
 			throw new InvalidInputException(
 					"spielDauer must be bigger than 0", spielDauer,
 					"1 or higher");
