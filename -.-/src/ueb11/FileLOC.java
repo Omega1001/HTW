@@ -3,7 +3,8 @@ package ueb11;
 import java.io.File;
 
 /**
- * Class to count all "lines of code" in a given .java file.
+ *
+ * Class to keep track of the lines of code of a given .java file.
  * 
  * @author Jannik ADAM
  * @author Fromm-Borys

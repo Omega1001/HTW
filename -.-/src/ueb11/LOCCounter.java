@@ -1,12 +1,8 @@
 package ueb11;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -22,55 +18,16 @@ import java.util.regex.Pattern;
 public class LOCCounter {
 	
 	private static final Pattern JAV_DOC = Pattern.compile("^ *?//.*$");
-	
-	private List<FileLOC> fileLOCs = new ArrayList<>();
-	
-	
-	public void main(String[] args) {
-		run(System.in, System.out, System.err);
-	}
-	
-	public void run(InputStream in, PrintStream out) {
-		run(in, out, out);
-	}
-	
-	public void run(InputStream in, PrintStream out,
-			PrintStream err) {
-		if (in == null || out == null || err == null) {
-			throw new IllegalArgumentException(
-					"Passed Streams must not be undefined");
-		}
-		
-		File file = null;
-		char run = 'j';
+	private List<FileLOC> fileLOCs;
 
-		while (run == 'j') {
-			out.print("Bitt eine Datei angeben > \r\n");
-			file = FileReader(getString());
-			List<FileLOC> fileLOCs = countLOC(file);
-			out.print("Eine weitere Datei? <j/n>\r\n");
-			run = getChar();
-			if (run != 'j' || run != 'n') {
-				throw new IllegalArgumentException ("Eingabe muss j oder n sein!");
-			}
-		}
-		out.print("Auswertung Lines Of Code (LOC)");
-		int number = 0;
-		int sum = 0;
-		for (FileLOC fileLOC : fileLOCs) {
-			out.print(fileLOC.toString());
-			sum += fileLOC.getLOC();
-			number++;
-		}
-		out.print("Gesamt:\r\n");
-		String gesamt = String.format("%-20s %s\r\n", (number + "Datei/en"), (sum + "LOC")); 
-		out.print(gesamt);
+	public LOCCounter(){
+		this. fileLOCs = new ArrayList<>();
 	}
 	
-	public List<FileLOC> countLOC(File file) throws FileNotFoundException {
+	public void countLOC(String fileName) throws FileNotFoundException {
 		
 		int LOC = 0;
-		Scanner scanner = new Scanner(file);
+		Scanner scanner = new Scanner(new FileReader(fileName));
 		String line = "";
 		
 		while (scanner.hasNextLine()) {
@@ -79,9 +36,31 @@ public class LOCCounter {
 			if ( !("".equals(line.trim()) && !javDoc1Mat.find())) {
 				LOC++;
 			}
-		fileLOCs.add(new FileLOC(file, LOC));
+		
+		}
+		fileLOCs.add(new FileLOC(new File(fileName), LOC));
+	}
+	
+	public String countAllFilesAndLOC() {
+		
+		int sum = 0;
+		int number = 0;
+		
+		for (FileLOC fileLOC : fileLOCs) {
+			sum += fileLOC.getLOC();
+			number++;
 		}
 		
-		return fileLOCs;
+		return String.format("%-20s %d %s\r\n", number + " Dateie/n" + ":", sum + " LOC" );
+	}
+	
+	public String toString() {
+		
+		String string = "";
+		
+		for (FileLOC fileLOC : fileLOCs) {
+			string += (fileLOC.toString());
+		}
+		return string;
 	}
 }
