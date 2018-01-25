@@ -57,6 +57,9 @@ public class LOCCounterDialog  {
 		String selected = "j";
 		OUT.print("Moechten sie die Anzahl an Codezeilen einer .java-Datei auswerten? <j/n> ");
 		selected = getLine();
+		if(("n").equals(selected)) {
+			return true;
+		}
 		while (!"n".equals(selected)) {
 			OUT.println("Welche .java-Datei soll ausgewertet werden?");
 			OUT.println(">");
@@ -64,15 +67,12 @@ public class LOCCounterDialog  {
 			OUT.println("Eine weitere .java-Datei übergeben? <j/n>");
 			OUT.println(">");
 			getLine();
-			
 		}
 		OUT.println("Auswertung Lines Of Code (LOC)");
 		OUT.println(locCounter.toString());
 		OUT.println("Gesamt:");
 		OUT.printf(locCounter.countAllFilesAndLOC());
-		if(("n").equals(selected)) {
-			return true;
-		}
+		
 		return false;
 	}
 	
