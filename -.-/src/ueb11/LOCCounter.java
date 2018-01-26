@@ -27,7 +27,8 @@ public class LOCCounter {
 	public void countLOC(String fileName) throws FileNotFoundException {
 		
 		int LOC = 0;
-		Scanner scanner = new Scanner(new FileReader(fileName));
+		File file = new File(fileName);
+		Scanner scanner = new Scanner(file);
 		String line = "";
 		
 		while (scanner.hasNextLine()) {
@@ -38,7 +39,7 @@ public class LOCCounter {
 			}
 		
 		}
-		fileLOCs.add(new FileLOC(new File(fileName), LOC));
+		fileLOCs.add(new FileLOC(file, LOC));
 	}
 	
 	public String countAllFilesAndLOC() {
@@ -51,7 +52,7 @@ public class LOCCounter {
 			number++;
 		}
 		
-		return String.format("%-20s %d %s\r\n", number + " Dateie/n" + ":", sum + " LOC" );
+		return String.format("%-30s %d %s\r\n", number + " Dateie/n" + ":", sum, " LOC" );
 	}
 	
 	public String toString() {

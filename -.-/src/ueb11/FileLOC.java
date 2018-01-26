@@ -23,6 +23,6 @@ public class FileLOC {
 	}
 	@Override
 	public String toString() {
-		return String.format("%-20s %d %s\r\n", file.getName() + ":", LOC, "LOC" );
+		return String.format("%-30s %d %s\r\n", file.getName() + ":", LOC, "LOC" );
 	}
 }

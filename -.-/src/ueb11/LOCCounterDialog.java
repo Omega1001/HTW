@@ -53,6 +53,9 @@ public class LOCCounterDialog  {
 	}
 	
 	private boolean processNext() throws FileNotFoundException {
+		
+		locCounter = new LOCCounter();
+		
 		OUT.println();
 		String selected = "j";
 		OUT.print("Moechten sie die Anzahl an Codezeilen einer .java-Datei auswerten? <j/n> ");
@@ -66,7 +69,7 @@ public class LOCCounterDialog  {
 			locCounter.countLOC(getLine());
 			OUT.println("Eine weitere .java-Datei übergeben? <j/n>");
 			OUT.println(">");
-			getLine();
+			selected = getLine();
 		}
 		OUT.println("Auswertung Lines Of Code (LOC)");
 		OUT.println(locCounter.toString());
