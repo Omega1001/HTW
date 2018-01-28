@@ -36,7 +36,7 @@ public class LOCCounter {
 	 * @throws FileDoesNotExistException 
 	 * @throws FielIsDirectoryException 
 	 */
-	public void countLOC(File file) throws FileNotFoundException{
+	public void countLOC(File file) throws FileNotFoundException, FileDoesNotExistException, FielIsDirectoryException{
 	
 		if (!(file.exists())) {
 			throw new FileDoesNotExistException("Datei existiert nicht!");
@@ -75,7 +75,7 @@ public class LOCCounter {
 	 * 		If the file does not exist.
 	 * @throws FielIsDirectoryException 
 	 */
-	public void countLOCPath(String fileName) throws FileNotFoundException{
+	public void countLOCPath(String fileName) throws FileNotFoundException, FileDoesNotExistException, FielIsDirectoryException{
 		
 		File file = new File(fileName);
 

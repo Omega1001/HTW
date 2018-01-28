@@ -83,7 +83,7 @@ public class LOCCounterDialog  {
 	
 	/**
 	 * This method handles any errors.<br>
-	 * In addition the input will be advanced aline in order to prevent input errors.
+	 * In addition the input will be advanced a line in order to prevent input errors.
 	 * <p>
 	 * @param ex
 	 * 		The error to be handled.
@@ -121,10 +121,12 @@ public class LOCCounterDialog  {
 	 * <p>
 	 * @return
 	 * 		Whether the dialog should be closed.
+	 * @throws FielIsDirectoryException 
+	 * @throws FileDoesNotExistException 
 	 * @throws FileNotFoundException
 	 * 		If the path contained in the string does not lead to a valid file. 
 	 */
-	private boolean processNext(){
+	private boolean processNext() throws FileNotFoundException, FileDoesNotExistException, FielIsDirectoryException{
 		
 		locCounter = new LOCCounter();
 		
