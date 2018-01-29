@@ -11,7 +11,7 @@ import java.io.File;
 public class FileLOC {
 	
 	private File file;
-	private int LOC;
+	private int loc;
 	
 	/**
 	 * Constructor for a FileLOC object<br>
@@ -19,12 +19,12 @@ public class FileLOC {
 	 * <p>
 	 * @param file
 	 * 		the file
-	 * @param LOC
+	 * @param loc
 	 * 		the lines of code
 	 */
-	public FileLOC(File file, int LOC) {
+	public FileLOC(File file, int loc) {
 		this.file = file;
-		this.LOC = LOC;
+		this.loc = loc;
 	}
 	
 	/**
@@ -33,8 +33,8 @@ public class FileLOC {
 	 * @return
 	 * 		Lines of code
 	 */
-	public int getLOC() {
-		return LOC;
+	public int getLoc() {
+		return loc;
 	}
 	
 	/**
@@ -45,6 +45,6 @@ public class FileLOC {
 	 */
 	@Override
 	public String toString() {
-		return String.format("%-30s %d %s\r\n", file.getName() + ":", LOC, "LOC" );
+		return String.format("%-30s %d LOC", file.getName().concat(":"), loc );
 	}
 }
