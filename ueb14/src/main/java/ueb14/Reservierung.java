@@ -13,6 +13,8 @@ public class Reservierung {
 	public Reservierung(Uhrzeit start, Uhrzeit ende) {
 		if(start == null || ende == null) {
 			throw new IllegalArgumentException("No start and/or end time specified");
+		}else if (start.compareTo(ende) != -1) {
+			throw new IllegalArgumentException("Start must be before end");
 		}
 		this.start = start;
 		this.ende = ende;

@@ -1,6 +1,6 @@
 package ueb14;
 
-public class Uhrzeit {
+public class Uhrzeit implements Comparable<Uhrzeit>{
 	
 	private int stunde;
 	private int minute;
@@ -58,7 +58,16 @@ public class Uhrzeit {
 		builder.append(stunde);
 		builder.append(":");
 		builder.append(minute);
-		return builder.toString();
+		return String.format("%02d:%02d", stunde,minute);
+	}
+
+	@Override
+	public int compareTo(Uhrzeit o) {
+		int hres = Integer.compare(stunde, o.stunde);
+		if(hres == 0) {
+			return Integer.compare(minute, o.minute);
+		}
+		return hres;
 	}
 	
 	

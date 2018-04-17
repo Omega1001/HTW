@@ -13,12 +13,22 @@ public class Mitarbeiter extends Person {
 	}
 
 	public void reserviere(Raum raum, Uhrzeit begin, Uhrzeit ende, String bemerkung) {
+		if(raum == null) {
+			throw new IllegalArgumentException("Raum must be set");
+		}
 		Reservierung r = new Reservierung(begin, ende);
 		r.setReservator(this);
-		r.setBemerkung(bemerkung);
+		r.setBemerkung("".equals(bemerkung) ? null: bemerkung);
 		raum.addReservierung(r);
 	}
 	
+	/**
+	 * @return the mail
+	 */
+	public String getMail() {
+		return mail;
+	}
+
 	/* (non-Javadoc)
 	 * @see java.lang.Object#hashCode()
 	 */
