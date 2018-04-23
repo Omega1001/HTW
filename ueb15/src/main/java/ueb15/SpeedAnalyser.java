@@ -10,23 +10,24 @@ import java.lang.reflect.Proxy;
 public class SpeedAnalyser implements InvocationHandler {
 
 	@SuppressWarnings("unchecked")
-	public static <T> T create(Class<T> type,T actual){
-		if(type.isInterface()) {
-			return (T) Proxy.newProxyInstance(type.getClassLoader(), new Class<?>[] {type}, new SpeedAnalyser(actual));
-		}else {
+	public static <T> T create(Class<T> type, T actual) {
+		if (type.isInterface()) {
+			return (T) Proxy.newProxyInstance(type.getClassLoader(), new Class<?>[] { type },
+					new SpeedAnalyser(actual));
+		} else {
 			throw new IllegalArgumentException("Must be an Interface");
 		}
 	}
-	
+
 	public static long getLastExecutionTime(Object obj) {
-		if(obj == null || Proxy.isProxyClass(obj.getClass())) {
+		if (obj == null || Proxy.isProxyClass(obj.getClass())) {
 			InvocationHandler handler = Proxy.getInvocationHandler(obj);
-			if(handler instanceof SpeedAnalyser) {
+			if (handler instanceof SpeedAnalyser) {
 				return ((SpeedAnalyser) handler).lastExecutionNanos;
-			}else {
+			} else {
 				throw new IllegalArgumentException("Not a valid speed Analyser");
 			}
-		}else {
+		} else {
 			throw new IllegalArgumentException("Not a valid speed Analyser");
 		}
 	}
@@ -41,17 +42,20 @@ public class SpeedAnalyser implements InvocationHandler {
 	}
 
 	@Override
-	public Object invoke(Object proxy, Method method, Object[] args)
-			throws Throwable {
+	public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
 		Object res = null;
-		long start = tBean.isThreadCpuTimeSupported() ? tBean
-				.getCurrentThreadCpuTime() : System.nanoTime();
+		long start = tBean.isThreadCpuTimeSupported() ? tBean.getCurrentThreadCpuTime() : 0;
+		long startTime = System.nanoTime();
 
 		try {
 			res = method.invoke(actual, args);
-			
-			lastExecutionNanos = (tBean.isThreadCpuTimeSupported() ? tBean
-					.getCurrentThreadCpuTime() : System.nanoTime())-start;
+
+			long endTime = System.nanoTime();
+			lastExecutionNanos = (tBean.isThreadCpuTimeSupported() ? tBean.getCurrentThreadCpuTime()
+					: 0) - start;
+			if(lastExecutionNanos < 10) {
+				lastExecutionNanos= endTime - startTime;
+			}
 		} catch (InvocationTargetException e) {
 			throw e.getCause();
 		}
