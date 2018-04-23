@@ -15,7 +15,7 @@ public class CSVWriter extends FilterWriter {
 	}
 
 	public void putColumn(String content) throws IOException {
-		if (colCount != 0) {
+		if (colPointer != 0) {
 			write(',');
 		}
 		write(content);
@@ -44,12 +44,13 @@ public class CSVWriter extends FilterWriter {
 		}
 		write('\r');
 		write('\n');
+		colPointer = 0;
 		flush();
 	}
-	
+
 	@Override
 	public void close() throws IOException {
-		//Finish Line
+		// Finish Line
 		nextRow();
 		super.close();
 	}

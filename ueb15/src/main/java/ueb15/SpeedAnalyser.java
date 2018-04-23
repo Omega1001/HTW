@@ -3,6 +3,7 @@ package ueb15;
 import java.lang.management.ManagementFactory;
 import java.lang.management.ThreadMXBean;
 import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 
@@ -43,13 +44,17 @@ public class SpeedAnalyser implements InvocationHandler {
 	public Object invoke(Object proxy, Method method, Object[] args)
 			throws Throwable {
 		Object res = null;
-		lastExecutionNanos = tBean.isThreadCpuTimeSupported() ? tBean
+		long start = tBean.isThreadCpuTimeSupported() ? tBean
 				.getCurrentThreadCpuTime() : System.nanoTime();
 
-		res = method.invoke(actual, args);
-		
-		lastExecutionNanos = (tBean.isThreadCpuTimeSupported() ? tBean
-				.getCurrentThreadCpuTime() : System.nanoTime())-lastExecutionNanos;
+		try {
+			res = method.invoke(actual, args);
+			
+			lastExecutionNanos = (tBean.isThreadCpuTimeSupported() ? tBean
+					.getCurrentThreadCpuTime() : System.nanoTime())-start;
+		} catch (InvocationTargetException e) {
+			throw e.getCause();
+		}
 		return res;
 	}
 

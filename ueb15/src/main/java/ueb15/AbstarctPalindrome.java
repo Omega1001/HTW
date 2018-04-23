@@ -10,14 +10,14 @@ public abstract class AbstarctPalindrome implements Palindrom {
 
 		}
 
-		if (!("").equals(word)) {
+		if ("".equals(word)) {
 
 			throw new IllegalArgumentException(
 					"String must not be empty!");
 
 		}
 
-		if (!word.matches("[a-zA-Z]")) {
+		if (!word.matches("[a-zA-Z]+")) {
 
 			throw new IllegalArgumentException(
 					"String must consist of letters!");
