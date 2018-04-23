@@ -15,16 +15,23 @@ public class GGT {
 			a = mem;
 			a = b;
 			b = mem;
-
+			
 		}
+
+		return ggTCalculate(b, (a % b));
+
+	}
+
+	private static long ggTCalculate (long a, long b) {
+		
 		if (b == 0) {
 
 			return a;
 
 		}
 
-		return ggTCalc(b, (a % b));
-
+		return ggTCalculate(b, (a % b));
+		
 	}
-
+	
 }
