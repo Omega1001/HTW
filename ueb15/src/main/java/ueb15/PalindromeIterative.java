@@ -6,13 +6,11 @@ public class PalindromeIterative extends AbstarctPalindrome {
 	protected boolean _isPalindrom(String word) {
 		
 		int stringLengthHalf = word.length()/2;
+		int length = word.length() - 1;
+		char [] wd = word.toCharArray();
 		
-		if (word.length()%2 == 1) {
-			stringLengthHalf++;
-		}
-
 		for (int i = 0; i < stringLengthHalf; i++) {
-			if (word.charAt(i) != word.charAt(word.length() - 1 - i)) {
+			if (wd[i] != wd[length - i]) {
 				return false;
 			}
 		}
