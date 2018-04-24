@@ -2,7 +2,6 @@ package ueb15;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -82,12 +81,22 @@ public class Main {
 				}else {
 					Integer second = toNumber(s);
 					if(second != null) {
-						System.out.printf("GGT of %d and %d is %d",buffer,second,ggt(buffer,second));
+						System.out.printf("GGT of %d and %d is %d\r\n",buffer,second,ggt(buffer,second));
 					}
 				}
 			}
 		}else if (prog == PALIMDROM) {
-			//TODO implement
+			for(String s : params) {
+				boolean res = false;
+				if(mode == ITTERATIV) {
+					res = getItterativP().isPalindrome(s);
+				}else if(mode == RECURSIV){
+					res = getRecursiveP().isPalindrome(s);
+				}else {
+					throw new IllegalArgumentException("Unknown mod key");
+				}
+				System.out.printf("%s is%s a palimdrom\r\n",s,res ? "":" not");
+			}
 		}else {
 			throw new IllegalArgumentException("Unknown program key");
 		}
