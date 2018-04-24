@@ -9,43 +9,43 @@ public class PalindromeIterativeTest {
 	@Test
 	public void test() {
 		PalindromeIterative tester = new PalindromeIterative();
-		assertEquals(true, tester._isPalindrom("Otto"));
+		assertEquals(true, tester.isPalindrome("Otto"));
 	}
 	
 	@Test
 	public void test2() {
 		PalindromeIterative tester = new PalindromeIterative();
-		assertEquals(true, tester._isPalindrom("Reittier"));
+		assertEquals(true, tester.isPalindrome("Reittier"));
 	}
 	
 	@Test
 	public void test3() {
 		PalindromeIterative tester = new PalindromeIterative();
-		assertEquals(true, tester._isPalindrom("Rentner"));
+		assertEquals(true, tester.isPalindrome("Rentner"));
 	}
 	
 	@Test
 	public void test4() {
 		PalindromeIterative tester = new PalindromeIterative();
-		assertEquals(false, tester._isPalindrom("Hund"));
+		assertEquals(false, tester.isPalindrome("Hund"));
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
 	public void test5() {
 		PalindromeIterative tester = new PalindromeIterative();
-		tester._isPalindrom(null);
+		tester.isPalindrome(null);
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
 	public void test6() {
 		PalindromeIterative tester = new PalindromeIterative();
-		tester._isPalindrom("");
+		tester.isPalindrome("");
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
 	public void test7() {
 		PalindromeIterative tester = new PalindromeIterative();
-		tester._isPalindrom("0tto");
+		tester.isPalindrome("0tto");
 	}
 
 

@@ -16,7 +16,7 @@ public class GGT {
 
 	}
 
-	private static long ggTCalculate (long a, long b) {
+	private long ggTCalculate (long a, long b) {
 		
 		if (b == 0) {
 
