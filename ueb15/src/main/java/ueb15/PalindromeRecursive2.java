@@ -4,7 +4,7 @@ public class PalindromeRecursive2 extends AbstarctPalindrome {
 
 	private int stringLength = 0;
 	private int stringLengthHalf = 0;
-	char [] wd;
+	private char [] wd;
 
 	@Override
 	protected boolean _isPalindrom(String word) {
