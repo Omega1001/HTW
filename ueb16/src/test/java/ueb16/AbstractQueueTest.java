@@ -1,4 +1,4 @@
-package ueb10;
+package ueb16;
 
 import static org.junit.Assert.*;
 
