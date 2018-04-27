@@ -1,6 +1,6 @@
 package ueb15;
 
-public class PalindromeRecursive2 extends AbstarctPalindrome {
+public class PalindromeRecursive2 extends AbstractPalindrome {
 
 	private int stringLength = 0;
 	private int stringLengthHalf = 0;

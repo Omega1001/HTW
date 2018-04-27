@@ -1,6 +1,6 @@
 package ueb15;
 
-public class PalindromeRecursive extends AbstarctPalindrome {
+public class PalindromeRecursive extends AbstractPalindrome {
 	
 	@Override
 	protected boolean _isPalindrom(String word) {

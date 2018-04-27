@@ -1,6 +1,6 @@
 package ueb15;
 
-public abstract class AbstarctPalindrome implements Palindrom {
+public abstract class AbstractPalindrome implements Palindrom {
 
 
 	public final boolean isPalindrome(String word) {
