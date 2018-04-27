@@ -50,10 +50,10 @@ public abstract class AbstractQueue<T> implements Queue<T> {
 		if (this.empty()) {
 			throw new IllegalStateException("No entry left");
 		}
-		return entfernePatient(store[0]);
+		return remove(store[0]);
 	}
 
-	public Object entfernePatient(Object o) {
+	public Object remove(Object o) {
 		Object result = null;
 		for (int i = 0; i < store.length; i++) {
 
@@ -83,7 +83,7 @@ public abstract class AbstractQueue<T> implements Queue<T> {
 	@SuppressWarnings("unchecked")
 	@Override
 	public T get(int i) {
-		if(i >= size()) {
+		if (i >= size()) {
 			throw new IndexOutOfBoundsException();
 		}
 		return (T) store[i];
@@ -121,27 +121,28 @@ public abstract class AbstractQueue<T> implements Queue<T> {
 				return i;
 			}
 		}
-		return 0;
+		return empty() ? 0 : store.length;
 	}
-	
+
 	@Override
 	public Iterator<T> iterator() {
 		return new QueueIterator();
 	}
-	
+
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append(this.getClass().getSimpleName()).append("[");
-		sb.append("type = ").append(tagetType.getSimpleName()).append(" size= ").append(size());
+		sb.append("type = ").append(tagetType.getSimpleName()).append(
+				" size= ").append(size());
 		sb.append("]");
 		return sb.toString();
 	}
-	
-	private class QueueIterator implements Iterator<T>{
-		
+
+	private class QueueIterator implements Iterator<T> {
+
 		private int lastIndex = 0;
-		
+
 		@Override
 		public boolean hasNext() {
 			return lastIndex < size();
@@ -149,12 +150,12 @@ public abstract class AbstractQueue<T> implements Queue<T> {
 
 		@Override
 		public T next() {
-			if(hasNext()) {
+			if (hasNext()) {
 				return get(lastIndex++);
 			}
 			throw new NoSuchElementException();
 		}
-		
+
 	}
 
 }

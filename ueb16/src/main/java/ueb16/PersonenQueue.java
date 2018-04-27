@@ -15,7 +15,7 @@ public class PersonenQueue extends AbstractQueue<Person> {
 	public String smallest() {
 		String buffer = null;
 		for (Person p : this) {
-			if(buffer == null || p.getFirstName().compareTo(buffer) > 0) {
+			if(buffer == null || p.getFirstName().compareTo(buffer) < 0) {
 				buffer = p.getFirstName();
 			}
 		}
