@@ -1,6 +1,6 @@
 package ueb16;
 
-public interface Queue {
+public interface Queue<T> extends Iterable<T>{
 	/**
 	 * This Method is used to add a new Object to this {@link Queue}<br>
 	 * New Elements are added to the end of the List<br>
@@ -18,7 +18,7 @@ public interface Queue {
 	 * @throws IllegalStateException
 	 *             if this {@link Queue} is full
 	 */
-	void addLast(Object o); // Objekt hinten anfuegen
+	void addLast(T o); // Objekt hinten anfuegen
 
 	/**
 	 * This method is used to remove the first Object in this
@@ -48,7 +48,7 @@ public interface Queue {
 	 * @throws IndexOutOfBoundsException
 	 *             if 0 > i or i > size
 	 */
-	Object get(int i); // Das i-te Element zurueckgeben
+	T get(int i); // Das i-te Element zurueckgeben
 
 	/**
 	 * This method is used to tell if this {@link Queue} contains any

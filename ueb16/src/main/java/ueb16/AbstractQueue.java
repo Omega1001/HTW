@@ -1,11 +1,14 @@
 package ueb16;
 
-public abstract class AbstractQueue implements Queue {
+import java.util.Iterator;
+import java.util.NoSuchElementException;
 
-	private Class<?> tagetType;
+public abstract class AbstractQueue<T> implements Queue<T> {
+
+	private Class<T> tagetType;
 	private final Object[] store;
 
-	public AbstractQueue(Class<?> tagetType, int size) {
+	public AbstractQueue(Class<T> tagetType, int size) {
 		this.tagetType = tagetType;
 		this.store = new Object[size];
 	}
@@ -16,7 +19,7 @@ public abstract class AbstractQueue implements Queue {
 	 * @see ueb10.Queue#addLast(java.lang.Object)
 	 */
 	@Override
-	public void addLast(Object o) {
+	public void addLast(T o) {
 		if (o == null) {
 			throw new IllegalArgumentException(this.tagetType.getName()
 					.concat(" muss not be null"));
@@ -77,9 +80,13 @@ public abstract class AbstractQueue implements Queue {
 	 * 
 	 * @see ueb10.Queue#get(int)
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
-	public Object get(int i) {
-		return store[i];
+	public T get(int i) {
+		if(i >= size()) {
+			throw new IndexOutOfBoundsException();
+		}
+		return (T) store[i];
 	}
 
 	/*
@@ -115,6 +122,39 @@ public abstract class AbstractQueue implements Queue {
 			}
 		}
 		return 0;
+	}
+	
+	@Override
+	public Iterator<T> iterator() {
+		return new QueueIterator();
+	}
+	
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append(this.getClass().getSimpleName()).append("[");
+		sb.append("type = ").append(tagetType.getSimpleName()).append(" size= ").append(size());
+		sb.append("]");
+		return sb.toString();
+	}
+	
+	private class QueueIterator implements Iterator<T>{
+		
+		private int lastIndex = 0;
+		
+		@Override
+		public boolean hasNext() {
+			return lastIndex < size();
+		}
+
+		@Override
+		public T next() {
+			if(hasNext()) {
+				return get(lastIndex++);
+			}
+			throw new NoSuchElementException();
+		}
+		
 	}
 
 }
