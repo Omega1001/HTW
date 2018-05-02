@@ -16,7 +16,7 @@ public class NumberCruncher {
 
 			@Override
 			public float[] apply(float[] input) {
-				for (int i = 1; i < input.length; i = i + 2) {
+				for (int i = 1; i < input.length; i = i + 1) {
 					input[i] = input[i-1] + input[i];
 				}
 				return input;
@@ -52,7 +52,7 @@ public class NumberCruncher {
 
 			@Override
 			public float[] apply(float[] input) {
-				for (int i = 1; i < input.length; i = i + 2) {
+				for (int i = 1; i < input.length; i = i + 1) {
 					input[i] = input[i-1] - input[i];
 				}
 				return input;
