@@ -1,5 +1,6 @@
 package ueb16;
 
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
@@ -135,6 +136,7 @@ public abstract class AbstractQueue<T> implements Queue<T> {
 		sb.append(this.getClass().getSimpleName()).append("[");
 		sb.append("type = ").append(tagetType.getSimpleName()).append(
 				" size= ").append(size());
+		sb.append(" items=").append(Arrays.deepToString(store));
 		sb.append("]");
 		return sb.toString();
 	}

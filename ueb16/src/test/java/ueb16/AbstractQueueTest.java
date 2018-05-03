@@ -2,6 +2,9 @@ package ueb16;
 
 import static org.junit.Assert.*;
 
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+
 import org.junit.Test;
 
 public abstract class AbstractQueueTest<T> {
@@ -126,6 +129,30 @@ public abstract class AbstractQueueTest<T> {
 			assertEquals(i, ut().size());
 			ut().addLast(getTestObject(i));
 			assertEquals(i + 1, ut().size());
+		}
+	}
+	
+	@Test
+	public void itterator() {
+		T tob1 = getTestObject(1);
+		T tob2 = getTestObject(2);
+		T tob3 = getTestObject(3);
+		ut().addLast(tob2);
+		ut().addLast(tob3);
+		ut().addLast(tob1);
+		Iterator<T> it = ut().iterator();
+		assertTrue(it.hasNext());
+		assertEquals(tob2, it.next());
+		assertTrue(it.hasNext());
+		assertEquals(tob3, it.next());
+		assertTrue(it.hasNext());
+		assertEquals(tob1, it.next());
+		assertFalse(it.hasNext());
+		try {
+			it.next();
+			fail("Got next element after has next returned false");
+		}catch(NoSuchElementException e) {
+			//Do nothing
 		}
 	}
 

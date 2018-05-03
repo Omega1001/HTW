@@ -15,6 +15,7 @@ public class StringQueueTest extends AbstractQueueTest<String> {
 		return "test"+no;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	protected AbstractQueue<String> ut() {
 		return underTest;
