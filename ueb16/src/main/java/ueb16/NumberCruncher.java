@@ -11,18 +11,18 @@ public class NumberCruncher {
 			NumberCruncherOpperation> opperations = new HashMap<>();
 	private static final Random random = new Random();
 
-	static {
-		opperations.put("SUM", new NumberCruncherOpperation() {
+	public static void addDefaultOpperations(){
+		setOpperation("SUM", new NumberCruncherOpperation() {
 
 			@Override
 			public float[] apply(float[] input) {
-				for (int i = 1; i < input.length; i = i + 1) {
+				for (int i = 1; i < input.length; i = i ++) {
 					input[i] = input[i-1] + input[i];
 				}
 				return input;
 			}
 		});
-		opperations.put("DIVIDE", new NumberCruncherOpperation() {
+		setOpperation("DIVIDE", new NumberCruncherOpperation() {
 
 			@Override
 			public float[] apply(float[] input) {
@@ -48,17 +48,17 @@ public class NumberCruncher {
 				return input;
 			}
 		});
-		opperations.put("SUBTRACT", new NumberCruncherOpperation() {
+		setOpperation("SUBTRACT", new NumberCruncherOpperation() {
 
 			@Override
 			public float[] apply(float[] input) {
-				for (int i = 1; i < input.length; i = i + 1) {
+				for (int i = 1; i < input.length; i = i ++) {
 					input[i] = input[i-1] - input[i];
 				}
 				return input;
 			}
 		});
-		opperations.put("SWIRL", new NumberCruncherOpperation() {
+		setOpperation("SWIRL", new NumberCruncherOpperation() {
 
 			@Override
 			public float[] apply(float[] input) {
@@ -72,7 +72,7 @@ public class NumberCruncher {
 				return input;
 			}
 		});
-		opperations.put("AVERAGE", (input) -> {
+		setOpperation("AVERAGE", (input) -> {
 			float avg = 0;
 			int bigest = 0;
 			for (int i = 0; i < input.length; i++) {
@@ -84,6 +84,10 @@ public class NumberCruncher {
 			input[bigest] = avg/input.length;
 			return input;
 		});
+	}
+	
+	public static void setOpperation(String opperationName, NumberCruncherOpperation op) {
+		opperations.put(opperationName, op);
 	}
 
 	private float[] numbers;

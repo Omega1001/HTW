@@ -5,7 +5,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
+import ueb16.opperations.NumberCruncherOpperationAverage;
+import ueb16.opperations.NumberCruncherOpperationDivide;
+import ueb16.opperations.NumberCruncherOpperationSubtract;
 import ueb16.opperations.NumberCruncherOpperationSum;
+import ueb16.opperations.NumberCruncherOpperationSwirl;
 
 public class NumberCruncher2 {
 
@@ -13,14 +17,25 @@ public class NumberCruncher2 {
 			NumberCruncherOpperation> opperations = new HashMap<>();
 	private static final Random random = new Random();
 
-	static {
-		opperations.put("SUM", new NumberCruncherOpperationSum());
-		
+	public static void addDefaultOpperations() {
+		setOpperation("SUM", new NumberCruncherOpperationSum());
+		setOpperation("DIVIDE", new NumberCruncherOpperationDivide());
+		setOpperation("SUBTRACT", new NumberCruncherOpperationSubtract());
+		setOpperation("SWIRL", new NumberCruncherOpperationSwirl());
+		setOpperation("AVERAGE", new NumberCruncherOpperationAverage());
+	}
+
+	public static void setOpperation(String opperationName,
+			NumberCruncherOpperation op) {
+		opperations.put(opperationName, op);
 	}
 
 	private float[] numbers;
 
 	public NumberCruncher2(int length) {
+		if(length < 1) {
+			throw new IllegalArgumentException("Must have at least one value");
+		}
 		numbers = new float[length];
 		for (int i = 0; i < length; i++) {
 			numbers[i] = random.nextFloat();
@@ -29,6 +44,9 @@ public class NumberCruncher2 {
 
 	public void crunch(String[] operations) {
 		for (String operation : operations) {
+			if(operation == null) {
+				//TODO do something bad
+			}
 			NumberCruncherOpperation o = opperations.get(operation
 					.toUpperCase());
 			if (o != null) {
@@ -46,7 +64,9 @@ public class NumberCruncher2 {
 		return numbers;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
@@ -56,6 +76,6 @@ public class NumberCruncher2 {
 		builder.append(Arrays.toString(numbers));
 		builder.append("]");
 		return builder.toString();
-	}	
+	}
 
 }
