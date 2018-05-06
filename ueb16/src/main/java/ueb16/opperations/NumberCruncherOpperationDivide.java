@@ -21,7 +21,7 @@ public class NumberCruncherOpperationDivide implements NumberCruncherOpperation 
 		}
 		
 		for(int i=0;i<order.length/2;i++) {
-			input[order[order.length-1]] = input[order[order.length-1]] / input[order[i]];
+			input[order[order.length-1-i]] = input[order[order.length-1-i]] / input[order[i]];
 		}
 		if(order.length%2 == 1) {
 			input[order[(order.length/2)+1]] = 1;

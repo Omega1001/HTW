@@ -71,4 +71,26 @@ public class NumberCruncherTest {
 				underTest1.getNumbers()[3] == (buffer=(buffer-memory[3]))&&
 				underTest1.getNumbers()[4] == (buffer=(buffer-memory[4])));
 	}
+	@Test
+	public void NumberCruncherAverageTest1() {
+		
+	}
+	@Test
+	public void NumberCruncherSwirlTest1() {
+		underTest1 = new NumberCruncher(5);
+		float [] memory = underTest1.getNumbers().clone();
+		underTest1.crunch(swirl);
+		assertTrue(compare(underTest1.getNumbers(),memory));
+	}
+	
+	private boolean compare(float[] a, float[] b) {
+		for(int i=0; i < a.length; i++) {
+			for(int j=0; a[i] != b[j] && j < a.length; j++) {
+				if(j == a.length-1 && a[i] != b[j]) {
+					return false;
+				}
+			}
+		}
+		return true;
+	}
 }

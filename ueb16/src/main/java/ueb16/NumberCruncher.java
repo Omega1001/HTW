@@ -101,12 +101,15 @@ public class NumberCruncher {
 
 	public void crunch(String[] operations) {
 		for (String operation : operations) {
+			if(operation == null) {
+				throw new IllegalArgumentException("Operation must not be null!");
+			}
 			NumberCruncherOpperation o = opperations.get(operation
 					.toUpperCase());
 			if (o != null) {
 				numbers = o.apply(numbers);
 			} else {
-				// TODO do something bad
+				throw new IllegalArgumentException("Invalid operation!");
 			}
 		}
 	}
