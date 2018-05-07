@@ -16,7 +16,7 @@ public class NumberCruncher {
 
 			@Override
 			public float[] apply(float[] input) {
-				for (int i = 1; i < input.length; i = i ++) {
+				for (int i = 1; i < input.length; i++) {
 					input[i] = input[i-1] + input[i];
 				}
 				return input;
@@ -52,7 +52,7 @@ public class NumberCruncher {
 
 			@Override
 			public float[] apply(float[] input) {
-				for (int i = 1; i < input.length; i = i ++) {
+				for (int i = 1; i < input.length; i++) {
 					input[i] = input[i-1] - input[i];
 				}
 				return input;
@@ -99,7 +99,11 @@ public class NumberCruncher {
 		}
 	}
 
-	public void crunch(String[] operations) {
+	public NumberCruncher (float[] values) {
+		this.numbers = values;
+	}
+	
+	public void crunch(String ... operations) {
 		for (String operation : operations) {
 			if(operation == null) {
 				throw new IllegalArgumentException("Operation must not be null!");

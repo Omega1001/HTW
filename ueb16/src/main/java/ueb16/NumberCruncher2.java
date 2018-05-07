@@ -42,7 +42,7 @@ public class NumberCruncher2 {
 		}
 	}
 
-	public void crunch(String[] operations) {
+	public void crunch(String ... operations) {
 		for (String operation : operations) {
 			if(operation == null) {
 				throw new IllegalArgumentException("Operation must not be null!");

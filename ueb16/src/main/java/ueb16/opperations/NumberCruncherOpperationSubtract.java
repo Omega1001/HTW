@@ -6,7 +6,7 @@ public class NumberCruncherOpperationSubtract implements NumberCruncherOpperatio
 	
 	@Override
 	public float[] apply(float[] input) {
-		for (int i = 1; i < input.length; i = i + 1) {
+		for (int i = 1; i < input.length; i ++) {
 			input[i] = input[i-1] - input[i];
 		}
 		return input;
