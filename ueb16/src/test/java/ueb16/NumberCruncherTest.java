@@ -2,8 +2,6 @@ package ueb16;
 
 import static org.junit.Assert.*;
 
-import java.util.Arrays;
-
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -42,7 +40,7 @@ public class NumberCruncherTest {
 	@Test
 	public void NumberCruncherDivideTest1() {
 		underTest.crunch("DIVIDE");
-		arrayEquals(underTest.getNumbers(), 1f, 2f, 1, 4.5f,
+		arrayEquals(underTest.getNumbers(), 1f, 2f, 5.5f, 4.5f,
 				9.99999f);
 	}
 

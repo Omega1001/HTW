@@ -11,13 +11,13 @@ public class NumberCruncher {
 			NumberCruncherOpperation> opperations = new HashMap<>();
 	private static final Random random = new Random();
 
-	public static void addDefaultOpperations(){
+	public static void addDefaultOpperations() {
 		setOpperation("SUM", new NumberCruncherOpperation() {
 
 			@Override
 			public float[] apply(float[] input) {
 				for (int i = 1; i < input.length; i++) {
-					input[i] = input[i-1] + input[i];
+					input[i] = input[i - 1] + input[i];
 				}
 				return input;
 			}
@@ -26,25 +26,37 @@ public class NumberCruncher {
 
 			@Override
 			public float[] apply(float[] input) {
-				int [] order = new int[input.length];
+				int[] order = new int[input.length];
 				Arrays.fill(order, -1);
-				for(int i=0;i<order.length;i++) {
-					for(int i2=0;i2<input.length;i2++) {
-						if(order[i] == -1 || input[i2]<input[order[i]]) {
-							if(i==0 || input[i2]>input[order[i-1]]) {
+				for (int i = 0; i < order.length; i++) {
+					for (int i2 = 0; i2 < input.length; i2++) {
+						if (order[i] == -1
+								|| input[i2] < input[order[i]]) {
+							if (i == 0 || input[i2] > input[order[i
+									- 1]]) {
 								order[i] = i2;
 							}
 						}
 					}
 				}
-				
-				for(int i=0;i<order.length/2;i++) {
-					input[order[order.length-1]] = input[order[order.length-1]] / input[order[i]];
+
+				for (int i = 0; i < order.length / 2; i++) {
+					input[order[order.length - 1 - i]] =
+							input[order[order.length - 1 - i]]
+									/ input[order[i]];
 				}
-				if(order.length%2 == 1) {
-					input[order[(order.length/2)+1]] = 1;
-				}
-				
+
+				// Aufgabenstellung unklar : n/2 wird in Java abgerundet,
+				// heisst
+				// dass das bei ungeraden laengen der mittlere Wert 1 wird?
+				// Interpretiere als 'nein' da so bei wiederholter
+				// Ausfuerung
+				// lauter 1sen erzeugt werden
+
+				// if(order.length%2 == 1) {
+				// input[order[(order.length/2)]] = 1;
+				// }
+
 				return input;
 			}
 		});
@@ -53,7 +65,7 @@ public class NumberCruncher {
 			@Override
 			public float[] apply(float[] input) {
 				for (int i = 1; i < input.length; i++) {
-					input[i] = input[i-1] - input[i];
+					input[i] = input[i - 1] - input[i];
 				}
 				return input;
 			}
@@ -81,12 +93,13 @@ public class NumberCruncher {
 				}
 				avg += input[i];
 			}
-			input[bigest] = avg/input.length;
+			input[bigest] = avg / input.length;
 			return input;
 		});
 	}
-	
-	public static void setOpperation(String opperationName, NumberCruncherOpperation op) {
+
+	public static void setOpperation(String opperationName,
+			NumberCruncherOpperation op) {
 		opperations.put(opperationName, op);
 	}
 
@@ -95,18 +108,19 @@ public class NumberCruncher {
 	public NumberCruncher(int length) {
 		numbers = new float[length];
 		for (int i = 0; i < length; i++) {
-			numbers[i] = random.nextFloat();
+			numbers[i] = random.nextFloat() + 1;
 		}
 	}
 
-	public NumberCruncher (float[] values) {
+	public NumberCruncher(float[] values) {
 		this.numbers = values;
 	}
-	
-	public void crunch(String ... operations) {
+
+	public void crunch(String... operations) {
 		for (String operation : operations) {
-			if(operation == null) {
-				throw new IllegalArgumentException("Operation must not be null!");
+			if (operation == null) {
+				throw new IllegalArgumentException(
+						"Operation must not be null!");
 			}
 			NumberCruncherOpperation o = opperations.get(operation
 					.toUpperCase());
@@ -125,7 +139,9 @@ public class NumberCruncher {
 		return numbers;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
@@ -135,6 +151,6 @@ public class NumberCruncher {
 		builder.append(Arrays.toString(numbers));
 		builder.append("]");
 		return builder.toString();
-	}	
+	}
 
 }
