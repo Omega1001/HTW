@@ -38,7 +38,7 @@ public class NumberCruncher2 {
 		}
 		numbers = new float[length];
 		for (int i = 0; i < length; i++) {
-			numbers[i] = random.nextFloat();
+			numbers[i] = random.nextFloat()+1;
 		}
 	}
 
