@@ -1,4 +1,4 @@
-package ueb10;
+package ueb09;
 /**
  * Simple Unterklasse zur Bestandsfuehrung von DVD-Artikeln
  * 

@@ -1,4 +1,4 @@
-package ueb10;
+package ueb09;
 
 import java.io.InputStream;
 import java.io.PrintStream;
