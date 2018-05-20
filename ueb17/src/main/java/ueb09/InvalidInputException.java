@@ -1,4 +1,4 @@
-package ueb10;
+package ueb09;
 
 public class InvalidInputException extends RuntimeException {
 

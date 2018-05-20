@@ -1,4 +1,4 @@
-package ueb10;
+package ueb09;
 
 /**
  * Simple Klasse zur Bestandsfuehrung eines Produkts
