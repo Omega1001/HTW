@@ -1,6 +1,14 @@
 package ueb09;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
+import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.function.BiPredicate;
+import java.util.function.Consumer;
+import java.util.function.Predicate;
+
+import ueb17.MyFunction;
 
 /**
  * Simple Lager Klasse zum archivieren von Artikeln.
@@ -19,6 +27,10 @@ public class Lager implements Iterable<Artikel> {
 													// Artikelnummern daher
 													// die 9000.
 	private static final int MIN_PROZENT = -100;
+	
+	//private static final BiPredicate <Artikel, Artikel> Unterkategorie = ???; was ist die Unterkategorie?
+	private static final BiPredicate <Artikel, Artikel> Bestand = (x,y) -> x.getArtikelBestand() < y.getArtikelBestand();
+	private static final BiPredicate <Artikel, Artikel> Preis = (x,y) -> x.getPreis() < y.getPreis();
 
 	private Artikel[] lagerFeld;
 	private int artikelAnzahl;
@@ -225,6 +237,79 @@ public class Lager implements Iterable<Artikel> {
 		sb.append(String.format("%-66s %15.2f", "Gesamt", ges));
 		return sb.toString();
 	}
+	
+	/**
+	 * Methode um das Lager Array zu sortieren und alternativ als Listen Object zu Verfügung zu stellen.
+	 * <p>
+	 * 
+	 * @param kriterium 
+	 * 			Übegrebenes BiPredicate das das Sortierkriterium fest legt.
+	 * @return  
+	 * 			Nach übergebenem Kriterium sortierte Liste.
+	 */
+	public List<Artikel> getSorted(BiPredicate<Artikel, Artikel> kriterium) {
+		
+		List<Artikel> liste = Arrays.asList(lagerFeld);
+		
+		for(Artikel x : liste) {
+			for(Artikel y : liste) {
+				if(kriterium.test(x,y)) {
+					Artikel speicher = x;
+					x = y;
+					y = speicher;
+				}
+			}
+		}
+		return liste;
+	}
+	
+	/**
+	 * Methode um alle Artikel im Lager auszugeben die einem bestimmtem Kriterium entsprechen.
+	 * <p>
+	 * 
+	 * @param kriterium 
+	 * 			Übegrebenes Predicate das das Auswahlkriterium fest legt.
+	 * @return  
+	 * 			Liste mit allem im Lager enthaltenen Artikeln die dem Kriterium entsprechen.
+	 */
+	public List<Artikel> filter(Predicate<Artikel> kriterium){
+		
+		List<Artikel> liste = new ArrayList<Artikel>();
+		
+		for(Artikel a : lagerFeld) {
+			if(kriterium.test(a)){
+				liste.add(a);
+			}
+		}
+		return liste;	
+	}
+	
+	/**
+	 * Methode um eine übergebene Operation auf alle Artikel im Lager anzuwenden.
+	 * <p>
+	 * 
+	 * @param operation
+	 * 		Die übergebene Operation.
+	 */
+	public void applyToArticles (Consumer operation) {
+		
+		for(Artikel a : lagerFeld) {
+			operation.accept(a);
+		}
+	
+	}
+	
+	public static final Consumer zehnProzent = a -> {
+		((Artikel) a).setPreis(((Artikel) a).getPreis()); 
+	};
+	
+	public static final Consumer sonderangebot = a -> {
+		((Artikel) a).setArtikelBezeichnung("Sonderangebot" +((Artikel) a).getArtikelBezeichnung()); 
+	};
+	
+	public static final Consumer zehnProzentSonderangebot = a -> {
+		zehnProzent.andThen(sonderangebot).accept(a); 
+	};
 	
 	/**
 	 * Gibt die Anzahl der gelagerten Artikel zurueck.
