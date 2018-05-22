@@ -8,8 +8,6 @@ import java.util.function.BiPredicate;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 
-import ueb17.MyFunction;
-
 /**
  * Simple Lager Klasse zum archivieren von Artikeln.
  * <p>
@@ -27,10 +25,6 @@ public class Lager implements Iterable<Artikel> {
 													// Artikelnummern daher
 													// die 9000.
 	private static final int MIN_PROZENT = -100;
-	
-	//private static final BiPredicate <Artikel, Artikel> Unterkategorie = ???; was ist die Unterkategorie?
-	private static final BiPredicate <Artikel, Artikel> Bestand = (x,y) -> x.getArtikelBestand() < y.getArtikelBestand();
-	private static final BiPredicate <Artikel, Artikel> Preis = (x,y) -> x.getPreis() < y.getPreis();
 
 	private Artikel[] lagerFeld;
 	private int artikelAnzahl;
@@ -251,12 +245,16 @@ public class Lager implements Iterable<Artikel> {
 		
 		List<Artikel> liste = Arrays.asList(lagerFeld);
 		
-		for(Artikel x : liste) {
-			for(Artikel y : liste) {
+		for(int i = 0; i < artikelAnzahl; i++) {
+			
+			for(int j = i+1; j < artikelAnzahl; j++) {
+				
+				Artikel x = liste.get(i);
+				Artikel y = liste.get(j);
+				
 				if(kriterium.test(x,y)) {
-					Artikel speicher = x;
-					x = y;
-					y = speicher;
+					liste.set(i, y);
+					liste.set(j, x);
 				}
 			}
 		}
@@ -291,25 +289,13 @@ public class Lager implements Iterable<Artikel> {
 	 * @param operation
 	 * 		Die übergebene Operation.
 	 */
-	public void applyToArticles (Consumer operation) {
+	public void applyToArticles (Consumer<Artikel> operation) {
 		
-		for(Artikel a : lagerFeld) {
-			operation.accept(a);
+		for(int i = 0; i < artikelAnzahl; i++) {
+			operation.accept(lagerFeld[i]);
 		}
 	
 	}
-	
-	public static final Consumer zehnProzent = a -> {
-		((Artikel) a).setPreis(((Artikel) a).getPreis()); 
-	};
-	
-	public static final Consumer sonderangebot = a -> {
-		((Artikel) a).setArtikelBezeichnung("Sonderangebot" +((Artikel) a).getArtikelBezeichnung()); 
-	};
-	
-	public static final Consumer zehnProzentSonderangebot = a -> {
-		zehnProzent.andThen(sonderangebot).accept(a); 
-	};
 	
 	/**
 	 * Gibt die Anzahl der gelagerten Artikel zurueck.
