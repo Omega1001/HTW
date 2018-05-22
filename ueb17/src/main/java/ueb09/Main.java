@@ -17,7 +17,7 @@ public class Main {
 			((Artikel) a).setPreis(((Artikel) a).getPreis()*0.9); 
 		};
 		final Consumer<Artikel> sonderangebot = a -> {
-			((Artikel) a).setArtikelBezeichnung("Sonderangebot" +((Artikel) a).getArtikelBezeichnung()); 
+			((Artikel) a).setArtikelBezeichnung("Sonderangebot " +((Artikel) a).getArtikelBezeichnung()); 
 		};
 		final Consumer<Artikel> zehnProzentSonderangebot = a -> {
 			zehnProzent.andThen(sonderangebot).accept(a); 

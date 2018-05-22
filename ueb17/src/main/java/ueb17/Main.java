@@ -22,6 +22,15 @@ public class Main {
 	}
 
 	public static void applyAndPrint(int i, int j, MyFunction function) {
+		
+		if(i < 1) {
+			throw new IllegalArgumentException ("Nur natürliche Zahlen zulässig!");
+		}
+		
+		if(i > j) {
+			throw new IllegalArgumentException ("j("+j+") muss größer i("+i+") sein!");
+		}
+		
 		// Zwischen i und j = alle x mit i < x < j -> i und j exclusive
 		for (i++; i < j; i++) {
 			System.out.println(function.apply(i));

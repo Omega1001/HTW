@@ -27,7 +27,7 @@ public class AandPMethodsLambda {
 
 		for (int j = 1; j <= i; j++) {
 			fib1 += fib2;
-			fib2 -= fib1;
+			fib2 = fib1 - fib2;
 		}
 		return fib1;
 	};
