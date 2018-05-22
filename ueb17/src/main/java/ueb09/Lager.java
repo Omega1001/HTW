@@ -233,13 +233,13 @@ public class Lager implements Iterable<Artikel> {
 	}
 	
 	/**
-	 * Methode um das Lager Array zu sortieren und alternativ als Listen Object zu Verfügung zu stellen.
+	 * Methode um das Lager Array zu sortieren und alternativ als Listen Object zu Verfuegung zu stellen.
 	 * <p>
 	 * 
 	 * @param kriterium 
-	 * 			Übegrebenes BiPredicate das das Sortierkriterium fest legt.
+	 * 			BiPredicate das das Sortierkriterium fest legt.
 	 * @return  
-	 * 			Nach übergebenem Kriterium sortierte Liste.
+	 * 			Nach Kriterium sortierte Liste.
 	 */
 	public List<Artikel> getSorted(BiPredicate<Artikel, Artikel> kriterium) {
 		
@@ -266,7 +266,7 @@ public class Lager implements Iterable<Artikel> {
 	 * <p>
 	 * 
 	 * @param kriterium 
-	 * 			Übegrebenes Predicate das das Auswahlkriterium fest legt.
+	 * 			Predicate das das Auswahlkriterium fest legt.
 	 * @return  
 	 * 			Liste mit allem im Lager enthaltenen Artikeln die dem Kriterium entsprechen.
 	 */
@@ -275,7 +275,7 @@ public class Lager implements Iterable<Artikel> {
 		List<Artikel> liste = new ArrayList<Artikel>();
 		
 		for(Artikel a : lagerFeld) {
-			if(kriterium.test(a)){
+			if(a != null && kriterium.test(a)){
 				liste.add(a);
 			}
 		}
@@ -283,11 +283,11 @@ public class Lager implements Iterable<Artikel> {
 	}
 	
 	/**
-	 * Methode um eine übergebene Operation auf alle Artikel im Lager anzuwenden.
+	 * Methode um eine uebergebene Operation auf alle Artikel im Lager anzuwenden.
 	 * <p>
 	 * 
 	 * @param operation
-	 * 		Die übergebene Operation.
+	 * 		auszufuehrende Operation.
 	 */
 	public void applyToArticles (Consumer<Artikel> operation) {
 		
