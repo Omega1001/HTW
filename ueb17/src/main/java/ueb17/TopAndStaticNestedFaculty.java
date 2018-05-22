@@ -13,7 +13,7 @@ public class TopAndStaticNestedFaculty implements MyFunction {
 		return result;
 	}
 	
-	static class NestedFaculty implements MyFunction{
+	public static final class NestedFaculty implements MyFunction{
 		@Override
 		public int apply(int i) {
 

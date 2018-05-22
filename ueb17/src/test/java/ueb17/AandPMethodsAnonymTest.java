@@ -4,45 +4,45 @@ import static org.junit.Assert.*;
 
 import org.junit.*;
 
-class AandPMethodsAnonymTest {
+public class AandPMethodsAnonymTest {
 	
 	@Test
-	void applyITest1() {
+	public void applyITest1() {
 		assertEquals(1, AandPMethodsAnonym.I.apply(1));
 	}
 	
 	@Test
-	void applyITest2() {
+	public void applyITest2() {
 		assertEquals(25, AandPMethodsAnonym.I.apply(5));
 	}
 	
 	@Test
-	void applyIITest1() {
+	public void applyIITest1() {
 		assertEquals(1, AandPMethodsAnonym.II.apply(1));
 	}
 	
 	@Test
-	void applyIITest2() {
+	public void applyIITest2() {
 		assertEquals(120, AandPMethodsAnonym.II.apply(5));
 	}
 	
 	@Test
-	void applyIIITest1() {
+	public void applyIIITest1() {
 		assertEquals(1, AandPMethodsAnonym.III.apply(1));
 	}
 	
 	@Test
-	void applyIIITest2() {
+	public void applyIIITest2() {
 		assertEquals(3125, AandPMethodsAnonym.III.apply(5));
 	}
 	
 	@Test
-	void applyIVTest1() {
+	public void applyIVTest1() {
 		assertEquals(1, AandPMethodsAnonym.IV.apply(1));
 	}
 	
 	@Test
-	void applyIVTest2() {
+	public void applyIVTest2() {
 		assertEquals(102334155, AandPMethodsAnonym.IV.apply(40));
 	}
 
