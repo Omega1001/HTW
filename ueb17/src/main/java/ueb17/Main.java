@@ -6,7 +6,13 @@ import java.util.function.Predicate;
 public class Main {
 
 	public static final Predicate<Integer> even = (i) -> i % 2 == 0;
-	public static final Predicate<Integer> odd = (i) -> i % 2 != 0;
+	public static final Predicate<Integer> odd = new Predicate<Integer>() {
+
+		@Override
+		public boolean test(Integer i) {
+			return i % 2 != 0;
+		}
+	};
 
 	public static void main(String[] args) {
 		int a = 1; // 1 oder 0
@@ -19,19 +25,22 @@ public class Main {
 		System.out.println(iterate(1, 5, (i) -> 2 * i));
 		System.out.println(iterate(1, 5, (i) -> 0.5 * i));
 		// a = 0 oder 1
-		System.out.println(iterate(1, 5, (i) -> a == 0 ? 0: /*1* */ i * (i - 1)));
+		System.out.println(iterate(1, 5, (i) -> a == 0 ? 0 : /* 1* */ i
+				* (i - 1)));
 	}
 
 	public static void applyAndPrint(int i, int j, MyFunction function) {
-		
-		if(i < 1) {
-			throw new IllegalArgumentException ("Nur natuerliche Zahlen zulaessig!");
+
+		if (i < 1) {
+			throw new IllegalArgumentException(
+					"Nur natuerliche Zahlen zulaessig!");
 		}
-		
-		if(i > j) {
-			throw new IllegalArgumentException ("j("+j+") muss groesser i("+i+") sein!");
+
+		if (i > j) {
+			throw new IllegalArgumentException("j(" + j
+					+ ") muss groesser i(" + i + ") sein!");
 		}
-		
+
 		// Zwischen i und j = alle x mit i <= x < j -> i und j exclusive
 		for (; i < j; i++) {
 			System.out.println(function.apply(i));
