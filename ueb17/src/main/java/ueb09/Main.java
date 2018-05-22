@@ -54,16 +54,13 @@ public class Main {
 
 		System.out.println(lager.toString());
 		System.out.println("Subcat");
-		lager.getSorted(subcat);
-
-		System.out.println(lager.toString());
+		System.out.println(lager.getSorted(subcat));
 
 		System.out.println("Bestand");
-		lager.getSorted(bestand);
+		System.out.println(lager.getSorted(bestand));
 
-		System.out.println(lager.toString());
 		System.out.println("Preis");
-		lager.getSorted(preis);
+		System.out.println(lager.getSorted(preis));
 
 		System.out.println(lager.toString());
 		System.out.println("10 %");

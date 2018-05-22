@@ -243,7 +243,7 @@ public class Lager implements Iterable<Artikel> {
 	 */
 	public List<Artikel> getSorted(BiPredicate<Artikel, Artikel> kriterium) {
 		
-		List<Artikel> liste = Arrays.asList(lagerFeld);
+		List<Artikel> liste = new ArrayList<>(Arrays.asList(lagerFeld));
 		
 		for(int i = 0; i < artikelAnzahl; i++) {
 			
