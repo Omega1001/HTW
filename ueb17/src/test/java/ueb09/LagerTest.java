@@ -176,12 +176,12 @@ public class LagerTest {
 	@Test
 	public void testSort() {
 		// sort DESC
-		underTest.getSorted((x, y) -> {
+		List<Artikel> sorted = underTest.getSorted((x, y) -> {
 			return x.getArtikelNummer() < y.getArtikelNummer();
 		});
-		Iterator<Artikel> art = underTest.iterator();
-		assertEquals(mockArtikel02, art.next());
-		assertEquals(mockArtikel01, art.next());
+		assertEquals(2, sorted.size());
+		assertEquals(mockArtikel02, sorted.get(0));
+		assertEquals(mockArtikel01, sorted.get(1));
 	}
 
 	@Test

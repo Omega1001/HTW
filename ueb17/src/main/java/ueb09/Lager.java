@@ -1,6 +1,6 @@
 package ueb09;
+
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -73,7 +73,8 @@ public class Lager implements Iterable<Artikel> {
 	}
 
 	/**
-	 * Methode zum erfassen eines einmaligen Artikel Objekt in dem Lager Objekt.
+	 * Methode zum erfassen eines einmaligen Artikel Objekt in dem Lager
+	 * Objekt.
 	 * <p>
 	 * 
 	 * @param artNr
@@ -88,8 +89,10 @@ public class Lager implements Iterable<Artikel> {
 			throw new IllegalArgumentException("Lager ist bereits voll!");
 		}
 		for (int i = 0; i < artikelAnzahl; i++) {
-			if (artikel.getArtikelNummer() == this.lagerFeld[i].getArtikelNummer()) {
-				throw new IllegalArgumentException("Artikel bereits eingelagert!");
+			if (artikel.getArtikelNummer() == this.lagerFeld[i]
+					.getArtikelNummer()) {
+				throw new IllegalArgumentException(
+						"Artikel bereits eingelagert!");
 			}
 		}
 		this.lagerFeld[artikelAnzahl] = artikel;
@@ -147,6 +150,7 @@ public class Lager implements Iterable<Artikel> {
 			throws IllegalArgumentException {
 		findeArtikel(artNr).bucheAbgang(abgang);
 	}
+
 	/**
 	 * Methode zum Anpassen aller Preise um einen bestimmten
 	 * Prozentsatz.<br>
@@ -171,7 +175,7 @@ public class Lager implements Iterable<Artikel> {
 		prozent = 1 + (prozent / 100);
 		for (Artikel art : this) {
 			art.setPreis((art.getPreis() * prozent));
-			}
+		}
 	}
 
 	/**
@@ -184,7 +188,7 @@ public class Lager implements Iterable<Artikel> {
 	 *            Nummer des zu holenden Artikel
 	 * @return der Artikel mit der uebergebenen Artikelnummer
 	 * @throws NoSuchElementException
-	 * 	 wenn kein Element mit nummer nummer existiert
+	 *             wenn kein Element mit nummer nummer existiert
 	 */
 	public Artikel findeArtikel(int artNr) throws NoSuchElementException {
 		return lagerFeld[findeArtikelIndex(artNr)];
@@ -207,9 +211,10 @@ public class Lager implements Iterable<Artikel> {
 				return feld;
 			}
 		}
-		throw new NoSuchElementException("Der Artikel Nummer " + artNr + " ist nicht vorhanden!");
+		throw new NoSuchElementException("Der Artikel Nummer " + artNr
+				+ " ist nicht vorhanden!");
 	}
-	
+
 	/**
 	 * Methode zum ausgeben einer Bestandsliste eines Lagers.
 	 * <p>
@@ -218,41 +223,50 @@ public class Lager implements Iterable<Artikel> {
 	 */
 	public String ausgebenBestandsListe() {
 		StringBuilder sb = new StringBuilder();
-		sb.append(String.format("%-6s %-40s %10s %7s %15s", "ArtNr", "Beschreibung", "Preis", "Bestand", "Gesamt"));
+		sb.append(String.format("%-6s %-40s %10s %7s %15s", "ArtNr",
+				"Beschreibung", "Preis", "Bestand", "Gesamt"));
 		sb.append("\r\n");
 		double ges = 0;
 		for (Artikel a : this) {
 			sb.append("\r\n");
-			double t = a.getPreis()*a.getArtikelBestand();
-			sb.append(String.format("%-6d %-40s %10.2f %-7d %-15.2f", a.getArtikelNummer(), a.getArtikelBezeichnung(), a.getPreis(), a.getArtikelBestand(), t));
+			double t = a.getPreis() * a.getArtikelBestand();
+			sb.append(String.format("%-6d %-40s %10.2f %-7d %-15.2f", a
+					.getArtikelNummer(), a.getArtikelBezeichnung(), a
+							.getPreis(), a.getArtikelBestand(), t));
 			ges = ges + t;
 		}
 		sb.append("\r\n");
 		sb.append(String.format("%-66s %15.2f", "Gesamt", ges));
 		return sb.toString();
 	}
-	
+
 	/**
-	 * Methode um das Lager Array zu sortieren und alternativ als Listen Object zu Verfuegung zu stellen.
+	 * Methode um das Lager Array zu sortieren und alternativ als Listen
+	 * Object zu Verfuegung zu stellen.
 	 * <p>
 	 * 
-	 * @param kriterium 
-	 * 			BiPredicate das das Sortierkriterium fest legt.
-	 * @return  
-	 * 			Nach Kriterium sortierte Liste.
+	 * @param kriterium
+	 *            BiPredicate das das Sortierkriterium fest legt.
+	 * @return Nach Kriterium sortierte Liste.
 	 */
-	public List<Artikel> getSorted(BiPredicate<Artikel, Artikel> kriterium) {
-		
-		List<Artikel> liste = new ArrayList<>(Arrays.asList(lagerFeld));
-		
-		for(int i = 0; i < artikelAnzahl; i++) {
-			
-			for(int j = i+1; j < artikelAnzahl; j++) {
-				
+	public List<Artikel> getSorted(BiPredicate<Artikel,
+			Artikel> kriterium) {
+
+		List<Artikel> liste = new ArrayList<>();
+		for (Artikel art : lagerFeld) {
+			if (art != null) {
+				liste.add(art);
+			}
+		}
+
+		for (int i = 0; i < artikelAnzahl; i++) {
+
+			for (int j = i + 1; j < artikelAnzahl; j++) {
+
 				Artikel x = liste.get(i);
 				Artikel y = liste.get(j);
-				
-				if(kriterium.test(x,y)) {
+
+				if (kriterium.test(x, y)) {
 					liste.set(i, y);
 					liste.set(j, x);
 				}
@@ -260,47 +274,49 @@ public class Lager implements Iterable<Artikel> {
 		}
 		return liste;
 	}
-	
+
 	/**
-	 * Methode um alle Artikel im Lager auszugeben die einem bestimmtem Kriterium entsprechen.
+	 * Methode um alle Artikel im Lager auszugeben die einem bestimmtem
+	 * Kriterium entsprechen.
 	 * <p>
 	 * 
-	 * @param kriterium 
-	 * 			Predicate das das Auswahlkriterium fest legt.
-	 * @return  
-	 * 			Liste mit allem im Lager enthaltenen Artikeln die dem Kriterium entsprechen.
+	 * @param kriterium
+	 *            Predicate das das Auswahlkriterium fest legt.
+	 * @return Liste mit allem im Lager enthaltenen Artikeln die dem
+	 *         Kriterium entsprechen.
 	 */
-	public List<Artikel> filter(Predicate<Artikel> kriterium){
-		
+	public List<Artikel> filter(Predicate<Artikel> kriterium) {
+
 		List<Artikel> liste = new ArrayList<Artikel>();
-		
-		for(Artikel a : lagerFeld) {
-			if(a != null && kriterium.test(a)){
+
+		for (Artikel a : lagerFeld) {
+			if (a != null && kriterium.test(a)) {
 				liste.add(a);
 			}
 		}
-		return liste;	
+		return liste;
 	}
-	
+
 	/**
-	 * Methode um eine uebergebene Operation auf alle Artikel im Lager anzuwenden.
+	 * Methode um eine uebergebene Operation auf alle Artikel im Lager
+	 * anzuwenden.
 	 * <p>
 	 * 
 	 * @param operation
-	 * 		auszufuehrende Operation.
+	 *            auszufuehrende Operation.
 	 */
-	public void applyToArticles (Consumer<Artikel> operation) {
-		
-		for(int i = 0; i < artikelAnzahl; i++) {
+	public void applyToArticles(Consumer<Artikel> operation) {
+
+		for (int i = 0; i < artikelAnzahl; i++) {
 			operation.accept(lagerFeld[i]);
 		}
-	
+
 	}
-	
+
 	/**
 	 * Gibt die Anzahl der gelagerten Artikel zurueck.
 	 * 
-	 * @return die Artrikelanzahl 
+	 * @return die Artrikelanzahl
 	 */
 	public int getArtikelAnzahl() {
 		return artikelAnzahl;
