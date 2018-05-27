@@ -27,6 +27,34 @@ public class Main {
 		// a = 0 oder 1
 		System.out.println(iterate(1, 5, (i) -> a == 0 ? 0 : /* 1* */ i
 				* (i - 1)));
+		
+//------Start ueb18-----------------------------------------------------------------------------------------------------
+		
+		System.out.println("start ueb18");
+		
+		
+		int i = 1;
+		int j = 5;
+		final TopAndStaticNestedFaculty topAndStaticNestedFaculty = new TopAndStaticNestedFaculty();
+		
+		System.out.println("Aufruf der Top-Level-Klasse");
+		
+		applyAndPrint(i, j, (topAndStaticNestedFaculty::apply));
+		
+		//180 Zeichen für eine "Kurzschreibweise"...
+		
+//		Die Tatsache dass das hier nicht direkt mit Werten funktioniert führt mich dazu den "Quatsch" nicht ernst zu nehmen!
+//		Da ich so jedes einzelne argument als Variable anlegen muss! 		
+//		applyAndPrint(1, 5, (TopAndStaticNestedFaculty::apply));
+		
+		final TopAndStaticNestedFaculty.NestedFaculty topAndStaticNestedFacultyDotNestedFaculty = new TopAndStaticNestedFaculty.NestedFaculty();
+		
+		System.out.println("Aufruf der Static-Nested-Klasse");
+		
+		applyAndPrint(i, j, (topAndStaticNestedFacultyDotNestedFaculty::apply));
+		
+//------Ende ueb18------------------------------------------------------------------------------------------------------
+		
 	}
 
 	public static void applyAndPrint(int i, int j, MyFunction function) {
