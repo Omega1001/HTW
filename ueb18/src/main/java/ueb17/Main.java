@@ -41,12 +41,6 @@ public class Main {
 		
 		applyAndPrint(i, j, (topAndStaticNestedFaculty::apply));
 		
-		//180 Zeichen für eine "Kurzschreibweise"...
-		
-//		Die Tatsache dass das hier nicht direkt mit Werten funktioniert führt mich dazu den "Quatsch" nicht ernst zu nehmen!
-//		Da ich so jedes einzelne argument als Variable anlegen muss! 		
-//		applyAndPrint(1, 5, (TopAndStaticNestedFaculty::apply));
-		
 		final TopAndStaticNestedFaculty.NestedFaculty topAndStaticNestedFacultyDotNestedFaculty = new TopAndStaticNestedFaculty.NestedFaculty();
 		
 		System.out.println("Aufruf der Static-Nested-Klasse");

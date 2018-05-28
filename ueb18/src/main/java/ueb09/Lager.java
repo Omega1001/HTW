@@ -401,7 +401,7 @@ public class Lager implements Iterable<Artikel> {
 	 * <p>
 	 * 
 	 *  @param kriterium
-	 *          Predicate das das Auswahlkriterium für die Sucher fest legt.
+	 *          Predicate das das Auswahlkriterium für die Suche fest legt.
 	 * @param sortierKriterium
 	 *          BiPredicate das das Sortierkriterium fest legt.
 	 * @return 

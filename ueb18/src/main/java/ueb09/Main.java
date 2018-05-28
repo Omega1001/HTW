@@ -4,6 +4,8 @@ import java.util.function.BiPredicate;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 
+import utils.UpcastPredicateBuilder;
+
 public class Main {
 
 	public static void main(String[] args) {
@@ -79,10 +81,6 @@ public class Main {
 
 //------Start ueb18----------------------------------------------------------------------------------------------------
 		
-//		Absolut keine Ahnung ob das so richtig ist geschweige dem der Aufbau von den Lagermethoden
-//		da diese vom halben Code her mit den methoden von 17 übereinstimmen 
-//		aber nicht genug(aus meiner Sicht) um weiterverwendet zu werden
-		
 		System.out.println("Start ueb18!");
 		
 		System.out.println(lager.toString());
@@ -102,14 +100,16 @@ public class Main {
 		System.out.println(lager.toString());
 		
 		System.out.println("Reduzieren Sie alle Bücher eines gegebenen Autors um 5%.");
-		Predicate<Artikel> BuchAutorX = a -> a.getBeschreibung().startsWith("AuthorX");
-		lager.applyToSomeArticles(funfProzent, BuchAutorX);
+		Predicate<Buch> BuchAutorX = a -> a.getAutor().equals("AuthorX");
+  		Predicate<Artikel> BuchAutorX = upcastPredicate<Artikel, Buch>(BuchAutorX, Buch); //Warum verschiedene Fehler hier und darunter?
+		lager.applyToSomeArticles(funfProzent, upcastPredicate<Artikel, Buch>(BuchAutorX, Buch));
 		
 		System.out.println(lager.toString());
 		
 		System.out.println("Erzeugen Sie einen Lambda-Ausdruck der die beiden Operationen i und iii kombiniert.");
 		//Die Methode frisst zwei Argumente wie soll ich da EINEN validen Ausdruck erzeugen...
-		Consumer<Artikel> pluszehnProzentfurCDsUndFunfProzentfurBuchervonAutorX = a -> {
+		//andThen würde hier nicht funktionieren da ansonsten für alle CDs UND Bucher der Preis um 10% erhöht UND um 5% verringert werden würde.
+		Consumer<Artikel> pluszehnProzentFurCDsUndFunfProzentfurBuchervonAutorX = a -> {
 			if(a.getClass().getSimpleName().equals("CD")) {
 				a.setPreis(a.getPreis() * 1.1);
 			}
@@ -117,8 +117,8 @@ public class Main {
 				a.setPreis(a.getPreis() * 0.95);
 			}
 		};	
-		Predicate<Artikel> cDsUndBucherMitAutorX = a -> a.getClass().getSimpleName().equals("CD")||a.getBeschreibung().startsWith("AuthorX");
-		lager.applyToSomeArticles(pluszehnProzentfurCDsUndFunfProzentfurBuchervonAutorX, cDsUndBucherMitAutorX);
+		Predicate<Artikel> cDsUndBucherMitAutorX = cD.or(BuchAutorX);
+		lager.applyToSomeArticles(pluszehnProzentFurCDsUndFunfProzentfurBuchervonAutorX, cDsUndBucherMitAutorX);
 		
 		System.out.println(lager.toString());
 		

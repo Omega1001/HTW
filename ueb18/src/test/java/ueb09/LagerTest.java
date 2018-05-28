@@ -5,6 +5,9 @@ import static org.junit.Assert.*;
 import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.function.BiPredicate;
+import java.util.function.Consumer;
+import java.util.function.Predicate;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -214,6 +217,58 @@ public class LagerTest {
 			}
 		});
 		assertArrayEquals(arr, new boolean []{true,true});
+	}
+	
+	@Test
+	public void testApplyToSomeArticles() {
+		final boolean [] arr = new boolean []{false,false};
+		
+		Consumer<Artikel> c = a -> {
+			if(a.equals(mockArtikel01)) {
+				if(arr[0]) {
+					fail("Visited Artikel 01 twice");
+				}else {
+					arr[0] = true;
+				}
+			}else if(a.equals(mockArtikel02)) {
+				if(arr[1]) {
+					fail("Visited Artikel 02 twice");
+				}else {
+					arr[1] = true;
+				}
+			}else {
+				fail("Visited unknown entry");
+			}
+		}; 
+		Predicate<Artikel> p = a -> a.getArtikelNummer() > 2000;
+		
+		underTest.applyToSomeArticles(c, p);
+		assertArrayEquals(arr, new boolean []{false,true});
+	}
+	
+	@Test
+	public void testGetArticles1() {
+		
+		Predicate<Artikel> p = a -> a.getArtikelNummer() > 2000;
+		BiPredicate<Artikel, Artikel> bp =(x, y) -> x.getArtikelNummer() < y.getArtikelNummer(); 
+		
+		List<Artikel> list = underTest.getArticles(p, bp);
+		
+		assertEquals(1, list.size());
+		assertEquals(mockArtikel02, list.get(0));
+	}
+	
+	@Test
+	public void testGetArticles2() {
+		
+		Predicate<Artikel> p = a -> a.getArtikelNummer() > 1000;
+		BiPredicate<Artikel, Artikel> bp =(x, y) -> x.getArtikelNummer() < y.getArtikelNummer(); 
+		
+		List<Artikel> list = underTest.getArticles(p, bp);
+		
+		assertEquals(2, list.size());
+		assertEquals(mockArtikel02, list.get(0));
+		assertEquals(mockArtikel01, list.get(1));
 	}
 
 }

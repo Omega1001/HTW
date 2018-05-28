@@ -164,6 +164,7 @@ public class Buch extends Artikel {
 		return builder.toString();
 	}
 	
-	
-
+	public String getAutor() {
+		return author;
+	}
 }
