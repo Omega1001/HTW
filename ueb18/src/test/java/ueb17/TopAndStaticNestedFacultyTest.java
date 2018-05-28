@@ -18,6 +18,7 @@ public class TopAndStaticNestedFacultyTest {
 
 	@Test
 	public void testApply() {
+fail("Beabsichtigt");
 		assertEquals(1, underTest.apply(1));
 		assertEquals(120, underTest.apply(5));
 	}
