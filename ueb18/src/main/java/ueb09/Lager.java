@@ -376,5 +376,54 @@ public class Lager implements Iterable<Artikel> {
 			}
 		};
 	}
+	
+	/**
+	 * Methode um auf alle Artikel im Lager, die einem bestimmtem
+	 * Kriterium entsprechen, eine übergebene Operation anazuwenden.
+	 * <p>
+	 * 
+	 * @param operation
+	 *            auszufuehrende Operation.
+	 * @param kriterium
+	 *            Predicate das das Auswahlkriterium fest legt.
+	 */
+	public void applyToSomeArticles(Consumer<Artikel> operation , Predicate<Artikel> kriterium) {
+	
+		for (Artikel a : lagerFeld) {
+			if (a != null && kriterium.test(a)) {
+				operation.accept(a);
+			}
+		}
+	}
+	
+	/**
+	 * Methode um alle einem Suchkriterium entsprechenden Artikel aus dem Lager als eine sortierte Liste wiederzugeben.
+	 * <p>
+	 * 
+	 *  @param kriterium
+	 *          Predicate das das Auswahlkriterium für die Sucher fest legt.
+	 * @param sortierKriterium
+	 *          BiPredicate das das Sortierkriterium fest legt.
+	 * @return 
+	 * 			Nach dem Sortierkriterium sortierte Liste, deren Inhalt derScuhkriterium entspricht.
+	 */
+	public List<Artikel> getArticles(Predicate<Artikel> suchKriterium, BiPredicate<Artikel, Artikel> sortierKriterium) {
+		
+		List<Artikel> liste = filter(suchKriterium);
+		
+		for (int i = 0; i < liste.size(); i++) {
 
+			for (int j = i + 1; j < liste.size(); j++) {
+
+				Artikel x = liste.get(i);
+				Artikel y = liste.get(j);
+
+				if (sortierKriterium.test(x, y)) {
+					liste.set(i, y);
+					liste.set(j, x);
+				}
+			}
+		}
+		return liste;
+	}
 }

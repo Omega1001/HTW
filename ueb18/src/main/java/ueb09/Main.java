@@ -2,6 +2,7 @@ package ueb09;
 
 import java.util.function.BiPredicate;
 import java.util.function.Consumer;
+import java.util.function.Predicate;
 
 public class Main {
 
@@ -76,6 +77,68 @@ public class Main {
 
 		System.out.println(lager.toString());
 
+//------Start ueb18----------------------------------------------------------------------------------------------------
+		
+//		Absolut keine Ahnung ob das so richtig ist geschweige dem der Aufbau von den Lagermethoden
+//		da diese vom halben Code her mit den methoden von 17 übereinstimmen 
+//		aber nicht genug(aus meiner Sicht) um weiterverwendet zu werden
+		
+		System.out.println("Start ueb18!");
+		
+		System.out.println(lager.toString());
+		
+		System.out.println("Erhoehen Sie den Preis aller CDs um 10%");
+		Consumer<Artikel> plusZehnProzent = a -> a.setPreis(a.getPreis() * 1.1);
+		Predicate<Artikel> cD = a -> a.getClass().getSimpleName().equals("CD");	
+		lager.applyToSomeArticles(plusZehnProzent, cD);
+		
+		System.out.println(lager.toString());
+		
+		System.out.println("Reduzieren Sie den Preis aller Artikel, von denen nur noch zwei Exemplare im Bestand sind um 5%.");
+		Predicate<Artikel> bestand2 = a -> a.getArtikelBestand() == 2;
+		Consumer<Artikel> funfProzent = a -> a.setPreis(a.getPreis() * 0.95);
+		lager.applyToSomeArticles(funfProzent, bestand2);
+		
+		System.out.println(lager.toString());
+		
+		System.out.println("Reduzieren Sie alle Bücher eines gegebenen Autors um 5%.");
+		Predicate<Artikel> BuchAutorX = a -> a.getBeschreibung().startsWith("AuthorX");
+		lager.applyToSomeArticles(funfProzent, BuchAutorX);
+		
+		System.out.println(lager.toString());
+		
+		System.out.println("Erzeugen Sie einen Lambda-Ausdruck der die beiden Operationen i und iii kombiniert.");
+		//Die Methode frisst zwei Argumente wie soll ich da EINEN validen Ausdruck erzeugen...
+		Consumer<Artikel> pluszehnProzentfurCDsUndFunfProzentfurBuchervonAutorX = a -> {
+			if(a.getClass().getSimpleName().equals("CD")) {
+				a.setPreis(a.getPreis() * 1.1);
+			}
+			else {
+				a.setPreis(a.getPreis() * 0.95);
+			}
+		};	
+		Predicate<Artikel> cDsUndBucherMitAutorX = a -> a.getClass().getSimpleName().equals("CD")||a.getBeschreibung().startsWith("AuthorX");
+		lager.applyToSomeArticles(pluszehnProzentfurCDsUndFunfProzentfurBuchervonAutorX, cDsUndBucherMitAutorX);
+		
+		System.out.println(lager.toString());
+		
+		System.out.println("Fragen Sie eine Liste aller Bücher, sortiert nach Autor, ab.");
+		Predicate<Artikel> buch = a -> a.getClass().getSimpleName().equals("Buch");
+		BiPredicate<Artikel, Artikel> autor = (x, y) -> {
+			int comp = x.getBeschreibung().compareTo(y.getBeschreibung());
+			if (comp == 0) {
+				return String.CASE_INSENSITIVE_ORDER.compare(
+					x.getArtikelBezeichnung(), 
+					y.getArtikelBezeichnung()
+				) < 0;
+			} else {
+				if (x.getClass().equals(Artikel.class)) {
+					return true;
+			} else {
+				return comp > 0;
+			}
+		}};
+		System.out.println(lager.getArticles(buch, autor));
 	}
 
 }
