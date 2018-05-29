@@ -379,7 +379,7 @@ public class Lager implements Iterable<Artikel> {
 	
 	/**
 	 * Methode um auf alle Artikel im Lager, die einem bestimmtem
-	 * Kriterium entsprechen, eine übergebene Operation anazuwenden.
+	 * Kriterium entsprechen, eine uebergebene Operation anazuwenden.
 	 * <p>
 	 * 
 	 * @param operation
@@ -401,7 +401,7 @@ public class Lager implements Iterable<Artikel> {
 	 * <p>
 	 * 
 	 *  @param kriterium
-	 *          Predicate das das Auswahlkriterium für die Suche fest legt.
+	 *          Predicate das das Auswahlkriterium fuer die Suche fest legt.
 	 * @param sortierKriterium
 	 *          BiPredicate das das Sortierkriterium fest legt.
 	 * @return 
