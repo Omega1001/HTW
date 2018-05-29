@@ -4,6 +4,7 @@ import java.util.function.BiPredicate;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 
+import utils.UpcastConsumerBuilder;
 import utils.UpcastPredicateBuilder;
 
 public class Main {
@@ -18,10 +19,9 @@ public class Main {
 			int comp = x.getClass().getSimpleName().compareTo(y.getClass()
 					.getSimpleName());
 			if (comp == 0) {
-				return String.CASE_INSENSITIVE_ORDER.compare(
-						x.getArtikelBezeichnung(), 
-						y.getArtikelBezeichnung()
-						) < 0;
+				return String.CASE_INSENSITIVE_ORDER.compare(x
+						.getArtikelBezeichnung(), y
+								.getArtikelBezeichnung()) < 0;
 			} else {
 				if (x.getClass().equals(Artikel.class)) {
 					return true;
@@ -55,7 +55,7 @@ public class Main {
 		lager.lagereArtikel(new Dvd(1003, "DVD", 5, 15.55, "DVDTitel", 120,
 				2010));
 
-		System.out.println(lager.toString());
+		System.out.println(lager.ausgebenBestandsListe());
 		System.out.println("Subcat");
 		System.out.println(lager.getSorted(subcat));
 
@@ -65,79 +65,98 @@ public class Main {
 		System.out.println("Preis");
 		System.out.println(lager.getSorted(preis));
 
-		System.out.println(lager.toString());
+		System.out.println(lager.ausgebenBestandsListe());
 		System.out.println("10 %");
 		lager.applyToArticles(zehnProzent);
 
-		System.out.println(lager.toString());
+		System.out.println(lager.ausgebenBestandsListe());
 		System.out.println("Sunderangebot");
 		lager.applyToArticles(sonderangebot);
 
-		System.out.println(lager.toString());
+		System.out.println(lager.ausgebenBestandsListe());
 		System.out.println("10 % + Sonderangebot");
 		lager.applyToArticles(zehnProzentSonderangebot);
 
-		System.out.println(lager.toString());
+		System.out.println(lager.ausgebenBestandsListe());
 
-//------Start ueb18----------------------------------------------------------------------------------------------------
-		
+		// ------Start
+		// ueb18----------------------------------------------------------------------------------------------------
+
 		System.out.println("Start ueb18!");
-		
-		System.out.println(lager.toString());
-		
+
+		System.out.println(lager.ausgebenBestandsListe());
+
 		System.out.println("Erhoehen Sie den Preis aller CDs um 10%");
-		Consumer<Artikel> plusZehnProzent = a -> a.setPreis(a.getPreis() * 1.1);
-		Predicate<Artikel> cD = a -> a.getClass().getSimpleName().equals("CD");	
+		Consumer<Artikel> plusZehnProzent = a -> a.setPreis(a.getPreis()
+				* 1.1);
+		Predicate<Artikel> cD = a -> a.getClass().getSimpleName().equals(
+				"CD");
 		lager.applyToSomeArticles(plusZehnProzent, cD);
-		
-		System.out.println(lager.toString());
-		
-		System.out.println("Reduzieren Sie den Preis aller Artikel, von denen nur noch zwei Exemplare im Bestand sind um 5%.");
+
+		System.out.println(lager.ausgebenBestandsListe());
+
+		System.out.println(
+				"Reduzieren Sie den Preis aller Artikel, von denen nur noch zwei Exemplare im Bestand sind um 5%.");
 		Predicate<Artikel> bestand2 = a -> a.getArtikelBestand() == 2;
-		Consumer<Artikel> funfProzent = a -> a.setPreis(a.getPreis() * 0.95);
+		Consumer<Artikel> funfProzent = a -> a.setPreis(a.getPreis()
+				* 0.95);
 		lager.applyToSomeArticles(funfProzent, bestand2);
-		
-		System.out.println(lager.toString());
-		
-		System.out.println("Reduzieren Sie alle Bücher eines gegebenen Autors um 5%.");
-		Predicate<Buch> BuchAutorX = a -> a.getAutor().equals("AuthorX");
-  		Predicate<Artikel> BuchAutorX = upcastPredicate<Artikel, Buch>(BuchAutorX, Buch); //Warum verschiedene Fehler hier und darunter?
-		lager.applyToSomeArticles(funfProzent, upcastPredicate<Artikel, Buch>(BuchAutorX, Buch));
-		
-		System.out.println(lager.toString());
-		
-		System.out.println("Erzeugen Sie einen Lambda-Ausdruck der die beiden Operationen i und iii kombiniert.");
-		//Die Methode frisst zwei Argumente wie soll ich da EINEN validen Ausdruck erzeugen...
-		//andThen würde hier nicht funktionieren da ansonsten für alle CDs UND Bucher der Preis um 10% erhöht UND um 5% verringert werden würde.
-		Consumer<Artikel> pluszehnProzentFurCDsUndFunfProzentfurBuchervonAutorX = a -> {
-			if(a.getClass().getSimpleName().equals("CD")) {
-				a.setPreis(a.getPreis() * 1.1);
-			}
-			else {
-				a.setPreis(a.getPreis() * 0.95);
-			}
-		};	
-		Predicate<Artikel> cDsUndBucherMitAutorX = cD.or(BuchAutorX);
-		lager.applyToSomeArticles(pluszehnProzentFurCDsUndFunfProzentfurBuchervonAutorX, cDsUndBucherMitAutorX);
-		
-		System.out.println(lager.toString());
-		
-		System.out.println("Fragen Sie eine Liste aller Bücher, sortiert nach Autor, ab.");
-		Predicate<Artikel> buch = a -> a.getClass().getSimpleName().equals("Buch");
+		System.out.println(lager.ausgebenBestandsListe());
+
+		System.out.println(
+				"Reduzieren Sie alle Buecher eines gegebenen Autors um 5%.");
+		Predicate<Artikel> buchAutorX = UpcastPredicateBuilder
+				.upcastPredicate(a -> a.getAutor().equals("AuthorX"),
+						Buch.class); // Warum verschiedene Fehler hier und
+										// darunter?
+		lager.applyToSomeArticles(funfProzent, buchAutorX);
+		System.out.println(lager.ausgebenBestandsListe());
+
+		System.out.println(
+				"Erzeugen Sie einen Lambda-Ausdruck der die beiden Operationen i und iii kombiniert.");
+		// Die Methode frisst zwei Argumente wie soll ich da EINEN validen
+		// Ausdruck erzeugen...
+		// andThen wuerde hier nicht funktionieren da ansonsten fuer alle
+		// CDs UND Bucher der Preis um 10% erhoeht UND um 5% verringert
+		// werden wuerde.
+		Consumer<
+				Artikel> pluszehnProzentFurCDsUndFunfProzentfurBuchervonAutorX =
+						UpcastConsumerBuilder.upcastPredicate((cd) -> {
+							cd.setPreis(cd.getPreis()*1.1);
+						}, Cd.class);
+
+		pluszehnProzentFurCDsUndFunfProzentfurBuchervonAutorX =
+				pluszehnProzentFurCDsUndFunfProzentfurBuchervonAutorX
+						.andThen(UpcastConsumerBuilder.upcastPredicate((
+								buch) -> {
+									buch.setPreis(buch.getPreis()*0.95);
+						}, Buch.class));
+
+		Predicate<Artikel> cDsUndBucherMitAutorX = cD.or(buchAutorX);
+		lager.applyToSomeArticles(
+				pluszehnProzentFurCDsUndFunfProzentfurBuchervonAutorX,
+				cDsUndBucherMitAutorX);
+
+		System.out.println(lager.ausgebenBestandsListe());
+
+		System.out.println(
+				"Fragen Sie eine Liste aller Buecher, sortiert nach Autor, ab.");
+		Predicate<Artikel> buch = a -> a.getClass().getSimpleName().equals(
+				"Buch");
 		BiPredicate<Artikel, Artikel> autor = (x, y) -> {
 			int comp = x.getBeschreibung().compareTo(y.getBeschreibung());
 			if (comp == 0) {
-				return String.CASE_INSENSITIVE_ORDER.compare(
-					x.getArtikelBezeichnung(), 
-					y.getArtikelBezeichnung()
-				) < 0;
+				return String.CASE_INSENSITIVE_ORDER.compare(x
+						.getArtikelBezeichnung(), y
+								.getArtikelBezeichnung()) < 0;
 			} else {
 				if (x.getClass().equals(Artikel.class)) {
 					return true;
-			} else {
-				return comp > 0;
+				} else {
+					return comp > 0;
+				}
 			}
-		}};
+		};
 		System.out.println(lager.getArticles(buch, autor));
 	}
 
