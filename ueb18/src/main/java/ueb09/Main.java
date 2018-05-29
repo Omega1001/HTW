@@ -46,14 +46,7 @@ public class Main {
 			zehnProzent.andThen(sonderangebot).accept(a);
 		};
 
-		Lager lager = new Lager(5);
-		lager.lagereArtikel(new Artikel(1000, "Artikel", 20, 1.0));
-		lager.lagereArtikel(new Buch(1001, "Buch", 15, 5.0, "BuchAuthor",
-				"BuchTitel", "BuchVerlag"));
-		lager.lagereArtikel(new Cd(1002, "CD", 10, 10.0, "CDIntepret",
-				"CDTitel", 5));
-		lager.lagereArtikel(new Dvd(1003, "DVD", 5, 15.55, "DVDTitel", 120,
-				2010));
+		Lager lager = buildLager();
 
 		System.out.println(lager.ausgebenBestandsListe());
 		System.out.println("Subcat");
@@ -89,8 +82,7 @@ public class Main {
 		System.out.println("Erhoehen Sie den Preis aller CDs um 10%");
 		Consumer<Artikel> plusZehnProzent = a -> a.setPreis(a.getPreis()
 				* 1.1);
-		Predicate<Artikel> cD = a -> a.getClass().getSimpleName().equals(
-				"CD");
+		Predicate<Artikel> cD = a -> a.getClass().isAssignableFrom(Cd.class);
 		lager.applyToSomeArticles(plusZehnProzent, cD);
 
 		System.out.println(lager.ausgebenBestandsListe());
@@ -106,7 +98,7 @@ public class Main {
 		System.out.println(
 				"Reduzieren Sie alle Buecher eines gegebenen Autors um 5%.");
 		Predicate<Artikel> buchAutorX = UpcastPredicateBuilder
-				.upcastPredicate(a -> a.getAutor().equals("AuthorX"),
+				.upcastPredicate(a -> a.getAutor().equals("BuchAuthor2"),
 						Buch.class); // Warum verschiedene Fehler hier und
 										// darunter?
 		lager.applyToSomeArticles(funfProzent, buchAutorX);
@@ -121,15 +113,15 @@ public class Main {
 		// werden wuerde.
 		Consumer<
 				Artikel> pluszehnProzentFurCDsUndFunfProzentfurBuchervonAutorX =
-						UpcastConsumerBuilder.upcastPredicate((cd) -> {
-							cd.setPreis(cd.getPreis()*1.1);
+						UpcastConsumerBuilder.upcastConsumer((cd) -> {
+							plusZehnProzent.accept(cd);
 						}, Cd.class);
 
 		pluszehnProzentFurCDsUndFunfProzentfurBuchervonAutorX =
 				pluszehnProzentFurCDsUndFunfProzentfurBuchervonAutorX
-						.andThen(UpcastConsumerBuilder.upcastPredicate((
+						.andThen(UpcastConsumerBuilder.upcastConsumer((
 								buch) -> {
-									buch.setPreis(buch.getPreis()*0.95);
+									funfProzent.accept(buch);
 						}, Buch.class));
 
 		Predicate<Artikel> cDsUndBucherMitAutorX = cD.or(buchAutorX);
@@ -158,6 +150,23 @@ public class Main {
 			}
 		};
 		System.out.println(lager.getArticles(buch, autor));
+	}
+
+	private static Lager buildLager() {
+		Lager lager =  new Lager(20);
+		lager.lagereArtikel(new Artikel(1000, "Artikel", 20, 1.0));
+		lager.lagereArtikel(new Artikel(1100, "Artikel 2", 2, 1.0));
+		lager.lagereArtikel(new Buch(1001, "Buch", 15, 5.0, "BuchAuthor",
+				"BuchTitel", "BuchVerlag"));
+		lager.lagereArtikel(new Buch(1101, "Buch", 15, 5.0, "BuchAuthor2",
+				"BuchTitel", "BuchVerlag"));
+		lager.lagereArtikel(new Cd(1002, "CD", 10, 10.0, "CDIntepret",
+				"CDTitel", 5));
+		lager.lagereArtikel(new Dvd(1003, "DVD", 5, 15.55, "DVDTitel", 120,
+				2010));
+		lager.lagereArtikel(new Dvd(1103, "DVD", 2, 15.55, "DVDTitel2", 120,
+				2010));
+		return lager;
 	}
 
 }
