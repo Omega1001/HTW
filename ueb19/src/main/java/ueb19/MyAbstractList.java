@@ -77,6 +77,8 @@ public class MyAbstractList<E> implements List<E> {
 	public boolean add(E e) {
 		if (root == null) {
 			root = new ListElement(e);
+			root.setNext(root);
+			root.setPrev(root);
 			return true;
 		} else {
 			ListElement themp = new ListElement(e);
