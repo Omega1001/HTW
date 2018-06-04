@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.NoSuchElementException;
 
-public class MyAbstractList<E> implements List<E> {
+public class MyLinkedList<E> implements List<E> {
 
 	private ListElement root;
 
@@ -202,7 +202,7 @@ public class MyAbstractList<E> implements List<E> {
 
 	@Override
 	public E set(int index, E element) {
-		MyAbstractList<E>.ListElement themp = getElementByIndex(index);
+		MyLinkedList<E>.ListElement themp = getElementByIndex(index);
 		E old = themp.getValue();
 		themp.setValue(element);
 		return old;
@@ -210,7 +210,7 @@ public class MyAbstractList<E> implements List<E> {
 
 	@Override
 	public void add(int index, E element) {
-		MyAbstractList<E>.ListElement themp = new ListElement(element);
+		MyLinkedList<E>.ListElement themp = new ListElement(element);
 		if (root == null) {
 			root = themp;
 		} else {
@@ -220,12 +220,12 @@ public class MyAbstractList<E> implements List<E> {
 
 	@Override
 	public E remove(int index) {
-		MyAbstractList<E>.ListElement themp = getElementByIndex(index);
+		MyLinkedList<E>.ListElement themp = getElementByIndex(index);
 		removeNode(themp);
 		return themp.getValue();
 	}
 
-	private void removeNode(MyAbstractList<E>.ListElement themp) {
+	private void removeNode(MyLinkedList<E>.ListElement themp) {
 		themp.getPrev().setNext(themp.getNext());
 		themp.getNext().setPrev(themp.getNext());
 		themp.setNext(null);
@@ -239,7 +239,7 @@ public class MyAbstractList<E> implements List<E> {
 		} else if (root.getValue().equals(o)) {
 			return 0;
 		} else {
-			MyAbstractList<E>.ListElement themp = root.getNext();
+			MyLinkedList<E>.ListElement themp = root.getNext();
 			int index = 1;
 			while (themp != root) {
 				if (themp.equals(o)) {
@@ -257,7 +257,7 @@ public class MyAbstractList<E> implements List<E> {
 		if (root == null) {
 			return -1;
 		} else {
-			MyAbstractList<E>.ListElement themp = root.getPrev();
+			MyLinkedList<E>.ListElement themp = root.getPrev();
 			int index = size();
 			while (themp != root) {
 				if (themp.equals(o)) {
@@ -287,8 +287,8 @@ public class MyAbstractList<E> implements List<E> {
 
 	private class ListElement {
 		private E value;
-		private MyAbstractList<E>.ListElement next = null;
-		private MyAbstractList<E>.ListElement prev = null;
+		private MyLinkedList<E>.ListElement next = null;
+		private MyLinkedList<E>.ListElement prev = null;
 
 		public ListElement(E value) {
 			super();
@@ -313,7 +313,7 @@ public class MyAbstractList<E> implements List<E> {
 		/**
 		 * @return the next
 		 */
-		public MyAbstractList<E>.ListElement getNext() {
+		public MyLinkedList<E>.ListElement getNext() {
 			return next;
 		}
 
@@ -321,14 +321,14 @@ public class MyAbstractList<E> implements List<E> {
 		 * @param next
 		 *            the next to set
 		 */
-		public void setNext(MyAbstractList<E>.ListElement next) {
+		public void setNext(MyLinkedList<E>.ListElement next) {
 			this.next = next;
 		}
 
 		/**
 		 * @return the prev
 		 */
-		public MyAbstractList<E>.ListElement getPrev() {
+		public MyLinkedList<E>.ListElement getPrev() {
 			return prev;
 		}
 
@@ -336,7 +336,7 @@ public class MyAbstractList<E> implements List<E> {
 		 * @param prev
 		 *            the prev to set
 		 */
-		public void setPrev(MyAbstractList<E>.ListElement prev) {
+		public void setPrev(MyLinkedList<E>.ListElement prev) {
 			this.prev = prev;
 		}
 
