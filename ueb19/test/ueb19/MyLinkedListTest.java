@@ -365,15 +365,15 @@ public class MyLinkedListTest {
 		assertEquals(-1, underTestEmpty.lastIndexOf(3));
 	}
 	
-//	@Test
-//	public void lastIndexOfTest2() {
-//		underTest.add(3);
-//		assertEquals(5, underTest.lastIndexOf(3));
-//	}
-//	
-//	@Test
-//	public void lastIndexOfTest3() {
-//		assertEquals(-1, underTest.lastIndexOf(-1));
-//	}
+	@Test
+	public void lastIndexOfTest2() {
+		underTest.add(3);
+		assertEquals(5, underTest.lastIndexOf(3));
+	}
+	
+	@Test
+	public void lastIndexOfTest3() {
+		assertEquals(-1, underTest.lastIndexOf(-1));
+	}
 
 }
