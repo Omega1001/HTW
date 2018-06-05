@@ -2,6 +2,7 @@ package ueb19;
 
 import java.lang.reflect.Array;
 import java.util.Collection;
+import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
@@ -10,6 +11,7 @@ import java.util.NoSuchElementException;
 public class MyLinkedList<E> implements List<E> {
 
 	private ListElement root;
+	private long lastModified = 0;
 
 	@Override
 	public int size() {
@@ -20,6 +22,7 @@ public class MyLinkedList<E> implements List<E> {
 			ListElement themp = root.getNext();
 			while (themp != root) {
 				size++;
+				themp = themp.getNext();
 			}
 			return size;
 		}
@@ -51,6 +54,11 @@ public class MyLinkedList<E> implements List<E> {
 	@Override
 	public Object[] toArray() {
 		Object[] res = new Object[size()];
+		int i = 0;
+		for (E v : this) {
+			res[i] = v;
+			i++;
+		}
 
 		return res;
 	}
@@ -64,7 +72,7 @@ public class MyLinkedList<E> implements List<E> {
 					size());
 		}
 		for (int i = 0; i < res.length; i++) {
-			if (i < size()) {
+			if (i >= size()) {
 				res[i] = null;
 			} else {
 				res[i] = (T) get(i);
@@ -79,6 +87,7 @@ public class MyLinkedList<E> implements List<E> {
 			root = new ListElement(e);
 			root.setNext(root);
 			root.setPrev(root);
+			lastModified++;
 			return true;
 		} else {
 			ListElement themp = new ListElement(e);
@@ -86,6 +95,7 @@ public class MyLinkedList<E> implements List<E> {
 			themp.setPrev(root.getPrev());
 			root.getPrev().setNext(themp);
 			root.setPrev(themp);
+			lastModified++;
 			return true;
 		}
 	}
@@ -99,11 +109,15 @@ public class MyLinkedList<E> implements List<E> {
 			if (elm == root && elm.getNext() == elm.getPrev()) {
 				root = null;
 			} else {
+				if (elm == root) {
+					root = root.getNext();
+				}
 				elm.getPrev().setNext(elm.getNext());
-				elm.getNext().setNext(elm.getPrev());
+				elm.getNext().setPrev(elm.getPrev());
 				elm.setNext(null);
 				elm.setPrev(null);
 			}
+			lastModified++;
 			return true;
 		}
 	}
@@ -137,14 +151,18 @@ public class MyLinkedList<E> implements List<E> {
 
 	@Override
 	public boolean addAll(Collection<? extends E> c) {
-		return addAll(size() - 1, c);
+		return addAll(size(), c);
 	}
 
 	@Override
 	public boolean addAll(int index, Collection<? extends E> c) {
+		if (index < -1 || index > size()) {
+			throw new IndexOutOfBoundsException(String.valueOf(index));
+		}
 		int tIndex = index;
 		for (E o : c) {
-			add(tIndex++, o);
+			add(tIndex, o);
+			tIndex++;
 		}
 		return true;
 	}
@@ -161,9 +179,11 @@ public class MyLinkedList<E> implements List<E> {
 	@Override
 	public boolean retainAll(Collection<?> c) {
 		boolean result = false;
-		for (Object o : c) {
-			if (!c.contains(o)) {
-				result = remove(o) || result;
+		Iterator<E> it = listIterator();
+		while (it.hasNext()) {
+			if (!c.contains(it.next())) {
+				it.remove();
+				result = true;
 			}
 		}
 		return result;
@@ -179,6 +199,8 @@ public class MyLinkedList<E> implements List<E> {
 				themp = themp.getNext();
 			}
 		}
+		root = null;
+		lastModified++;
 	}
 
 	@Override
@@ -187,6 +209,9 @@ public class MyLinkedList<E> implements List<E> {
 	}
 
 	private ListElement getElementByIndex(int index) {
+		if (index < 0 || index >= size()) {
+			throw new IndexOutOfBoundsException(String.valueOf(index));
+		}
 		if (root == null) {
 			throw new IndexOutOfBoundsException();
 		}
@@ -205,16 +230,37 @@ public class MyLinkedList<E> implements List<E> {
 		MyLinkedList<E>.ListElement themp = getElementByIndex(index);
 		E old = themp.getValue();
 		themp.setValue(element);
+		lastModified++;
 		return old;
 	}
 
 	@Override
 	public void add(int index, E element) {
+		if (index < 0 || index > size()) {
+			throw new IndexOutOfBoundsException(String.valueOf(index));
+		}
 		MyLinkedList<E>.ListElement themp = new ListElement(element);
 		if (root == null) {
+			themp.setNext(themp);
+			themp.setPrev(themp);
 			root = themp;
+			lastModified++;
+		} else if (index == size()) {
+			themp.setPrev(root.getPrev());
+			themp.setNext(root);
+			root.getPrev().setNext(themp);
+			root.setPrev(themp);
+			lastModified++;
 		} else {
-
+			MyLinkedList<E>.ListElement parent = getElementByIndex(index);
+			themp.setPrev(parent.getPrev());
+			themp.setNext(parent);
+			parent.getPrev().setNext(themp);
+			parent.setPrev(themp);
+			if (parent == root) {
+				root = themp;
+			}
+			lastModified++;
 		}
 	}
 
@@ -227,9 +273,10 @@ public class MyLinkedList<E> implements List<E> {
 
 	private void removeNode(MyLinkedList<E>.ListElement themp) {
 		themp.getPrev().setNext(themp.getNext());
-		themp.getNext().setPrev(themp.getNext());
+		themp.getNext().setPrev(themp.getPrev());
 		themp.setNext(null);
 		themp.setPrev(null);
+		lastModified++;
 	}
 
 	@Override
@@ -242,7 +289,7 @@ public class MyLinkedList<E> implements List<E> {
 			MyLinkedList<E>.ListElement themp = root.getNext();
 			int index = 1;
 			while (themp != root) {
-				if (themp.equals(o)) {
+				if (themp.getValue().equals(o)) {
 					return index;
 				}
 				themp = themp.getNext();
@@ -258,9 +305,9 @@ public class MyLinkedList<E> implements List<E> {
 			return -1;
 		} else {
 			MyLinkedList<E>.ListElement themp = root.getPrev();
-			int index = size();
+			int index = size() - 1;
 			while (themp != root) {
-				if (themp.equals(o)) {
+				if (themp.getValue().equals(o)) {
 					return index;
 				}
 				themp = themp.getPrev();
@@ -272,12 +319,12 @@ public class MyLinkedList<E> implements List<E> {
 
 	@Override
 	public ListIterator<E> listIterator() {
-		return new AbstractListIterator();
+		return new AbstractListIterator(0);
 	}
 
 	@Override
 	public ListIterator<E> listIterator(int index) {
-		return null;
+		return new AbstractListIterator(index);
 	}
 
 	@Override
@@ -346,35 +393,44 @@ public class MyLinkedList<E> implements List<E> {
 
 		private ListElement current;
 		private boolean first = true;
-		private int index = 0;
-		private boolean mayMod = true;
+		private int index = -1;
+		private boolean mayMod = false;
+		private long workingVersion = lastModified;
 
-		private AbstractListIterator() {
+		private AbstractListIterator(int i) {
 			this.current = null;
+			while (index < i - 1) {
+				next();
+			}
 		}
 
 		@Override
 		public boolean hasNext() {
-			return root != null && current.getNext() != root || first;
+			return root != null && (current == null || current
+					.getNext() != root || first);
 		}
 
 		@Override
 		public E next() {
+			if (workingVersion != lastModified) {
+				throw new ConcurrentModificationException();
+			}
 			if (current == null) {
 				if (root == null) {
 					throw new NoSuchElementException();
 				} else {
 					current = root;
-					first = true;
+					first = root.getNext() != root;
+					index = 0;
 				}
 			} else if (current == root && !first) {
 				throw new NoSuchElementException();
 			} else {
 				current = current.getNext();
 				first = false;
+				index++;
 			}
 			mayMod = true;
-			index++;
 			return current.getValue();
 		}
 
@@ -385,8 +441,12 @@ public class MyLinkedList<E> implements List<E> {
 
 		@Override
 		public E previous() {
+			if (workingVersion != lastModified) {
+				throw new ConcurrentModificationException();
+			}
 			if (index > 0) {
 				current = current.getPrev();
+				first = current == root && root.getNext() != root;
 			} else {
 				throw new NoSuchElementException();
 			}
@@ -397,34 +457,38 @@ public class MyLinkedList<E> implements List<E> {
 
 		@Override
 		public int nextIndex() {
-			return index + (hasNext() ? 1 : 0);
+			return index + 1;
 		}
 
 		@Override
 		public int previousIndex() {
-			return index - (hasPrevious() ? 1 : 0);
+			return index - 1;
 		}
 
 		@Override
 		public void remove() {
 			if (mayMod) {
-				if(root == null){
+				if (root == null) {
 					throw new IllegalStateException();
-				}else if (hasPrevious()) {
+				} else if (hasPrevious()) {
 					ListElement toDel = current;
 					previous();
 					removeNode(toDel);
-				}else {
-					//Single Element
-					if(root.getNext() == root) {
+				} else {
+					// Is Root Element
+					if (root.getNext() == root) {
+						// Single Element
 						root = null;
 						current = null;
-					}else {
+					} else {
+						root = current.getNext();
 						removeNode(current);
 						current = null;
+						first = root.getNext() != root;
 					}
 				}
 				mayMod = false;
+				workingVersion = lastModified;
 			} else {
 				throw new IllegalStateException();
 			}
@@ -433,7 +497,12 @@ public class MyLinkedList<E> implements List<E> {
 
 		@Override
 		public void set(E e) {
-			current.setValue(e);
+			if (mayMod) {
+				current.setValue(e);
+				mayMod = false;
+			} else {
+				throw new IllegalStateException();
+			}
 		}
 
 		@Override
@@ -446,6 +515,7 @@ public class MyLinkedList<E> implements List<E> {
 				current.setNext(themp);
 				next();
 				mayMod = false;
+				workingVersion = lastModified;
 			} else {
 				throw new IllegalStateException();
 			}
