@@ -13,6 +13,7 @@ public class MyHeap<E extends Comparable<E>> implements Queue<E> {
 	private E[] store;
 	private int size = 1;
 	private long version = 0;
+	private Class<?> type;
 
 	private int leftIndex(int i) {
 		return (i * 2) + 1;
@@ -28,6 +29,7 @@ public class MyHeap<E extends Comparable<E>> implements Queue<E> {
 
 	@SuppressWarnings("unchecked")
 	private void init(Class<?> type) {
+		this.type = type;
 		store = (E[]) Array.newInstance(type, size);
 	}
 
@@ -48,7 +50,7 @@ public class MyHeap<E extends Comparable<E>> implements Queue<E> {
 	}
 
 	private int indexOf(Object o) {
-		int res = -1;
+		int res = 0;
 		for (; res < store.length; res++) {
 			if (store[res] == null) {
 				break;
@@ -110,6 +112,9 @@ public class MyHeap<E extends Comparable<E>> implements Queue<E> {
 	@SuppressWarnings("unchecked")
 	@Override
 	public <T> T[] toArray(T[] a) {
+		if(type != null && !a.getClass().getComponentType().isAssignableFrom(type)) {
+			throw new ArrayStoreException();	
+		}
 		T[] res = a;
 		if (res.length < size()) {
 			res = (T[]) Array.newInstance(a.getClass().getComponentType(),
@@ -130,10 +135,14 @@ public class MyHeap<E extends Comparable<E>> implements Queue<E> {
 		int index = indexOf(o);
 		if (index != -1) {
 			store[index] = null;
-			swap(index, size() - 1);
+			if (index != size()) {
+				swap(index, size() - 1);
+			}
 			rebuild();
+			version++;
 			return true;
 		} else {
+			version++;
 			return false;
 		}
 	}
@@ -195,7 +204,8 @@ public class MyHeap<E extends Comparable<E>> implements Queue<E> {
 	@Override
 	public boolean retainAll(Collection<?> c) {
 		boolean res = false;
-		for (Object o : this) {
+
+		for (Object o : this.toArray()) {
 			if (!c.contains(o)) {
 				res = remove(o) || res;
 			}
@@ -212,7 +222,7 @@ public class MyHeap<E extends Comparable<E>> implements Queue<E> {
 			store[i] = null;
 			version++;
 		}
-
+		version++;
 	}
 
 	@Override
@@ -230,7 +240,7 @@ public class MyHeap<E extends Comparable<E>> implements Queue<E> {
 				init(e.getClass());
 			}
 		}
-		if (size() < store.length - 1) {
+		if (size() < store.length) {
 			store[size()] = e;
 			rebuild();
 			version++;
@@ -285,7 +295,7 @@ public class MyHeap<E extends Comparable<E>> implements Queue<E> {
 
 		@Override
 		public boolean hasNext() {
-			return current < size();
+			return store != null && current < size() - 1;
 		}
 
 		@Override
@@ -293,12 +303,17 @@ public class MyHeap<E extends Comparable<E>> implements Queue<E> {
 			if (workingVersion != version) {
 				throw new ConcurrentModificationException();
 			}
+			if(!hasNext()) {
+				throw new NoSuchElementException();
+			}
 			return store[++current];
 		}
 
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
@@ -307,7 +322,5 @@ public class MyHeap<E extends Comparable<E>> implements Queue<E> {
 		builder.append(Arrays.toString(store));
 		return builder.toString();
 	}
-	
-	
 
 }
