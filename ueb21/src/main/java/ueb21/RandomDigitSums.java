@@ -5,7 +5,7 @@ import java.util.PriorityQueue;
 import java.util.Random;
 
 public class RandomDigitSums {
-	public static void main(String[] args) {
+	public static void main(String[] args) throws InterruptedException {
 		
 		Random rng = new Random();
 		ArrayDeque<Integer> arrDeq = new ArrayDeque<Integer>();
@@ -21,7 +21,7 @@ public class RandomDigitSums {
 		
 			else {
 				if(arrDeq.peek() == null) {
-					
+					//TODO remove
 					System.out.println("BULLSHIT Aufgabe!");
 					bSC++;
 				}
@@ -30,6 +30,7 @@ public class RandomDigitSums {
 					con.consume(arrDeq.poll());
 				}
 			}
+			waitFor(1);
 		}
 		
 		System.out.println("\r\nEs gibt " + con.numberOfDifferentResults() + " unterschiedliche Quersummen\r\n");
@@ -50,5 +51,12 @@ public class RandomDigitSums {
 		System.out.println("Aufsteigend sind die Quersummen: " + con.getCrossTotalsAscending() + "\r\n");
 		System.out.println("Absteigend sind die Quersummen: " + con.getCrossTotalsDescending() + "\r\n");
 		System.out.println("BULLSHIT^" + bSC + "!");
+	}
+
+	private static void waitFor(int i) throws InterruptedException {
+		long target = System.currentTimeMillis()+i;
+		while(target > System.currentTimeMillis()) {
+			Thread.sleep(0);
+		}
 	}
 }
