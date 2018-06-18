@@ -37,7 +37,27 @@ public class Consumer {
 	}
 
 	public Integer numberOfOccurrences(Integer i) {
-		return treMap.get(i).size();
+		
+		Integer nOO = null;
+		ArrayList<Long> aL = null;
+		
+		if (i == null || i < 0) {
+			
+			throw new IllegalArgumentException ("Value must be a natural number!");
+		}
+		
+		aL = treMap.get(i);
+		
+		if (aL == null) {
+			
+			nOO = 0;
+			
+		} else {
+			
+			nOO = aL.size();
+		}
+	
+		return nOO;
 	}
 
 	public NavigableSet<Integer> getCrossTotalsAscending() {
@@ -49,6 +69,12 @@ public class Consumer {
 	}
 
 	public ArrayList<Long> getTimestampsForResult(Integer i) {
+		
+		if (i == null || i < 0) {
+			
+			throw new IllegalArgumentException ("Value must be a natural number!");
+		}
+
 		return treMap.get(i);
 	}
 	

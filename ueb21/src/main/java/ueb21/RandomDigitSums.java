@@ -13,6 +13,7 @@ public class RandomDigitSums {
 		private PriorityQueue<Integer> priQue = new PriorityQueue<Integer>();
 		private Consumer consumer;
 		private int bSC = 0;
+		private int proCou = 0;
 		
 		public RandomDigitSums (int mode) throws InterruptedException {
 			
@@ -32,10 +33,12 @@ public class RandomDigitSums {
 			
 			this.consumer = new Consumer();
 			
-			for(int i = 0; i < 100; i++) {
+			for(int i = 0; i < 10000; i++) {
 				
 				if(rng.nextInt(2) == 0 ) {
+					
 					queue.offer(Producer.produce());
+					proCou++;
 				}
 			
 				else {
@@ -58,6 +61,16 @@ public class RandomDigitSums {
 		public Consumer getConsumer() {
 		
 			return this.consumer;
+		}
+		
+		public int getBSC() {
+			
+			return bSC;
+		}
+		
+		public int getProCou() {
+			
+			return proCou;
 		}
 
 		private static void waitFor(int i) throws InterruptedException {
