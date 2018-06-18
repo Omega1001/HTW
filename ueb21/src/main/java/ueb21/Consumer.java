@@ -6,9 +6,14 @@ import java.util.TreeMap;
 
 public class Consumer {
 
-	private TreeMap<Integer, ArrayList<Long>> sorMap = new TreeMap<Integer, ArrayList<Long>>();
+	private TreeMap<Integer, ArrayList<Long>> treMap = new TreeMap<Integer, ArrayList<Long>>();
 	
-	public void consume(Integer i) {
+	public Integer consume(Integer i) {
+		
+		if (i == null || i < 0) {
+			
+			throw new IllegalArgumentException ("Value must be a natural number!");
+		}
 		
 		Integer res = 0;
 		
@@ -17,37 +22,44 @@ public class Consumer {
 			res += i % 10;
 			i /= 10;
 		}
-		if(sorMap.get(res) == null) {
+		if(treMap.get(res) == null) {
 			
-			sorMap.put(res, new ArrayList<Long>());
+			treMap.put(res, new ArrayList<Long>());
 		}
 			
-		sorMap.get(res).add(System.currentTimeMillis());
+		treMap.get(res).add(System.currentTimeMillis());
+		
+		return res;
 	}
 
 	public Integer numberOfDifferentResults() {
-		return sorMap.size();
+		return treMap.size();
 	}
 
 	public Integer numberOfOccurrences(Integer i) {
-		return sorMap.get(i).size();
+		return treMap.get(i).size();
 	}
 
 	public NavigableSet<Integer> getCrossTotalsAscending() {
-		return sorMap.navigableKeySet();
+		return treMap.navigableKeySet();
 	}
 
 	public NavigableSet<Integer> getCrossTotalsDescending() {
-		return sorMap.descendingKeySet();
+		return treMap.descendingKeySet();
 	}
 
 	public ArrayList<Long> getTimestampsForResult(Integer i) {
-		return sorMap.get(i);
+		return treMap.get(i);
 	}
 	
-	public boolean exists(int i) {
+	public boolean exists(Integer i) {
 		
-		return sorMap.get(i) != null;
+		if (i == null || i < 0) {
+			
+			throw new IllegalArgumentException ("Value must be a natural number!");
+		}
+		
+		return treMap.get(i) != null;
 	}
 	
 }
