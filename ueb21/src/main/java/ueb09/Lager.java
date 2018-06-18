@@ -1,7 +1,5 @@
 package ueb09;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -9,6 +7,9 @@ import java.util.NoSuchElementException;
 import java.util.function.BiPredicate;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
 /**
  * Simple Lager Klasse zum archivieren von Artikeln.
@@ -28,7 +29,7 @@ public class Lager implements Iterable<Artikel> {
 													// die 9000.
 	private static final int MIN_PROZENT = -100;
 
-	private  LinkedHashMap<Integer, Artikel> lagerFeld;
+	private LinkedHashMap<Integer, Artikel> lagerFeld;
 	private int artikelAnzahl;
 	private int dimension;
 
@@ -114,12 +115,12 @@ public class Lager implements Iterable<Artikel> {
 	 *             existiert
 	 */
 	public void loescheArtikel(int artNr) throws NoSuchElementException {
-		
+
 		if (null == lagerFeld.remove(artNr)) {
-			
+
 			throw new NoSuchElementException();
 		}
-		
+
 		artikelAnzahl--;
 	}
 
@@ -184,7 +185,8 @@ public class Lager implements Iterable<Artikel> {
 		}
 	}
 
-	/** TODO MAN SIEHE HIER UMLAUTE FUNKTIONIEREN DOCH AUF DEM ENDLOSDRUCKER!!!
+	/**
+	 * MAN SIEHE HIER UMLAUTE FUNKTIONIEREN DOCH AUF DEM ENDLOSDRUCKER!!!
 	 * Methode, die ein Artikel Object anhand seiner Artikelnummer zurr√ºck
 	 * gibt.<br>
 	 * Sollte es meh als einen Artikel mit der selben Nummer geben, wird
@@ -198,38 +200,11 @@ public class Lager implements Iterable<Artikel> {
 	 */
 	public Artikel findeArtikel(int artNr) throws NoSuchElementException {
 		if (null == lagerFeld.get(artNr)) {
-		
+
 			throw new NoSuchElementException();
 		}
-		
-		return lagerFeld.get(artNr);
-	}
 
-	/** TODO Delete?
-	 * Methode zum ermitteln des Index eines bestimmten Artikels im Lager.
-	 * <p>
-	 * 
-	 * @param artNr
-	 *            Einzugebende Nummer des zu findenden Artikels.
-	 * @return Feld das der Artikel im Lager belegt.
-	 * @exception NoSuchElementException
-	 *                wenn kein Element mit dieser nummer existiert
-	 */
-	private int findeArtikelIndex(int artNr)
-			throws NoSuchElementException {
-		
-		int index = -1;
-		
-		for (Artikel art : this) {
-			
-			index++;
-			
-			if (art.getArtikelNummer() == artNr) {
-				return index;
-			}
-		}
-		throw new NoSuchElementException("Der Artikel Nummer " + artNr
-				+ " ist nicht vorhanden!");
+		return lagerFeld.get(artNr);
 	}
 
 	/**
@@ -268,35 +243,12 @@ public class Lager implements Iterable<Artikel> {
 	 */
 	public List<Artikel> getSorted(BiPredicate<Artikel,
 			Artikel> kriterium) {
-
-		List<Artikel> liste = new ArrayList<>();
-		//TODO OK? 
-		for (Artikel art : this) {
-		
-			liste.add(art);
-		}
-		
-		liste.forEach(a -> {
-			
-			liste.forEach(b ->{
-				
-				if (kriterium.test(a, b)) {
-					
-					if (kriterium.test(a, b)) {
-						
-						listSwap(liste, b, a);
-					}
-				}
-			});	
-		});
-		
-		return liste;
+		return stream().sorted((a, b) -> kriterium.test(a, b) ? 1 : -1)
+				.collect(Collectors.toList());
 	}
-	
-	private void listSwap (List<Artikel> l, Artikel a, Artikel b) {
-		
-		l.set(l.indexOf(a),b);
-		l.set(l.indexOf(b),a);
+
+	public Stream<Artikel> stream() {
+		return StreamSupport.stream(this.spliterator(), false);
 	}
 
 	/**
@@ -310,18 +262,7 @@ public class Lager implements Iterable<Artikel> {
 	 *         Kriterium entsprechen.
 	 */
 	public List<Artikel> filter(Predicate<Artikel> kriterium) {
-
-		List<Artikel> liste = new ArrayList<Artikel>();
-		//TODO In Ordnung?
-		this.forEach(a -> {
-			
-			if (kriterium.test(a)) {
-				
-				liste.add(a);
-			}
-		});
-		
-		return liste;
+		return stream().filter(kriterium).collect(Collectors.toList());
 	}
 
 	/**
@@ -333,8 +274,7 @@ public class Lager implements Iterable<Artikel> {
 	 *            auszufuehrende Operation.
 	 */
 	public void applyToArticles(Consumer<Artikel> operation) {
-		//TODO Warum brauche ich immer this. wenn ich den iterator verwende? (hab das gef¸hl ich m¸sste das wissen werd aber nicht schaldu daraus warum es mit Lagerfeld nicht geht.)
-		this.forEach(a -> operation.accept(a));
+		stream().forEach(a -> operation.accept(a));
 	}
 
 	/**
@@ -367,26 +307,26 @@ public class Lager implements Iterable<Artikel> {
 	@Override
 	public Iterator<Artikel> iterator() {
 		return new Iterator<Artikel>() {
-			
+
 			Iterator<Integer> ite = lagerFeld.keySet().iterator();
 
 			@Override
 			public boolean hasNext() {
-				
+
 				return ite.hasNext();
 			}
 
 			@Override
 			public Artikel next() {
-				
+
 				return lagerFeld.get(ite.next());
 			}
 		};
 	}
-	
+
 	/**
-	 * Methode um auf alle Artikel im Lager, die einem bestimmtem
-	 * Kriterium entsprechen, eine uebergebene Operation anazuwenden.
+	 * Methode um auf alle Artikel im Lager, die einem bestimmtem Kriterium
+	 * entsprechen, eine uebergebene Operation anazuwenden.
 	 * <p>
 	 * 
 	 * @param operation
@@ -394,46 +334,28 @@ public class Lager implements Iterable<Artikel> {
 	 * @param kriterium
 	 *            Predicate das das Auswahlkriterium fest legt.
 	 */
-	public void applyToSomeArticles(Consumer<Artikel> operation , Predicate<Artikel> kriterium) {
-		//TODO In Ordnung?
-		this.forEach( a -> {
-			
-			if(kriterium.test(a)) {
-				
-				operation.accept(a);
-			}
-		});
+	public void applyToSomeArticles(Consumer<Artikel> operation, Predicate<
+			Artikel> kriterium) {
+		stream().filter(kriterium).forEach(operation);
 	}
-	
+
 	/**
-	 * Methode um alle einem Suchkriterium entsprechenden Artikel aus dem Lager als eine sortierte Liste wiederzugeben.
+	 * Methode um alle einem Suchkriterium entsprechenden Artikel aus dem
+	 * Lager als eine sortierte Liste wiederzugeben.
 	 * <p>
 	 * 
-	 *  @param kriterium
-	 *          Predicate das das Auswahlkriterium fuer die Suche fest legt.
+	 * @param kriterium
+	 *            Predicate das das Auswahlkriterium fuer die Suche fest
+	 *            legt.
 	 * @param sortierKriterium
-	 *          BiPredicate das das Sortierkriterium fest legt.
-	 * @return 
-	 * 			Nach dem Sortierkriterium sortierte Liste, deren Inhalt derScuhkriterium entspricht.
+	 *            BiPredicate das das Sortierkriterium fest legt.
+	 * @return Nach dem Sortierkriterium sortierte Liste, deren Inhalt
+	 *         derScuhkriterium entspricht.
 	 */
-	public List<Artikel> getArticles(Predicate<Artikel> suchKriterium, BiPredicate<Artikel, Artikel> sortierKriterium) {
-		// TODO OK?
-		List<Artikel> liste = filter(suchKriterium);
-		
-		liste.forEach(a -> {
-			
-			liste.forEach(b ->{
-				
-				if (sortierKriterium.test(a, b)) {
-					
-					if (sortierKriterium.test(a, b)) {
-						
-						listSwap(liste, b, a);
-					}
-				}
-			});
-		});
-		
-		return liste;
+	public List<Artikel> getArticles(Predicate<Artikel> suchKriterium,
+			BiPredicate<Artikel, Artikel> sortierKriterium) {
+
+		return stream().filter(suchKriterium).sorted((a, b) -> sortierKriterium
+				.test(a, b) ? 1 : -1).collect(Collectors.toList());
 	}
 }
