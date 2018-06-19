@@ -1,12 +1,13 @@
 package ueb21;
 
 import java.util.ArrayList;
-import java.util.NavigableSet;
+import java.util.List;
+import java.util.Set;
 import java.util.TreeMap;
 
 public class Consumer {
 
-	private TreeMap<Integer, ArrayList<Long>> treMap = new TreeMap<Integer, ArrayList<Long>>();
+	private TreeMap<Integer, ArrayList<Long>> treeMap = new TreeMap<Integer, ArrayList<Long>>();
 	
 	public Integer consume(Integer i) {
 		
@@ -22,34 +23,34 @@ public class Consumer {
 			res += i % 10;
 			i /= 10;
 		}
-		if(treMap.get(res) == null) {
+		if(treeMap.get(res) == null) {
 			
-			treMap.put(res, new ArrayList<Long>());
+			treeMap.put(res, new ArrayList<Long>());
 		}
 			
-		treMap.get(res).add(System.currentTimeMillis());
+		treeMap.get(res).add(System.currentTimeMillis());
 		
 		return res;
 	}
 
 	public Integer numberOfDifferentResults() {
-		return treMap.size();
+		return treeMap.size();
 	}
 
 	public Integer numberOfOccurrences(Integer i) {
-		return treMap.get(i).size();
+		return treeMap.get(i).size();
 	}
 
-	public NavigableSet<Integer> getCrossTotalsAscending() {
-		return treMap.navigableKeySet();
+	public Set<Integer> getCrossTotalsAscending() {
+		return treeMap.navigableKeySet();
 	}
 
-	public NavigableSet<Integer> getCrossTotalsDescending() {
-		return treMap.descendingKeySet();
+	public Set<Integer> getCrossTotalsDescending() {
+		return treeMap.descendingKeySet();
 	}
 
-	public ArrayList<Long> getTimestampsForResult(Integer i) {
-		return treMap.get(i);
+	public List<Long> getTimestampsForResult(Integer i) {
+		return treeMap.get(i);
 	}
 	
 	public boolean exists(Integer i) {
@@ -59,7 +60,7 @@ public class Consumer {
 			throw new IllegalArgumentException ("Value must be a natural number!");
 		}
 		
-		return treMap.get(i) != null;
+		return treeMap.get(i) != null;
 	}
 	
 }
