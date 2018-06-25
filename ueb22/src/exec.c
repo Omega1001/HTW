@@ -18,6 +18,5 @@ int main() {
 	printf("End of Execution\n");
 	printf("Subprogram 1 returned with %i\n", ret);
 	printf("Subprogram 2 returned with %i\n", ret2);
-	printf("Subprogram 2 returned with %i\n", test());
 }
 
