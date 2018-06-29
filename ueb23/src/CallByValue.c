@@ -7,25 +7,22 @@
  */
 
 #include <stdio.h>
+#include "include/CallByValue.h"
+
+void doCall(int i){
+	i++;
+}
 
 int callByValueProof(void) {
 
-	int a = 1;
-	int b = a;
-
-	b *= 2;
-
-	if(a == b) {
-
-		printf("Busted!\n\n");
+	int i =0;
+	doCall(i);
+	if(i == 0){
+		puts("Proof");
+		return 0;
+	}else{
+		puts("Busted");
+		return 1;
 	}
-
-	if(a != b) {
-
-		printf("Proof!\n\n");
-	}
-
-
-	return 0;
 }
 
