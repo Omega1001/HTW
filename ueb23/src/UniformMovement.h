@@ -10,6 +10,6 @@
 
 Weg s(Geschwindigkeit, Zeit, Zeit);
 
-Weg s(Geschwindigkeit, Geschwindigkeit, Beschleunigung);
+Weg uaS(Geschwindigkeit, Geschwindigkeit, Beschleunigung);
 
-Geschwindigkeit v(Beschleunigung, Zeit, Zeit, Geschwindigkeit);
+Geschwindigkeit uaV(Beschleunigung, Zeit, Zeit, Geschwindigkeit);

@@ -14,12 +14,12 @@ Weg s(Geschwindigkeit v, Zeit t, Zeit t0) {
 	return v * (t - t0);
 }
 
-Weg s(Geschwindigkeit v, Geschwindigkeit v0, Beschleunigung a) {
+Weg uaS(Geschwindigkeit v, Geschwindigkeit v0, Beschleunigung a) {
 
 	return (v * v - v0 * v0) / 2 * a;
 }
 
-Geschwindigkeit v(Beschleunigung a, Zeit t, Zeit t0, Geschwindigkeit v0) {
+Geschwindigkeit uaV(Beschleunigung a, Zeit t, Zeit t0, Geschwindigkeit v0) {
 
-	return a * (t - t0) + v;
+	return a * (t - t0) + v0;
 }

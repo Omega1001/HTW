@@ -8,8 +8,8 @@
 
 #include "PhysicalQuantities.h"
 
-Geschwindigkeit(Weg, Zeit);
+Geschwindigkeit v(Weg, Zeit);
 
-Beschleunigung(Geschwindigkeit, Zeit);
+Beschleunigung a(Geschwindigkeit, Zeit);
 
-Impuls(Masse, Geschwindigkeit);
+Impuls p(Masse, Geschwindigkeit);

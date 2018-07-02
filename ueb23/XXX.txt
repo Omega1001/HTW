@@ -1,0 +1,953 @@
+﻿0 Reihen / 0 Zeilen
+Anzahl der Reihen muss größer 0 sein!
+
+
+
+0 Reihen / 1 Zeilen
+Anzahl der Reihen muss größer 0 sein!
+
+
+
+0 Reihen / 2 Zeilen
+Anzahl der Reihen muss größer 0 sein!
+
+
+
+0 Reihen / 3 Zeilen
+Anzahl der Reihen muss größer 0 sein!
+
+
+
+0 Reihen / 4 Zeilen
+Anzahl der Reihen muss größer 0 sein!
+
+
+
+0 Reihen / 5 Zeilen
+Anzahl der Reihen muss größer 0 sein!
+
+
+
+0 Reihen / 6 Zeilen
+Anzahl der Reihen muss größer 0 sein!
+
+
+
+0 Reihen / 7 Zeilen
+Anzahl der Reihen muss größer 0 sein!
+
+
+
+0 Reihen / 8 Zeilen
+Anzahl der Reihen muss größer 0 sein!
+
+
+
+0 Reihen / 9 Zeilen
+Anzahl der Reihen muss größer 0 sein!
+
+
+
+0 Reihen / 10 Zeilen
+Anzahl der Reihen muss größer 0 sein!
+
+
+
+1 Reihen / 0 Zeilen
+Anzahl der Zeilen muss größer 0 sein.
+
+
+
+1 Reihen / 1 Zeilen
+*
+
+
+1 Reihen / 2 Zeilen
+**
+
+
+1 Reihen / 3 Zeilen
+***
+
+
+1 Reihen / 4 Zeilen
+****
+
+
+1 Reihen / 5 Zeilen
+*****
+
+
+1 Reihen / 6 Zeilen
+******
+
+
+1 Reihen / 7 Zeilen
+*******
+
+
+1 Reihen / 8 Zeilen
+********
+
+
+1 Reihen / 9 Zeilen
+*********
+
+
+1 Reihen / 10 Zeilen
+**********
+
+
+2 Reihen / 0 Zeilen
+Anzahl der Zeilen muss größer 0 sein.
+
+
+
+2 Reihen / 1 Zeilen
+*
+*
+
+
+2 Reihen / 2 Zeilen
+**
+**
+
+
+2 Reihen / 3 Zeilen
+*-*
+*-*
+
+
+2 Reihen / 4 Zeilen
+*--*
+*--*
+
+
+2 Reihen / 5 Zeilen
+*---*
+*---*
+
+
+2 Reihen / 6 Zeilen
+*----*
+*----*
+
+
+2 Reihen / 7 Zeilen
+*-----*
+*-----*
+
+
+2 Reihen / 8 Zeilen
+*------*
+*------*
+
+
+2 Reihen / 9 Zeilen
+*-------*
+*-------*
+
+
+2 Reihen / 10 Zeilen
+*--------*
+*--------*
+
+
+3 Reihen / 0 Zeilen
+Anzahl der Zeilen muss größer 0 sein.
+
+
+
+3 Reihen / 1 Zeilen
+*
+*
+*
+
+
+3 Reihen / 2 Zeilen
+**
+--
+**
+
+
+3 Reihen / 3 Zeilen
+*-*
+-*-
+*-*
+
+
+3 Reihen / 4 Zeilen
+*--*
+----
+*--*
+
+
+3 Reihen / 5 Zeilen
+*---*
+--*--
+*---*
+
+
+3 Reihen / 6 Zeilen
+*----*
+------
+*----*
+
+
+3 Reihen / 7 Zeilen
+*-----*
+---*---
+*-----*
+
+
+3 Reihen / 8 Zeilen
+*------*
+--------
+*------*
+
+
+3 Reihen / 9 Zeilen
+*-------*
+----*----
+*-------*
+
+
+3 Reihen / 10 Zeilen
+*--------*
+----------
+*--------*
+
+
+4 Reihen / 0 Zeilen
+Anzahl der Zeilen muss größer 0 sein.
+
+
+
+4 Reihen / 1 Zeilen
+*
+*
+*
+*
+
+
+4 Reihen / 2 Zeilen
+**
+--
+--
+**
+
+
+4 Reihen / 3 Zeilen
+*-*
+---
+---
+*-*
+
+
+4 Reihen / 4 Zeilen
+*--*
+-**-
+-**-
+*--*
+
+
+4 Reihen / 5 Zeilen
+*---*
+-----
+-----
+*---*
+
+
+4 Reihen / 6 Zeilen
+*----*
+------
+------
+*----*
+
+
+4 Reihen / 7 Zeilen
+*-----*
+--*-*--
+--*-*--
+*-----*
+
+
+4 Reihen / 8 Zeilen
+*------*
+--------
+--------
+*------*
+
+
+4 Reihen / 9 Zeilen
+*-------*
+---------
+---------
+*-------*
+
+
+4 Reihen / 10 Zeilen
+*--------*
+---*--*---
+---*--*---
+*--------*
+
+
+5 Reihen / 0 Zeilen
+Anzahl der Zeilen muss größer 0 sein.
+
+
+
+5 Reihen / 1 Zeilen
+*
+*
+*
+*
+*
+
+
+5 Reihen / 2 Zeilen
+**
+--
+--
+--
+**
+
+
+5 Reihen / 3 Zeilen
+*-*
+---
+-*-
+---
+*-*
+
+
+5 Reihen / 4 Zeilen
+*--*
+----
+----
+----
+*--*
+
+
+5 Reihen / 5 Zeilen
+*---*
+-*-*-
+--*--
+-*-*-
+*---*
+
+
+5 Reihen / 6 Zeilen
+*----*
+------
+------
+------
+*----*
+
+
+5 Reihen / 7 Zeilen
+*-----*
+-------
+---*---
+-------
+*-----*
+
+
+5 Reihen / 8 Zeilen
+*------*
+--------
+--------
+--------
+*------*
+
+
+5 Reihen / 9 Zeilen
+*-------*
+--*---*--
+----*----
+--*---*--
+*-------*
+
+
+5 Reihen / 10 Zeilen
+*--------*
+----------
+----------
+----------
+*--------*
+
+
+6 Reihen / 0 Zeilen
+Anzahl der Zeilen muss größer 0 sein.
+
+
+
+6 Reihen / 1 Zeilen
+*
+*
+*
+*
+*
+*
+
+
+6 Reihen / 2 Zeilen
+**
+**
+--
+--
+**
+**
+
+
+6 Reihen / 3 Zeilen
+*-*
+---
+-*-
+---
+---
+*-*
+
+
+6 Reihen / 4 Zeilen
+*--*
+----
+----
+-**-
+----
+*--*
+
+
+6 Reihen / 5 Zeilen
+*---*
+-*---
+-----
+-----
+-----
+*---*
+
+
+6 Reihen / 6 Zeilen
+*----*
+-*--*-
+--**--
+--**--
+-*--*-
+*----*
+
+
+6 Reihen / 7 Zeilen
+*-----*
+-----*-
+-------
+-------
+-*---*-
+*-----*
+
+
+6 Reihen / 8 Zeilen
+*------*
+--------
+----*---
+---**---
+--------
+*------*
+
+
+6 Reihen / 9 Zeilen
+*-------*
+---------
+-----*---
+---*-*---
+---------
+*-------*
+
+
+6 Reihen / 10 Zeilen
+*--------*
+-------*--
+----------
+----------
+--*----*--
+*--------*
+
+
+7 Reihen / 0 Zeilen
+Anzahl der Zeilen muss größer 0 sein.
+
+
+
+7 Reihen / 1 Zeilen
+*
+*
+*
+*
+*
+*
+*
+
+
+7 Reihen / 2 Zeilen
+**
+**
+--
+--
+--
+**
+**
+
+
+7 Reihen / 3 Zeilen
+*-*
+---
+---
+-*-
+---
+---
+*-*
+
+
+7 Reihen / 4 Zeilen
+*--*
+----
+-**-
+----
+-**-
+----
+*--*
+
+
+7 Reihen / 5 Zeilen
+*---*
+-----
+-----
+--*--
+-----
+-----
+*---*
+
+
+7 Reihen / 6 Zeilen
+*----*
+-*--*-
+------
+------
+------
+-*--*-
+*----*
+
+
+7 Reihen / 7 Zeilen
+*-----*
+-*---*-
+--*-*--
+---*---
+--*-*--
+-*---*-
+*-----*
+
+
+7 Reihen / 8 Zeilen
+*------*
+-*----*-
+--------
+--------
+--------
+-*----*-
+*------*
+
+
+7 Reihen / 9 Zeilen
+*-------*
+---------
+---------
+----*----
+---------
+---------
+*-------*
+
+
+7 Reihen / 10 Zeilen
+*--------*
+----------
+---*--*---
+----------
+---*--*---
+----------
+*--------*
+
+
+8 Reihen / 0 Zeilen
+Anzahl der Zeilen muss größer 0 sein.
+
+
+
+8 Reihen / 1 Zeilen
+*
+*
+*
+*
+*
+*
+*
+*
+
+
+8 Reihen / 2 Zeilen
+**
+**
+--
+--
+--
+--
+**
+**
+
+
+8 Reihen / 3 Zeilen
+*-*
+---
+---
+-*-
+-*-
+---
+---
+*-*
+
+
+8 Reihen / 4 Zeilen
+*--*
+----
+-**-
+----
+----
+-**-
+----
+*--*
+
+
+8 Reihen / 5 Zeilen
+*---*
+-----
+-*-*-
+-----
+-----
+-*-*-
+-----
+*---*
+
+
+8 Reihen / 6 Zeilen
+*----*
+------
+------
+--**--
+--**--
+------
+------
+*----*
+
+
+8 Reihen / 7 Zeilen
+*-----*
+-*---*-
+-------
+-------
+-------
+-------
+-*---*-
+*-----*
+
+
+8 Reihen / 8 Zeilen
+*------*
+-*----*-
+--*--*--
+---**---
+---**---
+--*--*--
+-*----*-
+*------*
+
+
+8 Reihen / 9 Zeilen
+*-------*
+-*-----*-
+---------
+---------
+---------
+---------
+-*-----*-
+*-------*
+
+
+8 Reihen / 10 Zeilen
+*--------*
+----------
+----------
+----**----
+----**----
+----------
+----------
+*--------*
+
+
+9 Reihen / 0 Zeilen
+Anzahl der Zeilen muss größer 0 sein.
+
+
+
+9 Reihen / 1 Zeilen
+*
+*
+*
+*
+*
+*
+*
+*
+*
+
+
+9 Reihen / 2 Zeilen
+**
+**
+--
+--
+--
+--
+--
+**
+**
+
+
+9 Reihen / 3 Zeilen
+*-*
+---
+---
+---
+-*-
+---
+---
+---
+*-*
+
+
+9 Reihen / 4 Zeilen
+*--*
+----
+----
+-**-
+----
+-**-
+----
+----
+*--*
+
+
+9 Reihen / 5 Zeilen
+*---*
+-----
+-*-*-
+-----
+--*--
+-----
+-*-*-
+-----
+*---*
+
+
+9 Reihen / 6 Zeilen
+*----*
+------
+------
+--**--
+------
+--**--
+------
+------
+*----*
+
+
+9 Reihen / 7 Zeilen
+*-----*
+-------
+-------
+-------
+---*---
+-------
+-------
+-------
+*-----*
+
+
+9 Reihen / 8 Zeilen
+*------*
+-*----*-
+--------
+--------
+--------
+--------
+--------
+-*----*-
+*------*
+
+
+9 Reihen / 9 Zeilen
+*-------*
+-*-----*-
+--*---*--
+---*-*---
+----*----
+---*-*---
+--*---*--
+-*-----*-
+*-------*
+
+
+9 Reihen / 10 Zeilen
+*--------*
+-*------*-
+----------
+----------
+----------
+----------
+----------
+-*------*-
+*--------*
+
+
+10 Reihen / 0 Zeilen
+Anzahl der Zeilen muss größer 0 sein.
+
+
+
+10 Reihen / 1 Zeilen
+*
+*
+*
+*
+*
+*
+*
+*
+*
+*
+
+
+10 Reihen / 2 Zeilen
+**
+**
+--
+--
+--
+--
+--
+--
+**
+**
+
+
+10 Reihen / 3 Zeilen
+*-*
+---
+---
+---
+-*-
+-*-
+---
+---
+---
+*-*
+
+
+10 Reihen / 4 Zeilen
+*--*
+----
+----
+-**-
+----
+----
+-**-
+----
+----
+*--*
+
+
+10 Reihen / 5 Zeilen
+*---*
+-----
+-*-*-
+-----
+-----
+-----
+-----
+-*-*-
+-----
+*---*
+
+
+10 Reihen / 6 Zeilen
+*----*
+------
+-*--*-
+------
+------
+------
+------
+-*--*-
+------
+*----*
+
+
+10 Reihen / 7 Zeilen
+*-----*
+-------
+-------
+--*-*--
+-------
+-------
+--*-*--
+-------
+-------
+*-----*
+
+
+10 Reihen / 8 Zeilen
+*------*
+--------
+--------
+--------
+---**---
+---**---
+--------
+--------
+--------
+*------*
+
+
+10 Reihen / 9 Zeilen
+*-------*
+-*-----*-
+---------
+---------
+---------
+---------
+---------
+---------
+-*-----*-
+*-------*
+
+
+10 Reihen / 10 Zeilen
+*--------*
+-*------*-
+--*----*--
+---*--*---
+----**----
+----**----
+---*--*---
+--*----*--
+-*------*-
+*--------*
