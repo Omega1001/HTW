@@ -7,6 +7,7 @@
  */
 
 #include <stdio.h>
+#include "../include/other.h"
 
 int app (float a, float b, float del) {
 

@@ -7,6 +7,7 @@
  */
 
 #include <stdio.h>
+#include "../include/other.h"
 
 void doCall(int i){
 	i++;

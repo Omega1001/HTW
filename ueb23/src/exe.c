@@ -7,10 +7,9 @@
  */
 
 #include <stdio.h>
-int minMax();
-int callByValueProof();
-int x();
-int minMaxBit();
+#include "../include/PhysicTypes.h"
+#include "../include/movmentInteractive.h"
+#include "../include/other.h"
 
 int main() {
 
@@ -23,7 +22,7 @@ int main() {
 
 	printf("\n====================================\n\n");
 	printf("Begin of Subprogram 3\n\n");
-	int ret3 = run();
+	int ret3 = runMovementInteractive();
 
 	printf("\n====================================\n\n");
 	printf("Begin of Subprogram 4\n\n");
