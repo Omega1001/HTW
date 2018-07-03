@@ -10,8 +10,13 @@
 #include "Movement.h"
 #include "UniformMovement.h"
 
-int run (void) {
+void clearInput(){
+	char c;
+	while ((c = getchar()) != '\n' && c != EOF) { }
+}
 
+int run (void) {
+	clearInput();
 	int sel = -1;
 	float w, x, y, z;
 
@@ -29,7 +34,7 @@ int run (void) {
 
 		if(sel < 0) {
 
-			printf("Ungültig!");
+			printf("Ungueltig!");
 		}
 
 		if(sel == 1) {
@@ -93,6 +98,7 @@ int run (void) {
 				scanf("%f\n", &z);
 				printf("v = %f\n\n", uaV(w, x, y, z));
 		}
+		clearInput();
 	}
 
 	return 0;
