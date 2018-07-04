@@ -16,7 +16,7 @@ Weg s(Geschwindigkeit v, Zeit t, Zeit t0) {
 
 Weg uaS(Geschwindigkeit v, Geschwindigkeit v0, Beschleunigung a) {
 
-	return (v * v - v0 * v0) / 2 * a;
+	return (v * v - v0 * v0) / (2 * a);
 }
 
 Geschwindigkeit uaV(Beschleunigung a, Zeit t, Zeit t0, Geschwindigkeit v0) {
