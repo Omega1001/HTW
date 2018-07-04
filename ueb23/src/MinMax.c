@@ -8,6 +8,7 @@
  
 #include <stdio.h>
 #include <limits.h>
+#include "../include/other.h"
 
 int minMax(void) {
 

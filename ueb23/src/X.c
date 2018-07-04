@@ -7,6 +7,7 @@
  */
 
 #include <stdio.h>
+#include "../include/other.h"
 
 int app (float a, float b, float del) {
 
@@ -36,7 +37,7 @@ int x (void) {
 
 	if (row < 1) {
 
-		printf("Anzahl der Reihen muss größer 0 sein.\n\n");
+		printf("Anzahl der Reihen muss groesser 0 sein.\n\n");
 		scanf("%d", &row);
 		while ((c = getchar()) != '\n' && c != EOF) { }
 	}
@@ -47,7 +48,7 @@ int x (void) {
 
 	if (col < 1) {
 
-		printf("Anzahl der Zeilen muss größer 0 sein.\n\n");
+		printf("Anzahl der Zeilen muss groesser 0 sein.\n\n");
 		scanf("%d", &col);
 		while ((c = getchar()) != '\n' && c != EOF) { }
 	}

@@ -10,13 +10,16 @@
 #include "Movement.h"
 #include "UniformMovement.h"
 
-int run (void) {
+void clearInputChar(){
+	char c;
+	while ((c = getchar()) != '\n' && c != EOF) { }
+}
 
+int run (void) {
 	int sel = -1;
 	float w, x, y, z;
 
 	while(sel != 0) {
-
 		printf("Was?\n"
 				"6: Geschwindigkeit\n"
 				"5: Beschleunigung\n"
@@ -29,15 +32,17 @@ int run (void) {
 
 		if(sel < 0) {
 
-			printf("Ungültig!");
+			printf("Ungueltig!");
 		}
 
 		if(sel == 1) {
-
+			clearInputChar();
 			printf("s = ");
-			scanf("%f\n", &w);
+			scanf("%f", &w);
+			clearInputChar();
 			printf("t = ");
-			scanf("%f\n", &x);
+			scanf("%f", &x);
+			clearInputChar();
 			printf("v = %f\n\n", v(w, x));
 		}
 
