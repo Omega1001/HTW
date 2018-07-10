@@ -10,6 +10,8 @@
 #include <stdbool.h>
 
 static int storeSize = -1;
+static int stored = 0;
+static struct Auto store[0];
 
 int convertAuto(Auto ** result, char * marke, unsigned int speed,
 		unsigned char tueren, bool abs, Eigenschaften * eigenschaften,
@@ -219,9 +221,15 @@ int createStore(int size) {
 		return 1;
 	}
 
+	if (storeSize > 0) {
+
+			printf("Store already exists!");
+
+			return 2;
+	}
+
 	storeSize = size;
-	static struct Auto store[size];
-	static int stored = 0;
+	store[size] = realloc(store,size * sizeof(Auto));;
 
 	return 0;
 }
@@ -280,8 +288,7 @@ int deleteCar(int delete) {
 
 	freeEigenschaften(store[delete].Eigenschaften);
 	freeCar(store[delete]);
-	store[delete] = car;
-	store[delete] = store[stored]
+	store[delete] = store[stored];
 	freeEigenschaften(store[stored].Eigenschaften);
 	freeCar(store[stored]);
 	stored--;
