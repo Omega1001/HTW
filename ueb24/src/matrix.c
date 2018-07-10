@@ -49,3 +49,31 @@ void swap_rows(int * arr, int rowA, int rowB, int rowCount, int colCount) {
 	}
 }
 
+
+//===== 5. Aufgabe ===============================================
+// Expect both functions to be passed proper matrices!
+
+// How to change res if it is NOT passed as a pointer???
+void sum (int m1 [], int m2 [] , int res [], int rows, int cols) {
+
+	for (int i = 0; i < rows * cols; i++) {
+
+		res[i] = m1[i] + m2[i];
+	}
+}
+
+void mult (int m1 [], int m2 [], int res [], int m1_rows, int m1_cols, int m2_rows, int m2_cols) {
+
+	for(int i = 0; i < m1_cols * m2_rows; i++) {
+
+		res[i] = 0;
+	}
+
+	for(int i = 0; i < m1_cols * m2_rows; i++) {
+
+		for(int j = 0; j < m2_rows; j++){
+
+			res[i][j] += m1[i] * m2[(i % m1_cols) * m2_cols + j];
+		}
+	}
+}

@@ -9,6 +9,8 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
+static int storeSize = -1;
+
 int convertAuto(Auto ** result, char * marke, unsigned int speed,
 		unsigned char tueren, bool abs, Eigenschaften * eigenschaften,
 		Motor * motor) {
@@ -208,3 +210,81 @@ void printAuto(Auto * a) {
 			a->motor->ps, a->motor->zylinder, a->motor->hubraum);
 }
 
+int createStore(int size) {
+
+	if (size < 1) {
+
+		printf("Store must be bigger than 0!");
+
+		return 1;
+	}
+
+	storeSize = size;
+	static struct Auto store[size];
+	static int stored = 0;
+
+	return 0;
+}
+
+int storeCar(Auto * car) {
+
+	if (storeSize < 1) {
+
+		printf("Store not initialized!");
+
+		return 1;
+	}
+
+
+	if (stored >= storeSize) {
+
+		printf("Store is already full!");
+
+		return 2;
+	}
+
+	store[stored++] = car;
+
+	return 0;
+}
+
+int deleteCar(int delete) {
+
+	if (storeSize < 1) {
+
+		printf("Store not initialized!");
+
+		return 1;
+	}
+
+	if (stored < 1) {
+
+		printf("No cars stored!");
+
+		return 2;
+	}
+
+	if (delete > stored) {
+
+		printf("No car at this spot!");
+
+		return 3;
+	}
+
+	if (delete > storeSize -1) {
+
+		printf("Index out of bound!");
+
+		return 4;
+	}
+
+	freeEigenschaften(store[delete].Eigenschaften);
+	freeCar(store[delete]);
+	store[delete] = car;
+	store[delete] = store[stored]
+	freeEigenschaften(store[stored].Eigenschaften);
+	freeCar(store[stored]);
+	stored--;
+
+	return 0;
+}
