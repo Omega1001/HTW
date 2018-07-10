@@ -9,10 +9,6 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-static int storeSize = -1;
-static int stored = 0;
-static struct Auto store[0];
-
 int convertAuto(Auto ** result, char * marke, unsigned int speed,
 		unsigned char tueren, bool abs, Eigenschaften * eigenschaften,
 		Motor * motor) {
@@ -33,8 +29,25 @@ int convertAuto(Auto ** result, char * marke, unsigned int speed,
 			//unable to allocate memory
 			return 3;
 		}
+		(*result)->marke = NULL;
 	}
-	(*result)->marke = marke;
+	if ((*result)->marke == NULL) {
+		(*result)->marke = malloc(sizeof(char) * 21);
+		if ((*result)->marke == NULL) {
+			//unable to allocate memory
+			return 3;
+		}
+	}
+	bool writeMarke = true;
+	for(int i=0;i<21;i++){
+		if(!writeMarke || i>=20 || marke[i] == 0){
+			(*result)->marke[i] = 0;
+		}else{
+			(*result)->marke[i] = marke[i];
+		}
+	}
+
+//	(*result)->marke = marke;
 	(*result)->speed = speed;
 	(*result)->tueren = tueren;
 	(*result)->abs = abs;
@@ -187,7 +200,7 @@ int freeEigenschaften(Eigenschaften * e) {
 
 void printEigenschaften(Eigenschaften * e, char * linePrefix) {
 	for (int i = 0; i < e->count; i++) {
-		printf("%s",linePrefix);
+		printf("%s", linePrefix);
 		for (int i2 = i * 1000; i2 < i * 1000 + 1000; i2++) {
 			if (e->eigenschaften[i2] == 0) {
 				break;
@@ -212,86 +225,3 @@ void printAuto(Auto * a) {
 			a->motor->ps, a->motor->zylinder, a->motor->hubraum);
 }
 
-int createStore(int size) {
-
-	if (size < 1) {
-
-		printf("Store must be bigger than 0!");
-
-		return 1;
-	}
-
-	if (storeSize > 0) {
-
-			printf("Store already exists!");
-
-			return 2;
-	}
-
-	storeSize = size;
-	store[size] = realloc(store,size * sizeof(Auto));;
-
-	return 0;
-}
-
-int storeCar(Auto * car) {
-
-	if (storeSize < 1) {
-
-		printf("Store not initialized!");
-
-		return 1;
-	}
-
-
-	if (stored >= storeSize) {
-
-		printf("Store is already full!");
-
-		return 2;
-	}
-
-	store[stored++] = car;
-
-	return 0;
-}
-
-int deleteCar(int delete) {
-
-	if (storeSize < 1) {
-
-		printf("Store not initialized!");
-
-		return 1;
-	}
-
-	if (stored < 1) {
-
-		printf("No cars stored!");
-
-		return 2;
-	}
-
-	if (delete > stored) {
-
-		printf("No car at this spot!");
-
-		return 3;
-	}
-
-	if (delete > storeSize -1) {
-
-		printf("Index out of bound!");
-
-		return 4;
-	}
-
-	freeEigenschaften(store[delete].Eigenschaften);
-	freeCar(store[delete]);
-	store[delete] = store[stored];
-	freeEigenschaften(store[stored].Eigenschaften);
-	freeCar(store[stored]);
-	stored--;
-
-	return 0;
-}

@@ -64,16 +64,8 @@ void sum (int m1 [], int m2 [] , int res [], int rows, int cols) {
 
 void mult (int m1 [], int m2 [], int res [], int m1_rows, int m1_cols, int m2_rows, int m2_cols) {
 
-	for(int i = 0; i < m1_cols * m2_rows; i++) {
+	//row a = row res
+	//row b = col res
 
-		res[i] = 0;
-	}
 
-	for(int i = 0; i < m1_cols * m2_rows; i++) {
-
-		for(int j = 0; j < m2_rows; j++){
-
-			res[i][j] += m1[i] * m2[(i % m1_cols) * m2_cols + j];
-		}
-	}
 }

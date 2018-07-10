@@ -43,7 +43,7 @@ int strlen(char *s) {
 
 	int i = 0;
 
-	while(s1[i] != 0) {
+	while(s[i] != 0) {
 
 		i++;
 	}
@@ -53,9 +53,9 @@ int strlen(char *s) {
 
 int firstIndexOf(char *s, char c) {
 
-	for(int i = 0; s1[i] != 0; i++) {
+	for(int i = 0; s[i] != 0; i++) {
 
-		if(s1[i] == c) {
+		if(s[i] == c) {
 
 			return i;
 		}
@@ -64,13 +64,13 @@ int firstIndexOf(char *s, char c) {
 	return -1;
 }
 
-int lastIndexOf(char *s, char c);
+int lastIndexOf(char *s, char c){
 
 	int i = -1;
 
-	for(int j = 0; s1[j] != 0; j++) {
+	for(int j = 0; s[j] != 0; j++) {
 
-		if(s1[j] == c) {
+		if(s[j] == c) {
 
 			i = j;
 		}
@@ -84,9 +84,9 @@ int replace(char *s, char c1, char c2) {
 
 	for(int i = 0; s[i] != 0; i++) {
 
-		if(s1[i] == c1) {
+		if(s[i] == c1) {
 
-			s1[i] = c2;
+			s[i] = c2;
 		}
 	}
 
@@ -97,9 +97,9 @@ int toUpperCase(char *s) {
 
 	for(int i = 0; s[i] != 0; i++) {
 
-		if(s1[i] > 96 && s1[i] < 123) {
+		if(s[i] > 96 && s[i] < 123) {
 
-			s1[i] -= 32;
+			s[i] -= 32;
 		}
 	}
 

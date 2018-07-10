@@ -21,4 +21,4 @@ int replace(char*, char, char);
 
 int toUpperCase(char*);
 
-int swap(char*, char*);
+int swap(char**, char**);

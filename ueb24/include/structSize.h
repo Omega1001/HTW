@@ -7,4 +7,4 @@
 
 #include <auto.h>
 
-void print structSize(void);
+void printStructSize();
