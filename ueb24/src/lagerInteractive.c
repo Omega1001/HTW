@@ -8,6 +8,7 @@
 #include <stdlib.h>
 #include <lager.h>
 #include <auto.h>
+#include <readAndClear.h>
 
 #define EXIT 0
 #define ADD 1
@@ -15,38 +16,6 @@
 #define REMOVE 3
 #define VIEW_ALL 4
 #define VALUE 5
-
-void clearChar() {
-	char c;
-	while ((c = getchar()) != '\n' && c != EOF) {
-	}
-}
-
-int scanInt(char* message) {
-	int read = -1;
-	int readChars = 0;
-	while (readChars != 1) {
-		fputs(message, stdout);
-		fputs(" > ", stdout);
-		readChars = scanf("%d", &read);
-		clearChar();
-	}
-	return read;
-}
-
-char * scanString(char* message) {
-	int readChars = 0;
-	char * string = malloc(sizeof(char) * 21);
-
-	while (readChars != 1) {
-		fputs(message, stdout);
-		fputs(" > ", stdout);
-		readChars = scanf("%s", string);
-		clearChar();
-	}
-	string[20] = 0;
-	return string;
-}
 
 bool scannBool(char * message) {
 	printf("%s", message);
