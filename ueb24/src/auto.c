@@ -39,10 +39,10 @@ int convertAuto(Auto ** result, char * marke, unsigned int speed,
 		}
 	}
 	bool writeMarke = true;
-	for(int i=0;i<21;i++){
-		if(!writeMarke || i>=20 || marke[i] == 0){
+	for (int i = 0; i < 21; i++) {
+		if (!writeMarke || i >= 20 || marke[i] == 0) {
 			(*result)->marke[i] = 0;
-		}else{
+		} else {
 			(*result)->marke[i] = marke[i];
 		}
 	}
@@ -112,18 +112,17 @@ int autoWert(int * result, Auto * a) {
 		//Invalid parameter
 		return 2;
 	}
-	*result = 1 * a->speed * a->tueren;
+	*result = 1 * a->speed * 50 * a->tueren;
 	if (a->abs) {
 		*result += 5000;
 	}
-	*result = 3000 * (a->eigenschaften)->count;
+	*result += 3000 * (a->eigenschaften)->count;
 	if (strEquals((a->marke), "Porsche")) {
 		*result *= 2;
 	}
 	return 0;
 }
 int generateEigenschaften(Eigenschaften ** result) {
-	puts("Generate props");
 	if (result == NULL) {
 		//Invalid result pointer
 		return 1;
@@ -138,18 +137,16 @@ int generateEigenschaften(Eigenschaften ** result) {
 	}
 	(*result)->count = 0;
 	if ((*result)->eigenschaften == NULL) {
-		puts("Locking memory");
 		(*result)->eigenschaften = malloc(sizeof(char) * 1001);
 		if ((*result)->eigenschaften == NULL) {
 			return 3;
 		}
 	}
-	puts("Begin init props");
+
 	for (int i = 0; i < 100; i++) {
 		(*result)->eigenschaften[i] = 0;
 	}
 	(*result)->count = 0;
-	puts("Finish Generate props");
 	return 0;
 }
 
@@ -201,7 +198,7 @@ int freeEigenschaften(Eigenschaften * e) {
 void printEigenschaften(Eigenschaften * e, char * linePrefix) {
 	for (int i = 0; i < e->count; i++) {
 		printf("%s", linePrefix);
-		for (int i2 = i * 1000; i2 < i * 1000 + 1000; i2++) {
+		for (int i2 = i * 100; i2 < (i + 1) * 100; i2++) {
 			if (e->eigenschaften[i2] == 0) {
 				break;
 			}

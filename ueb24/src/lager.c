@@ -80,6 +80,7 @@ int removeAuto(Auto ** res, AutoLager * lager, int index) {
 		lager->entries[index] = NULL;
 		index++;
 	}
+	lager->size--;
 	return 0;
 }
 
@@ -96,3 +97,8 @@ int peekAuto(Auto ** res, AutoLager * lager, int index) {
 	return 0;
 }
 
+void printLager(AutoLager * lager){
+	for (int i = 0;i<lager->size;i++){
+		printAuto(lager->entries[i]);
+	}
+}

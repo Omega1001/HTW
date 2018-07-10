@@ -30,3 +30,5 @@ int removeAuto(Auto ** res, AutoLager * lager, int index);
 
 int peekAuto(Auto ** res,AutoLager * lager, int index);
 
+void printLager(AutoLager * lager);
+

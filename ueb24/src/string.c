@@ -113,4 +113,5 @@ int swap(char **s1, char **s2) {
 	themp = *s1;
 	*s1= *s2;
 	*s2 = themp;
+	return 0;
 }
