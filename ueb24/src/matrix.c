@@ -4,7 +4,7 @@
  *  Created on: 09.07.2018
  *      Author: jannik
  */
-#include <matrix.h>
+#include "matrix.h"
 #include <stdio.h>
 #include <limits.h>
 

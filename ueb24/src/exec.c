@@ -5,14 +5,14 @@
  *      Author: jannik
  */
 
-#include <matrix.h>
-#include <auto.h>
+#include "matrix.h"
+#include "auto.h"
 #include <stdio.h>
-#include <lager.h>
-#include <lagerInteracktive.h>
-#include <structSize.h>
-#include <stringInteractive.h>
-#include <matrixInteractive.h>
+#include "lager.h"
+#include "lagerInteracktive.h"
+#include "structSize.h"
+#include "stringInteractive.h"
+#include "matrixInteractive.h"
 
 #define a2p(arr) &arr[0][0]
 

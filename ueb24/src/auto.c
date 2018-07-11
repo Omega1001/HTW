@@ -4,7 +4,7 @@
  *  Created on: 09.07.2018
  *      Author: jannik
  */
-#include <auto.h>
+#include "auto.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>

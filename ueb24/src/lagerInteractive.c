@@ -6,9 +6,9 @@
  */
 #include <stdio.h>
 #include <stdlib.h>
-#include <lager.h>
-#include <auto.h>
-#include <readAndClear.h>
+#include "lager.h"
+#include "auto.h"
+#include "readAndClear.h"
 
 #define EXIT 0
 #define ADD 1

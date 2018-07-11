@@ -6,7 +6,7 @@
  */
 
 #include <stdio.h>
-#include <string.h>
+#include "string2.h"
 
 int strcmp(char *s1, char *s2) {
 

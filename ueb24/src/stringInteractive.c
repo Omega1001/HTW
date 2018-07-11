@@ -7,9 +7,9 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
-#include <stringInteractive.h>
-#include <readAndClear.h>
+#include "string2.h"
+#include "stringInteractive.h"
+#include "readAndClear.h"
 
 #define EXIT 			0
 #define STRCMP			1

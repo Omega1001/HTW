@@ -5,8 +5,8 @@
  *      Author: Dominik
  */
 
-#include <structSize.h>
-#include <auto.h>
+#include "structSize.h"
+#include "auto.h"
 #include <stdio.h>
 #include <stdbool.h>
 

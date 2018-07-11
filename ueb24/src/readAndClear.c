@@ -5,7 +5,7 @@
  *      Author: Dominik
  */
 
-#include <readAndClear.h>
+#include "readAndClear.h"
 #include <stdio.h>
 #include <stdlib.h>
 
