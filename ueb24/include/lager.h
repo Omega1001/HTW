@@ -7,7 +7,7 @@
 
 #pragma once
 
-#include <auto.h>
+#include "auto.h"
 #include <stdio.h>
 #include <stdlib.h>
 

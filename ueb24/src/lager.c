@@ -4,7 +4,9 @@
  *  Created on: 10.07.2018
  *      Author: jannik
  */
-#include <lager.h>
+#include "lager.h"
+#include <stdlib.h>
+#include <stdio.h>
 
 int createLager(AutoLager ** res) {
 	if (res == NULL) {

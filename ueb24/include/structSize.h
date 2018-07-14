@@ -5,6 +5,6 @@
  *      Author: Dominik
  */
 
-#include <auto.h>
+#include "auto.h"
 
-void printStructSize();
+int printStructSize();
