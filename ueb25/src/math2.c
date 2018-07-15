@@ -23,7 +23,7 @@ int * multiply(int *a, int *b) {
 
 int add(int *a, int *b, int *res) {
 
-	res = *a + *b;
+	*res = *a + *b;
 
 	return 0;
 }

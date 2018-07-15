@@ -17,7 +17,8 @@
 int mathTest() {
 
 	int select = -1;
-	int a ,b ,res;
+	int a ,b, res2;
+	int *res;
 
 	while (select != 0) {
 
@@ -37,7 +38,7 @@ int mathTest() {
 
 				res = multiply(&a, &b);
 
-				printf("%d + %d% = d", a, b, res);
+				printf("%d + %d = %d", a, b, *res);
 
 				break;
 
@@ -46,9 +47,9 @@ int mathTest() {
 				a = scanInt("a = ");
 				b = scanInt("b = ");
 
-				add(&a, &b, &res);
+				add(&a, &b, &res2);
 
-				printf("%d * %d% = d", a, b, res);
+				printf("%d * %d = %d", a, b, res2);
 
 
 				break;

@@ -7,7 +7,7 @@
 
 #include <stdio.h>
 #include "mathTest.h"
-#include "palindromeTest.c"
+#include "palindromeTest.h"
 #include "distanceTest.h"
 
 int main(){

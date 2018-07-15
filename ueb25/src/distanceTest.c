@@ -8,6 +8,7 @@
 #include <stdio.h>
 #include "scanAndClear.h"
 #include "distanceTest.h"
+#include "distance.h"
 
 int distanceTest() {
 
@@ -25,7 +26,7 @@ int distanceTest() {
 	b[1] = scanDouble("B2 =");
 	b[2] = scanDouble("B3 =");
 
-	double dis = distance(*a, *b);
+	double dis = distance(a, b);
 
 	printf("Distanz = %f\n Vektor = (%f,%f,%f)\n", dis, a[0], a[1], a[2]);
 

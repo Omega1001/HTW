@@ -18,7 +18,7 @@
 
 int main(){
 
-//	setvbuf(stdout, NULL, _IONBF, 0);
+	setvbuf(stdout, NULL, _IONBF, 0);
 
 //==Aufgabe 1 und 5===========================================
 	int success = 0;

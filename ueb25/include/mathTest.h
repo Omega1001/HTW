@@ -5,6 +5,6 @@
  *      Author: Dominik
  */
 
-#pragma once;
+#pragma once
 
 int mathTest();
