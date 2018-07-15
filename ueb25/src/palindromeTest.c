@@ -9,17 +9,44 @@
 #include "palindrome.h"
 #include "scanAndClear.h"
 
+#define EXIT 			0
+#define TEST			1
+
 int palindromeTest() {
 
-	char *s = scanString("String = ");
+	int select = -1;
+	char *s;
 
-	if (palindrome(s) == 0) {
+	while (select != 0) {
 
-		printf("%s ist ein Palindrom.", s);
-	}
-	else {
+		printf("%d : Exit\n%d : test\n\n", EXIT, TEST);
 
-		printf("%s ist kein Palindrom.", s);
+		select = scanInt("Select an option");
+
+		switch (select) {
+
+			case EXIT:
+				break;
+
+			case TEST:
+
+				s = scanString("String = ");
+
+				if (palindrome(s) == 0) {
+
+					printf("%s ist ein Palindrom.\n", s);
+				}
+
+				else {
+
+					printf("%s ist kein Palindrom.\n", s);
+				}
+				break;
+
+			default:
+				select = -1;
+				printf("Unknown selection\n");
+		}
 	}
 
 	return 0;

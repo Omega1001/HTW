@@ -5,11 +5,19 @@
  *      Author: Dominik
  */
 
-# include "palindrome.h"
+#include "stdio.h"
+#include "palindrome.h"
 
 int palindrome(char *s) {
 
-	int sizeS = sizeof(s) / sizeof(char) - 1;
+	int sizeS;
+
+	while (s[sizeS] != 0) {
+
+		sizeS++;
+	}
+
+	sizeS--;
 
 	for(int i = 0; i < sizeS/2; i++) {
 

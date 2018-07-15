@@ -29,7 +29,7 @@ int scanInt(char* message) {
 
 char * scanString(char* message) {
 	int readChars = 0;
-	char * string = malloc(sizeof(char) * 21);
+	char * string = malloc(sizeof(char) * 100);
 
 	while (readChars != 1) {
 		fputs(message, stdout);
@@ -37,7 +37,7 @@ char * scanString(char* message) {
 		readChars = scanf("%s", string);
 		clearChar();
 	}
-	string[20] = 0;
+	string[99] = 0;
 	return string;
 }
 

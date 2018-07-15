@@ -14,7 +14,7 @@ int * multiply(int *a, int *b) {
 
 	int *res = malloc (sizeof(&res));
 
-	*res = *a + *b;
+	*res = *a * *b;
 
 	return res;
 }

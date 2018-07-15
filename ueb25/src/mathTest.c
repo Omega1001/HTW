@@ -38,7 +38,7 @@ int mathTest() {
 
 				res = multiply(&a, &b);
 
-				printf("%d + %d = %d", a, b, *res);
+				printf("%d * %d = %d\n", a, b, *res);
 
 				break;
 
@@ -49,7 +49,7 @@ int mathTest() {
 
 				add(&a, &b, &res2);
 
-				printf("%d * %d = %d", a, b, res2);
+				printf("%d + %d = %d\n", a, b, res2);
 
 
 				break;
