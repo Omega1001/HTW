@@ -5,7 +5,7 @@
  *      Author: Dominik
  */
 
-#include "distance.h"
+#include <distance.h>
 #include <math.h>
 
 double distance(double *a, double *b) {

@@ -5,8 +5,8 @@
  *      Author: Dominik
  */
 
-#include "stdio.h"
-#include "palindrome.h"
+#include <stdio.h>
+#include <palindrome.h>
 
 int palindrome(char *s) {
 

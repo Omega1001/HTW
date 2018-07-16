@@ -6,9 +6,9 @@
  */
 
 #include <stdio.h>
-#include "math2.h"
-#include "mathTest.h"
-#include "scanAndClear.h"
+#include <math2.h>
+#include <mathTest.h>
+#include <scanAndClear.h>
 
 #define EXIT 			0
 #define MULTIPLY		1

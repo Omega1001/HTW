@@ -7,7 +7,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "scanAndClear.h"
+#include <scanAndClear.h>
 
 void clearChar() {
 	char c;

@@ -6,9 +6,9 @@
  */
 
 #include <stdio.h>
-#include "scanAndClear.h"
-#include "distanceTest.h"
-#include "distance.h"
+#include <scanAndClear.h>
+#include <distanceTest.h>
+#include <distance.h>
 
 int distanceTest() {
 

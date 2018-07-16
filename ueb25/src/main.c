@@ -6,9 +6,9 @@
  */
 
 #include <stdio.h>
-#include "mathTest.h"
-#include "palindromeTest.h"
-#include "distanceTest.h"
+#include <mathTest.h>
+#include <palindromeTest.h>
+#include <distanceTest.h>
 
 int main(){
 

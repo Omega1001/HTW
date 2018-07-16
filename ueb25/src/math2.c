@@ -6,7 +6,7 @@
  */
 
 #include <stdlib.h>
-#include "math2.h"
+#include <math2.h>
 
 //=== 1. Aufgabe ===
 

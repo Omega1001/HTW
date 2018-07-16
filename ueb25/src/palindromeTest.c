@@ -5,9 +5,9 @@
  *      Author: Dominik
  */
 #include <stdio.h>
-#include "palindromeTest.h"
-#include "palindrome.h"
-#include "scanAndClear.h"
+#include <palindromeTest.h>
+#include <palindrome.h>
+#include <scanAndClear.h>
 
 #define EXIT 			0
 #define TEST			1
