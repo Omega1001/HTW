@@ -10,7 +10,7 @@
 
 int palindrome(char *s) {
 
-	int sizeS;
+	int sizeS = 0;
 
 	while (s[sizeS] != 0) {
 
@@ -19,7 +19,7 @@ int palindrome(char *s) {
 
 	sizeS--;
 
-	for(int i = 0; i < sizeS/2; i++) {
+	for(int i = 0; i < (sizeS+1)/2; i++) {
 
 		if(s[i] != s[sizeS - i]) {
 
