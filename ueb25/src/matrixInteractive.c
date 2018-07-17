@@ -9,7 +9,7 @@
 #include <stdlib.h>
 #include "matrix.h"
 #include "matrixInteractive.h"
-#include "readAndClear.h"
+#include "scanAndClear.h"
 
 #define EXIT 			0
 #define SCAN_MATRICES	1
@@ -24,20 +24,19 @@
 
 int initCheck(int * a, int * b) {
 
-
-	if(a == NULL && b == NULL) {
+	if (a == NULL && b == NULL) {
 
 		printf("Matrizen mussen zuerst initialisiert werden!\n\n");
 		return 1;
 	}
 
-	if(a == NULL) {
+	if (a == NULL) {
 
 		printf("Matrix 1 muss zuerst initialisiert werden!\n\n");
 		return 2;
 	}
 
-	if(b == NULL) {
+	if (b == NULL) {
 
 		printf("Matrix 2 muss zuerst initialisiert werden!\n\n");
 		return 3;
@@ -52,18 +51,22 @@ int runMatrix() {
 
 	int * m1 = NULL;
 	int * m2 = NULL;
-	int * res = NULL;
 	int m1_rows = 0;
 	int m1_cols = 0;
 	int m2_rows = 0;
 	int m2_cols = 0;
 	int a = 0;
 	int b = 0;
+	int min = 0;
+	int max = 0;
 
 	while (select != 0) {
-			printf("Exit : %d\nre_scan_Matrices : %d\nprint_matrix : %d\nfind_max_in_col : %d\n"
-					"find_max_in_row : %d\nswap_rows : %d\nsum : %d\nmult : %d\nchange_m1 : %d\nchange_m2 : %d\n",
-				EXIT, SCAN_MATRICES, PRINT_MATRIX, FIND_MAX_IN_COL, FIND_MAX_IN_ROW, SWAP_ROWS, MIN_MAX_ROW, MIN_MAX_COL, CHANGE_M1, CHANGE_M2);
+		printf(
+				"Exit : %d\nre_scan_Matrices : %d\nprint_matrix : %d\nfind_max_in_col : %d\n"
+						"find_max_in_row : %d\nswap_rows : %d\nmin max row : %d\nmin max col : %d\nchange_m1 : %d\nchange_m2 : %d\n",
+				EXIT, SCAN_MATRICES, PRINT_MATRIX, FIND_MAX_IN_COL,
+				FIND_MAX_IN_ROW, SWAP_ROWS, MIN_MAX_ROW, MIN_MAX_COL, CHANGE_M1,
+				CHANGE_M2);
 
 		select = scanInt("Select an option");
 		switch (select) {
@@ -76,19 +79,22 @@ int runMatrix() {
 			m1_rows = scanInt("Reihenanzahl m1 : ");
 			m1_cols = scanInt("Spaltenanzahl m1 : ");
 
-			m1 = (int*) realloc (m1, m1_rows * m1_cols * sizeof(int));
+			free(m1);
+			m1 = malloc(m1_rows * m1_cols * sizeof(int));
+			//m1 = (int*) realloc(m1, m1_rows * m1_cols * sizeof(int));
 
-			for(int i = 0; i < m1_rows * m1_cols; i++) {
-
-				m1[i] = scanInt("Nachster Wert der matrix : ");
+			for (int i = 0; i < m1_rows * m1_cols; i++) {
+				int themp = scanInt("Nachster Wert der matrix : ");
+				printf("put at %d : %d", i, themp);
+				m1[i] = themp;
 			}
 
 			m2_rows = scanInt("Reihenanzahl m2 : ");
 			m2_cols = scanInt("Spaltenanzahl m2 : ");
 
-			m2 = (int*) realloc (m2, m2_rows * m2_cols * sizeof(int));
+			m2 = (int*) realloc(m2, m2_rows * m2_cols * sizeof(int));
 
-				for(int i = 0; i < m2_rows * m2_cols; i++) {
+			for (int i = 0; i < m2_rows * m2_cols; i++) {
 
 				m2[i] = scanInt("Nachster Wert der matrix : ");
 			}
@@ -97,7 +103,7 @@ int runMatrix() {
 
 		case PRINT_MATRIX:
 
-			if(initCheck(m1, m2) != 0){
+			if (initCheck(m1, m2) != 0) {
 
 				break;
 			}
@@ -112,7 +118,7 @@ int runMatrix() {
 
 		case FIND_MAX_IN_COL:
 
-			if(initCheck(m1, m2) != 0){
+			if (initCheck(m1, m2) != 0) {
 
 				break;
 			}
@@ -127,8 +133,7 @@ int runMatrix() {
 
 		case FIND_MAX_IN_ROW:
 
-
-			if(initCheck(m1, m2) != 0){
+			if (initCheck(m1, m2) != 0) {
 
 				break;
 			}
@@ -143,7 +148,7 @@ int runMatrix() {
 
 		case SWAP_ROWS:
 
-			if(initCheck(m1, m2) != 0){
+			if (initCheck(m1, m2) != 0) {
 
 				break;
 			}
@@ -162,50 +167,37 @@ int runMatrix() {
 
 			break;
 
-		case MIN_MAX_ROW:
-
-
-			if(initCheck(m1, m2) != 0){
-
-				break;
-			}
-
-			if(m1_rows != m2_rows || m1_cols != m2_cols) {
-
-				printf("Die beiden Matrizen mussen von den Reihen und Spalten her ubereinstimmen!\n");
-				break;
-			}
-
-			res = (int*) realloc (res, m1_rows * m1_cols * sizeof(int));
-
-			sum(m1, m2, res, m1_rows, m1_cols);
-
-			printf("Ergebnismatrix:\n");
-			print_matrix(res, m1_rows, m1_cols);
-
-			break;
-
 		case MIN_MAX_COL:
 
-
-			if(initCheck(m1, m2) != 0){
-
-				break;
+			a = scanInt("Maximum welcher Spalte von m1 : ");
+			if (find_minmax_in_col(m1, a, m1_cols, &min, &max) == 0) {
+				printf("Maximum = %d, Minimum = %d\n", max, min);
+			} else {
+				printf("Illegal argument");
 			}
 
-			if(m1_cols != m2_rows) {
-
-			printf("Die Spalten von m1 und Reihen von m2 mussen ubereinstimmen!\n");
+			a = scanInt("Maximum welcher Spalte von m2 : ");
+			if (find_minmax_in_col(m2, a, m2_cols, &min, &max)) {
+				printf("Maximum = %d, Minimum = %d\n", max, min);
+			} else {
+				printf("Illegal argument");
+			}
 			break;
+		case MIN_MAX_ROW:
+
+			a = scanInt("Maximum welcher Reihe von m1 : ");
+			if (find_minmax_in_col(m1, a, m1_cols, &min, &max)) {
+				printf("Maximum = %d, Minimum = %d\n", max, min);
+			} else {
+				printf("Illegal argument");
 			}
 
-			res = (int*) realloc (res, m1_rows * m2_cols * sizeof(int));
-
-			mult(m1, m2, res, m1_rows, m1_cols, m2_rows, m2_cols);
-
-			printf("Ergebnismatrix:\n");
-			print_matrix(res, m1_rows, m2_cols);
-
+			a = scanInt("Maximum welcher Reihe von m2 : ");
+			if (find_minmax_in_col(m2, a, m2_cols, &min, &max)) {
+				printf("Maximum = %d, Minimum = %d\n", max, min);
+			} else {
+				printf("Illegal argument");
+			}
 			break;
 
 		case CHANGE_M1:
@@ -213,9 +205,9 @@ int runMatrix() {
 			m1_rows = scanInt("Reihenanzahl m1 : ");
 			m1_cols = scanInt("Spaltenanzahl m1 : ");
 
-			m1 = (int*) realloc (m1, m1_rows * m1_cols * sizeof(int));
+			m1 = (int*) realloc(m1, m1_rows * m1_cols * sizeof(int));
 
-			for(int i = 0; i < m1_rows * m1_cols; i++) {
+			for (int i = 0; i < m1_rows * m1_cols; i++) {
 
 				m1[i] = scanInt("Nachster Wert der matrix : ");
 			}
@@ -227,9 +219,9 @@ int runMatrix() {
 			m2_rows = scanInt("Reihenanzahl m2 : ");
 			m2_cols = scanInt("Spaltenanzahl m2 : ");
 
-			m2 = (int*) realloc (m2, m2_rows * m2_cols * sizeof(int));
+			m2 = (int*) realloc(m2, m2_rows * m2_cols * sizeof(int));
 
-			for(int i = 0; i < m2_rows * m2_cols; i++) {
+			for (int i = 0; i < m2_rows * m2_cols; i++) {
 
 				m2[i] = scanInt("Nachster Wert der matrix : ");
 			}

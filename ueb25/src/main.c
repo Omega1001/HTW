@@ -11,35 +11,36 @@
 #include <distanceTest.h>
 #include "eratosthenesTest.h"
 #include <stringTest.h>
+#include <matrixInteractive.h>
 
 int main(){
 
 	setvbuf(stdout, NULL, _IONBF, 0);
 
-////=== 1. und 3. Aufgabe ===
-//
-//	printf("Beginn Aufgabe 1 und 3\n\n");
-//	mathTest();
-//
-////=== 2. Aufgabe ===
-//
-//	printf("\n\nBeginn Aufgabe 2\n\n");
-//	palindromeTest();
-//
-////=== 4. Aufgabe ===
-//
-//	printf("\n\nBeginn Aufgabe 4\n\n");
-//	//TODO
-//
-////=== 5. Aufgabe ===
-//
-//	printf("\n\nBeginn Aufgabe 5\n\n");
-//	distanceTest();
-//
-////=== 6. Aufgabe ===
-//
-//	printf("\n\nBeginn Aufgabe 6\n\n");
-//	test_eratosthenes();
+//=== 1. und 3. Aufgabe ===
+
+	printf("Beginn Aufgabe 1 und 3\n\n");
+	mathTest();
+
+//=== 2. Aufgabe ===
+
+	printf("\n\nBeginn Aufgabe 2\n\n");
+	palindromeTest();
+
+//=== 4. Aufgabe ===
+
+	printf("\n\nBeginn Aufgabe 4\n\n");
+	runMatrix();
+
+//=== 5. Aufgabe ===
+
+	printf("\n\nBeginn Aufgabe 5\n\n");
+	distanceTest();
+
+//=== 6. Aufgabe ===
+
+	printf("\n\nBeginn Aufgabe 6\n\n");
+	test_eratosthenes();
 
 //=== 7. Aufgabe ===
 
