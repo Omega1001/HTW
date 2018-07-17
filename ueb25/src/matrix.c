@@ -69,11 +69,11 @@ void swap_rows(int * arr, int rowA, int rowB, int rowCount, int colCount) {
 
 
 int find_minmax_in_col(int * mat, int col, int colCount, int *min, int *max) {
-
+	//TODO
 	return 0;
 }
 
 int find_minmax_in_row(int * mat, int row, int rowCount, int *min, int *max) {
-
+	//TODO
 	return 0;
 }
