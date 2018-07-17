@@ -19,7 +19,7 @@ int palindromeTest() {
 
 	while (select != 0) {
 
-		printf("%d : Exit\n%d : test\n\n", EXIT, TEST);
+		printf("%d : Exit\n%d : Test\n\n", EXIT, TEST);
 
 		select = scanInt("Select an option");
 

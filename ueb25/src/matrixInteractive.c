@@ -85,7 +85,6 @@ int runMatrix() {
 
 			for (int i = 0; i < m1_rows * m1_cols; i++) {
 				int themp = scanInt("Nachster Wert der matrix : ");
-				printf("put at %d : %d", i, themp);
 				m1[i] = themp;
 			}
 
@@ -124,9 +123,25 @@ int runMatrix() {
 			}
 
 			a = scanInt("Maximum welcher Spalte von m1 : ");
+
+			if (a > m1_cols) {
+
+				printf("OOB!");
+
+				break;
+			}
+
 			printf("Maximum = %d\n", find_max_in_col(m1, a, m1_rows, m1_cols));
 
 			b = scanInt("Maximum welcher Spalte von m2 : ");
+
+			if (b > m2_cols) {
+
+				printf("OOB!");
+
+				break;
+			}
+
 			printf("Maximum = %d\n", find_max_in_col(m2, b, m2_rows, m2_cols));
 
 			break;
@@ -139,9 +154,25 @@ int runMatrix() {
 			}
 
 			a = scanInt("Maximum welcher Reihe von m1 : ");
+
+			if (a > m1_rows) {
+
+				printf("OOB!");
+
+				break;
+			}
+
 			printf("Maximum = %d\n", find_max_in_row(m1, a, m1_rows, m1_cols));
 
 			a = scanInt("Maximum welcher Reihe von m2 : ");
+
+			if (a > m2_rows) {
+
+				printf("OOB!");
+
+				break;
+			}
+
 			printf("Maximum = %d\n", find_max_in_row(m2, a, m2_rows, m2_cols));
 
 			break;
@@ -155,12 +186,28 @@ int runMatrix() {
 
 			a = scanInt("1. Reihe zum tauschen von m1 : ");
 			b = scanInt("2. Reihe zum tauschen von m1 : ");
+
+			if (a > m1_rows || b > m1_rows) {
+
+				printf("OOB!");
+
+				break;
+			}
+
 			swap_rows(m1, a, b, m1_rows, m1_cols);
 			printf("Getauschtes m1:\n");
 			print_matrix(m1, m1_rows, m1_cols);
 
 			a = scanInt("1. Reihe zum tauschen von m2 : ");
 			b = scanInt("2. Reihe zum tauschen von m2 : ");
+
+			if (a > m2_rows || b > m2_rows) {
+
+				printf("OOB!");
+
+				break;
+			}
+
 			swap_rows(m2, a, b, m2_rows, m2_cols);
 			printf("Getauschtes m2:\n");
 			print_matrix(m2, m2_rows, m2_cols);
@@ -177,23 +224,24 @@ int runMatrix() {
 			}
 
 			a = scanInt("Maximum welcher Spalte von m2 : ");
-			if (find_minmax_in_col(m2, a, m2_cols, &min, &max)) {
+			if (find_minmax_in_col(m2, a, m2_cols, &min, &max) == 0) {
 				printf("Maximum = %d, Minimum = %d\n", max, min);
 			} else {
 				printf("Illegal argument");
 			}
 			break;
+
 		case MIN_MAX_ROW:
 
 			a = scanInt("Maximum welcher Reihe von m1 : ");
-			if (find_minmax_in_col(m1, a, m1_cols, &min, &max)) {
+			if (find_minmax_in_col(m1, a, m1_cols, &min, &max) == 0) {
 				printf("Maximum = %d, Minimum = %d\n", max, min);
 			} else {
 				printf("Illegal argument");
 			}
 
 			a = scanInt("Maximum welcher Reihe von m2 : ");
-			if (find_minmax_in_col(m2, a, m2_cols, &min, &max)) {
+			if (find_minmax_in_col(m2, a, m2_cols, &min, &max) == 0) {
 				printf("Maximum = %d, Minimum = %d\n", max, min);
 			} else {
 				printf("Illegal argument");

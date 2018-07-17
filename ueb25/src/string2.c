@@ -145,7 +145,7 @@ char *strrchr(char *cs, char *c) {
 	return &(cs[i]);
 }
 
-void strcpy(char *s, char *d) {
+void strcpy2(char **s, char **d) {
 
 	*d = *s;
 }
