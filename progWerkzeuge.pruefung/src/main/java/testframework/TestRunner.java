@@ -11,18 +11,27 @@ import testframework.annotations.TestMethod;
 public class TestRunner {
 
 	public static void main(String[] args) {
-		try {
-			for (String testsuite : args) {
+		for (String testsuite : args) {
+			try {
 				Class<?> c = Class.forName(testsuite);
-				System.out.println("Overall test suite setup");
-				invokeTestMethods(c, Before.class);
-				System.out.println("Executing test Methods");
-				invokeTestMethods(c,TestMethod.class);
-				System.out.println("Overall test suite tear down");
-				invokeTestMethods(c, After.class);
+				System.out.println("Running test suit "+testsuite);
+				runTestSuit(c);
+			} catch (ClassNotFoundException e) {
+				System.err.println("Unable to run testsuit "+testsuite);
+				e.printStackTrace(System.err);
+				System.err.println("Skipping ...");
 			}
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
+		}
+	}
+
+	public static void runTestSuit(Class<?> testSuit) {
+		try {
+			System.out.println("Overall test suite setup");
+			invokeTestMethods(testSuit, Before.class);
+			System.out.println("Executing test Methods");
+			invokeTestMethods(testSuit, TestMethod.class);
+			System.out.println("Overall test suite tear down");
+			invokeTestMethods(testSuit, After.class);
 		} catch (IllegalArgumentException e) {
 			e.printStackTrace();
 		} catch (IllegalAccessException e) {
@@ -34,7 +43,8 @@ public class TestRunner {
 		}
 	}
 
-	private static <T extends Annotation> void invokeTestMethods(Class<?> c, Class<T> annotation) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, InstantiationException {
+	private static <T extends Annotation> void invokeTestMethods(Class<?> c, Class<T> annotation)
+			throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, InstantiationException {
 		for (Method m : c.getMethods()) {
 			if (m.getAnnotation(annotation) != null) {
 				m.invoke(c.newInstance());
