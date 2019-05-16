@@ -152,7 +152,7 @@ int testString() {
 			printf("String 1 ist: %s\n",s1);
 			printf("String 2 ist: %s\n",s2);
 
-			strcpy(&s1, &s2);
+			strcpy2(&s1, &s2);
 
 			printf("String 1 ist nun: %s\n",s1);
 			printf("String 2 ist nun: %s\n",s2);

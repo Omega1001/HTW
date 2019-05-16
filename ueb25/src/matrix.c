@@ -28,13 +28,13 @@ int find_max_in_col(int * arr, int col, int rowCount, int colCount) {
 	}
 
 	int res = INT_MIN;
-	int sizeInt = sizeof(int);
 	int *add = arr;
+	add += col;
 
 	for (int i = 0; i < rowCount; i++) {
 		if (res < *add) {
 			res = *add;
-			*add = col * sizeInt;
+			add += colCount;
 		}
 	}
 	return res;
@@ -46,12 +46,13 @@ int find_max_in_row(int * arr, int row, int rowCount, int colCount) {
 		return 0;
 	}
 	int res = INT_MIN;
-	int *add = arr + row * sizeof(int);
+	int *add = arr;
+	add += row;
 
 	for (int i = 0; i < colCount; i++) {
 		if (res < *add) {
 			res = *add;
-			add += sizeof(int);
+			add++;
 		}
 	}
 	return res;
@@ -59,14 +60,17 @@ int find_max_in_row(int * arr, int row, int rowCount, int colCount) {
 
 void swap_rows(int * arr, int rowA, int rowB, int rowCount, int colCount) {
 
-	int *themp = 0;
-	int *addA = arr + rowA * sizeof(int);
-	int *addB = arr + rowB * sizeof(int);
+	int themp = 0;
+	int *addA = arr + rowA * colCount;
+	int *addB = arr + rowB * colCount;
 
 	for (int i = 0; i < colCount; i++) {
-		themp = addA;
-		addA = addB;
-		addB = themp;
+		themp = *addA;
+		*addA = *addB;
+		*addB = themp;
+
+		addA++;
+		addB++;
 	}
 }
 

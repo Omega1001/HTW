@@ -27,4 +27,4 @@ char *strchr(char *, char *);
 
 char *strrchr(char *, char *);
 
-void strcpy(char *, char *);
+void strcpy2(char**, char**);

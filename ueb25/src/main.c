@@ -9,9 +9,10 @@
 #include <mathTest.h>
 #include <palindromeTest.h>
 #include <distanceTest.h>
-#include "eratosthenesTest.h"
+#include <eratosthenesTest.h>
 #include <stringTest.h>
 #include <matrixInteractive.h>
+#include <bubblesortTest.h>
 
 int main(){
 
@@ -50,7 +51,7 @@ int main(){
 //=== 8. Aufgabe ===
 
 	printf("\n\nBeginn Aufgabe 8\n\n");
-	//TODO
+	test_bubble_sort();
 
 	return 0;
 }
