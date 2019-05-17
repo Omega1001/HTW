@@ -32,7 +32,7 @@ import testframework.annotations.TestMethod;
  * program</td>
  * </tr>
  * </table>
- * 
+ *
  * @author jannik
  *
  */
@@ -46,7 +46,7 @@ public class TestRunner {
 	 * If a class can not be loaded, an exception will be printed<br>
 	 * The failed class will be skiped and this method will attempt to load the next
 	 * specified
-	 * 
+	 *
 	 * @param args List of full qualified class names that are to be used as tester
 	 */
 	public static void main(String[] args) {
@@ -75,7 +75,7 @@ public class TestRunner {
 	 * In case any of the method throws an exception, it is printed and the method
 	 * will return<br>
 	 * Exceptions are not thrown
-	 * 
+	 *
 	 * @param testSuit to run
 	 */
 	public static void runTestSuit(Class<?> testSuit) {
@@ -96,14 +96,18 @@ public class TestRunner {
 			e.printStackTrace();
 		}
 	}
+
 	/**
-	 * This method executes all methods in the provided class annotated with the specified annotation.<bt>
-	 * @param c class to query
+	 * This method executes all methods in the provided class annotated with the
+	 * specified annotation.<bt>
+	 *
+	 * @param c          class to query
 	 * @param annotation to look for
-	 * @throws IllegalAccessException if the method can not be called
-	 * @throws IllegalArgumentException if a called method was provided with illegal arguments
+	 * @throws IllegalAccessException    if the method can not be called
+	 * @throws IllegalArgumentException  if a called method was provided with
+	 *                                   illegal arguments
 	 * @throws InvocationTargetException if a called method throws an exception
-	 * @throws InstantiationException if no instance of that class can be created
+	 * @throws InstantiationException    if no instance of that class can be created
 	 */
 	private static void invokeTestMethods(Class<?> c, Class<? extends Annotation> annotation)
 			throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, InstantiationException {
@@ -115,11 +119,11 @@ public class TestRunner {
 	}
 
 	/**
-	 * This method compares two booleans.
-	 * It will print "pass" on std.out if the two booleans match, "fail" otherwais 
-	 * 
+	 * This method compares two booleans. It will print "pass" on std.out if the two
+	 * booleans match, "fail" otherwais
+	 *
 	 * @param expected value
-	 * @param actual value
+	 * @param actual   value
 	 */
 	public static void assertEquals(boolean expected, boolean actual) {
 		System.out.print("\t\ttest verdict: ");

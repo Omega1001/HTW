@@ -3,10 +3,11 @@ package testframework;
 import testframework.annotations.After;
 import testframework.annotations.Before;
 import testframework.annotations.TestMethod;
+
 /**
  * This class is a dummy Test suit.<br>
  * This class provides methods that effectively do nothing.<br>
- * 
+ *
  * @author jannik
  *
  */
@@ -18,7 +19,7 @@ public class Tester {
 	public void setup() {
 		System.out.println("Yay, setup was called");
 	}
-	
+
 	/**
 	 * This dummy method is a dummy test.<br>
 	 * It is supposed to be called after all setup methods have exited
@@ -40,7 +41,7 @@ public class Tester {
 		ClassUnderTest cut = new ClassUnderTest();
 		TestRunner.assertEquals(false, cut.doit());
 	}
-	
+
 	/**
 	 * This dummy method is called after all tests are completed.<br>
 	 */
