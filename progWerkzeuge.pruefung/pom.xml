@@ -24,6 +24,27 @@
 					<doclint>none</doclint>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<version>1.6.0</version>
+				<executions>
+					<execution>
+						<id>Custom Test Runner</id>
+						<goals>
+							<goal>java</goal>
+						</goals>
+						<phase>test</phase>
+					</execution>
+				</executions>
+				<configuration>
+					<mainClass>testframework.TestRunner</mainClass>
+					<arguments>
+						<argument>progWerkzeuge.pruefung.Tester</argument>
+					</arguments>
+					<classpathScope>test</classpathScope>
+				</configuration>
+			</plugin>
 
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>

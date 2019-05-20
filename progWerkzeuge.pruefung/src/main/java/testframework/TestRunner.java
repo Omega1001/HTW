@@ -34,6 +34,7 @@ import testframework.annotations.TestMethod;
  * </table>
  *
  * @author jannik
+ * @author dominik
  *
  */
 public class TestRunner {

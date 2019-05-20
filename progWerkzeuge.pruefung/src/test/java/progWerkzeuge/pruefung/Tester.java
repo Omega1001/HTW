@@ -1,5 +1,6 @@
-package testframework;
+package progWerkzeuge.pruefung;
 
+import testframework.TestRunner;
 import testframework.annotations.After;
 import testframework.annotations.Before;
 import testframework.annotations.TestMethod;
@@ -9,7 +10,7 @@ import testframework.annotations.TestMethod;
  * This class provides methods that effectively do nothing.<br>
  *
  * @author jannik
- *
+ * @author dominik
  */
 public class Tester {
 	/**

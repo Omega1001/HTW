@@ -1,10 +1,10 @@
-package testframework;
+package progWerkzeuge.pruefung;
 
 /**
  * This class is used as a dummy test method that "does it".
  *
  * @author jannik
- *
+ *@author dominik
  */
 public class ClassUnderTest {
 
