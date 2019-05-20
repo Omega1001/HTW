@@ -4,3 +4,6 @@
 /target/**
 /.settings
 /.settings/**
+/pruefung.di
+/pruefung.notation
+/pruefung.uml

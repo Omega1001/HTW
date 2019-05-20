@@ -55,7 +55,19 @@
 					<logViolationsToConsole>false</logViolationsToConsole>
 					<configLocation>checkstyle.xml</configLocation>
 				</configuration>
-
+			</plugin>
+			<plugin>
+				<groupId>omega1001.private_applications</groupId>
+				<artifactId>uml-reverseEngeneering</artifactId>
+				<version>1.0.0</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>uml</goal>
+						</goals>
+						<phase>test</phase>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
