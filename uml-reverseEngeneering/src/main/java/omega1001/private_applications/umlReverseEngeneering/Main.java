@@ -23,14 +23,15 @@ import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 
+import omega1001.private_applications.umlReverseEngeneering.entities.ClassEntry;
+
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
+import java.util.LinkedList;
+import java.util.List;
 
 import javax.xml.stream.XMLStreamException;
 
@@ -49,23 +50,29 @@ public class Main extends AbstractMojo {
 		if (!outputDirectory.exists()) {
 			outputDirectory.mkdirs();
 		}
-		OutputStream out = null;
+		UMLetClassEntityWriter writer = null;
 		try {
-			URLClassLoader loader = new URLClassLoader(new URL[] { classDirectory.toURL() }, Main.class.getClassLoader());
+			URLClassLoader loader = new URLClassLoader(new URL[] { classDirectory.toURI().toURL() },
+					Main.class.getClassLoader());
 
-			out = new FileOutputStream(outputDirectory.getAbsolutePath() + "/uml.uxf");
-			UMLetWriter w = new UMLetWriter(out);
-			w.startUMLetDocument();
-			scann(classDirectory.listFiles(), w ,loader);
-			w.endUMLetDocument();
+			List<ClassEntry> entries = new LinkedList<>();
+			scann(classDirectory.listFiles(), entries, loader);
+			AssotiationResolver.resolveAssotiations(entries);
+			UMLetLayouter.layout(entries);
+			writer = new UMLetClassEntityWriter(new FileOutputStream(outputDirectory.getAbsolutePath() + "/uml.uxf"));
+			writer.startUMLetDocument();
+			for (ClassEntry e : entries) {
+				writer.writeElement(e);
+			}
+			writer.endUMLetDocument();
 
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new MojoExecutionException("Error", e);
 		} finally {
-			if (out != null) {
+			if (writer != null) {
 				try {
-					out.close();
+					writer.close();
 				} catch (IOException e) {
 					e.printStackTrace();
 					throw new MojoExecutionException("Error", e);
@@ -75,14 +82,19 @@ public class Main extends AbstractMojo {
 
 	}
 
-	private void scann(File[] listFiles, UMLetWriter w, URLClassLoader loader) throws ClassNotFoundException, XMLStreamException {
+	private void scann(File[] listFiles, List<ClassEntry> entries, URLClassLoader loader)
+			throws ClassNotFoundException, XMLStreamException {
 		for (File f : listFiles) {
 			if (f.isDirectory()) {
-				scann(f.listFiles(), w,loader);
+				scann(f.listFiles(), entries, loader);
 			} else if (f.getName().endsWith(".class")) {
-				String path = f.getAbsolutePath().replace(classDirectory.getAbsolutePath()+"/", "").replace('/', '.').replace(".class", "");
-				System.out.println(path);
-				w.writeClass(loader.loadClass(path));
+				String path = f.getAbsolutePath().replace(classDirectory.getAbsolutePath() + File.separator, "")
+						.replace(File.separatorChar, '.').replace(".class", "");
+				getLog().debug(path);
+				Class<?> cls = loader.loadClass(path);
+				ClassEntry e = new ClassEntry(cls);
+				UMLetEntryContentGenerator.setContent(e);
+				entries.add(e);
 			}
 		}
 	}
