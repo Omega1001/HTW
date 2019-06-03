@@ -1,0 +1,46 @@
+PROJECT_ROOT := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
+INCLUDES = -I $(PROJECT_ROOT)include
+CFLAGS = "-Wall" "-Wextra"
+OBJS = Prog4_2.o strlib.o main.o
+
+DEPDIR := .d
+$(shell mkdir -p $(DEPDIR) >/dev/null)
+DEPFLAGS = -MT $@ -MMD -MP -MF $(DEPDIR)/$*.Td
+POSTCOMPILE = @mv -f $(DEPDIR)/$*.Td $(DEPDIR)/$*.d && touch $@
+
+
+ifndef BUILD_MODE
+BUILD_MODE = run
+endif
+
+ifeq ($(BUILD_MODE),debug)
+CFLAGS += -g
+else 
+ifeq ($(BUILD_MODE),run)
+CFLAGS += -O2
+else
+$(error Build mode $(BUILD_MODE) not supported by this Makefile)
+endif
+endif
+
+COMPILE.c = $(CC) $(DEPFLAGS) $(DEPFLAGS) $(CFLAGS) $(CPPFLAGS) $(INCLUDES) $(TARGET_ARCH) -c
+COMPILE.cc = $(CXX) $(DEPFLAGS) $(CXXFLAGS) $(CPPFLAGS) $(INCLUDES) $(TARGET_ARCH) -c
+
+all: Prog4_2
+
+
+Prog4_2:	$(OBJS)
+	$(CXX) -o $@ $(OBJS)
+
+
+#Prog4_1.o: /Users/jannik/Documents/workspaceC++/Prog4_1//src/Prog4_1.cpp \
+  /Users/jannik/Documents/workspaceC++/Prog4_1/includes/student.hpp 
+$(DEPDIR)/%.d: ;
+.PRECIOUS: $(DEPDIR)/%.d
+
+-include $(DEPDIR)/*.d
+
+%.o : $(PROJECT_ROOT)/src/%.cpp
+%.o : $(PROJECT_ROOT)/src/%.cpp $(DEPDIR)/%.d
+	$(COMPILE.cc) $(OUTPUT_OPTION) $<
+	$(POSTCOMPILE)
