@@ -41,9 +41,9 @@ int wc(const char * inp) {
 int compairIgnoresWhithspaces(const char * first, const char * second) {
 	int res = 0;
 	while (res == 0 && *first != '\0' && *second != '\0') {
-		if ((*first) != ' ') {
+		if ((*first) == ' ') {
 			first++;
-		} else if ((*second) != ' ') {
+		} else if ((*second) == ' ') {
 			second++;
 		} else {
 			res = (*first) - (*second);

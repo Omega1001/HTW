@@ -1,7 +1,7 @@
 PROJECT_ROOT := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
 INCLUDES = -I $(PROJECT_ROOT)include
-CFLAGS = "-Wall" "-Wextra"
-OBJS = Prog4_2.o strlib.o main.o
+CPPFLAGS += "-Wall" "-Wextra" "-std=c++17"
+OBJS = Prog4_3.o DequeTemplate.o Deque.o main.o
 
 DEPDIR := .d
 $(shell mkdir -p $(DEPDIR) >/dev/null)
@@ -14,10 +14,10 @@ BUILD_MODE = run
 endif
 
 ifeq ($(BUILD_MODE),debug)
-CFLAGS += -g
+CPPFLAGS += "-gdwarf-2"
 else 
 ifeq ($(BUILD_MODE),run)
-CFLAGS += -O2
+CPPFLAGS += -O2
 else
 $(error Build mode $(BUILD_MODE) not supported by this Makefile)
 endif
@@ -26,10 +26,10 @@ endif
 COMPILE.c = $(CC) $(DEPFLAGS) $(DEPFLAGS) $(CFLAGS) $(CPPFLAGS) $(INCLUDES) $(TARGET_ARCH) -c
 COMPILE.cc = $(CXX) $(DEPFLAGS) $(CXXFLAGS) $(CPPFLAGS) $(INCLUDES) $(TARGET_ARCH) -c
 
-all: Prog4_2
+all: Prog4_3
 
 
-Prog4_2:	$(OBJS)
+Prog4_3:	$(OBJS)
 	$(CXX) -o $@ $(OBJS)
 
 
